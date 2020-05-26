@@ -1,0 +1,31 @@
+ Authentication Common Components -:
+    -input Field
+        props:
+            placeHolder
+            text type
+            validateInputText : function
+            isError
+            displayText :value
+            onChange
+            onKeyDown
+    -button with props
+        type
+        button text:
+        
+        width
+        height
+        backgroundColor
+        onSubmit
+    ErrorComponent:
+        error message
+    
+Authentication ELP modification -:
+    SingFormComponent -:
+        onSignButtonClick -: validation error(error message)
+        userNameComponent
+        userPasswordComponent -:Ui
+    signButton :
+        props:
+            text :-loader
+
+
