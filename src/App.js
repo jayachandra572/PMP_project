@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {Provider} from "mobx-react";
 
 import store from "./store"
-import {signRoute} from "./Authentication/routes"
+import {logRoute} from "./Authentication/routes"
 import "./App.css";
 
 
@@ -13,11 +13,22 @@ const App = () => {
     <Provider {...store}>
       <Router basename={process.env.PUBLIC_URL}>
         <Switch>
-          {signRoute}
+          
+          <Route exact path = "/admin" component = {Admin}/>
+          <Route exact path = "/member" component = {Member}/>
+          {logRoute}admin
         </Switch>
       </Router>
     </Provider>
   );
 };
 
+
+function Admin(){
+  return<h2>Admin</h2>;
+}
+
+function Member(){
+  return<h2>Member</h2>
+}
 export default App;

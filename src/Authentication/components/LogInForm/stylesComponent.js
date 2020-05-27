@@ -4,7 +4,7 @@ import Colors from "../../themes/Colors"
 import Button from "../../../Common/components/Button"
 import {InputField} from "../../../Common/components/InputText";
 
-export const SignFormContainer = styled.div`${tw`w-screen h-screen flex justify-center items-center `}
+export const LogInFormContainer = styled.div`${tw`w-screen h-screen flex justify-center items-center `}
 background-color:${Colors.iceBlue}`
 
 export const UserName = styled(InputField)`
@@ -12,7 +12,7 @@ margin-bottom:20px;`
 export const UserPassWord = styled(InputField)`
 margin-bottom:20px;`
 
-export const SignButton = styled(Button)``;
+export const LogInButton = styled(Button)``;
 
 export const SignUp = styled.span`
 color:${Colors.brightBlue};
@@ -33,7 +33,7 @@ export const Header =styled.span`${tw`text-center my-8`}
   letter-spacing: normal;
   color:${Colors.darkBlueGray}`;
   
-export const SignPage = styled.form`${tw`flex flex-col justify-around items-center  `}
+export const LogInPage = styled.form`${tw`flex flex-col justify-around items-center  `}
   padding-top:48px;
   padding-bottom:100px;
   max-width:536px;

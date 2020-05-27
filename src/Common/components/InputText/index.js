@@ -1,27 +1,26 @@
 import React,{Component} from "react";
 
-import {InputContainer,Text,ErrorMessage,ContentArea} from "./stylesComponent";
+import {InputContainer,ErrorMessage,ContentArea,ErrorIcon} from "./stylesComponent";
 
-import {ErrorInfo} from "../Icons/ErrorInfo";
 import Colors from "../../themes/Colors";
 
 class  InputField extends Component{
     static defaultProps = {
         isError  : false,
+        errorMessage:"",
   };
     render(){
-    const { textType,value,onChangeContent ,id,errorMessage,isError,className} = this.props; 
+    const { textType,value,onChange ,id,errorMessage,isError,className} = this.props; 
     return(<InputContainer className = {className}>
-                <ContentArea isError = {isError}>
-                    <Text
+                    <ContentArea
+                        isError = {isError}
                         type = {textType} 
                         id = {id}
                         data-testid = "inputText"
                         value = {value}
-                        onChange = {onChangeContent}/>
-                    {isError&&<ErrorInfo size={16} color={Colors.neonRed} />}
-                </ContentArea>
-                {isError&&
+                        onChange = {onChange}/>
+                    {isError&&<ErrorIcon size={16} color={Colors.neonRed} />}
+                    {isError&&
                     <ErrorMessage>
                         {errorMessage}
                     </ErrorMessage>}

@@ -3,7 +3,7 @@ import {inject,observer} from "mobx-react"
 import {action,observable} from "mobx";
 import {Redirect} from "react-router-dom";
 
-import {SignInForm} from "../../components/SignInForm";
+import {LogInForm} from "../../components/LogInForm";
 import strings from "../../i18n/strings.json";
 
 import {
@@ -12,7 +12,7 @@ import {
 
 @inject("authenticationStore")
 @observer
-class  SignInRoute extends Component{
+class  LogInRoute extends Component{
     @observable isSubmit
     @observable userName
     @observable userPassword
@@ -24,47 +24,46 @@ class  SignInRoute extends Component{
     init=()=>{
         this.userName="";
         this.userPassword="";
-        this.errorMessage={userNameErrorMessage:"",userPasswordErrorMessage:""}
+        this.errorMessage={userNameErrorMessage:"",userPasswordErrorMessage:""};
         this.apiError=null;
-        this.isSubmit=false;
     }
+    
     onChangePassword=(e)=>{
         this.userPassword=e.target.value;
     }
+    
     onChangeName=(e)=>{
-        console.log(e.target.value)
         this.userName=e.target.value;
     }
-    onSignInFailure = () => {
+    
+    onLogInFailure = () => {
         const { getAuthApiError: apiError } = this.props.authenticationStore;
         if (apiError !== null && apiError !== undefined) {
             this.apiError = apiError;
             this.errorMessage="Retry";
         }
     }
+    
     @action.bound
     async onSubmitForm(e){
         e.preventDefault();
         const {userSignIn}=this.props.authenticationStore;
-        const {onSignInSuccess,userName,userPassword,onSignInFailure,submitted}=this;
+        const {onLogInSuccess,userName,userPassword,onLogInFailure}=this;
+        
         if (userName===""){
-            this.errorMessage ={userPasswordErrorMessage:"",userNameErrorMessage:strings.userNameErrorMessage};
-        }else if(userPassword===""){
-            this.errorMessage ={userPasswordErrorMessage:strings.userPasswordErrorMessage,userNameErrorMessage:""};
-        }else {
-            submitted();
+            this.errorMessage.userNameErrorMessage = strings.userNameErrorMessage;
+        }if(userPassword===""){
+            this.errorMessage.userPasswordErrorMessage = strings.userPasswordErrorMessage;
+        }if(userName!=="" && userPassword !=="") {
+            this.errorMessage = {userPasswordErrorMessage:"",userNameErrorMessage:""};
             const requestObject={ userName:userName,userPassword:userPassword};
-            await userSignIn(requestObject,onSignInSuccess,onSignInFailure);
+            await userSignIn(requestObject,onLogInSuccess,onLogInFailure);
         }
     }
     
-    @action.bound
-    submitted(){
-        this.isSubmit=true;
-    }
     
     @action.bound
-    onSignInSuccess(){
+    onLogInSuccess(){
         const {authenticationStore:{authApiToken}}=this.props;
         const {state}=this.props.location;
          if(authApiToken){
@@ -76,39 +75,42 @@ class  SignInRoute extends Component{
          }
     }
     
-    onEnterKeyPress = e => {
-    if (e.key === "Enter") {
-      this.onSubmitForm(e);
+    reDirectAdminPage=()=>{
+         return <Redirect to="/admin"/>;
     }
-  };
-    
-    renderHomePage=()=>{
-         return <Redirect to={{pathname:Product_Path}}/>;
+    reDirectMemberPage () {
+        return <Redirect to ="/member"/>
     }
     
     render(){
-    const {authApiToken,getAuthApiStatus}=this.props.authenticationStore;
+    let {getAuthApiStatus,authApiToken}=this.props.authenticationStore;
     const {
             onSubmitForm,
-            isSubmit,
             username,
             userPassword,
             onChangeName,
             onChangePassword,
             errorMessage,
-            onEnterKeyPress}=this;
-    return(<SignInForm 
+            reDirectAdminPage,
+            reDirectMemberPage
+    }=this;
+    authApiToken = ""
+    if(authApiToken==="admin"){
+        return reDirectAdminPage();
+    }else if(authApiToken === "member"){
+        return reDirectMemberPage();
+    }
+    
+    return(<LogInForm 
                 username={username}
                 userPassword={userPassword}
                 onChangeName={onChangeName}
                 onChangePassword={onChangePassword}
                 onSubmitForm={onSubmitForm}
                 errorMessage={errorMessage}
-                isSubmit={isSubmit}
-                onEnterKeyPress={onEnterKeyPress}
                 getAuthApiStatus = {getAuthApiStatus}
                 />);
     }
 }
 
-export {SignInRoute};
+export {LogInRoute};

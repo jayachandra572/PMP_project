@@ -1,27 +1,31 @@
 import styled from "@emotion/styled";
 import tw from "tailwind.macro";
 import Colors from "../../themes/Colors"
+import {ErrorInfo} from "../Icons/ErrorInfo";
 
-export const InputContainer = styled.div`${tw`flex flex-col`}`
-export const ContentArea = styled.div`${tw`flex `}
+export const ErrorIcon = styled(ErrorInfo)`${tw`absolute `}
+top:8px;
+right:16px;`
+
+
+export const InputContainer = styled.div`${tw`flex flex-col relative`}`
+
+export const ContentArea = styled.input`${tw``}
 width:320px;
 height: 40px;
-border-radius: 2px;
-border: solid 1px ${props=>props.isError ?Colors.neonRed:Colors.steel};
-background-color:${props=>props.isError ?Colors.neonRed5:Colors.white};
-padding:8px 16px;
-margin-bottom:16px;`;
-export const Text = styled.input`${tw` w-full`}
-height:24px;
 font-family: HKGrotesk;
 font-size: 14px;
 font-weight: normal;
 font-stretch: normal;
 font-style: normal;
-line-height: 1.71;
+line-height: 24px;
 letter-spacing: normal;
 color:${Colors.darkBlueGray};
-background-color:transparent;`;
+padding:8px 16px;
+margin-bottom:16px;
+border: solid 1px ${props=>props.isError ?Colors.neonRed:Colors.steel};
+background-color:${props=>props.isError ?Colors.neonRed5:Colors.white};`;
+
 export const ErrorMessage = styled.span`
   height: 16px;
   font-family: HKGrotesk;
@@ -32,5 +36,5 @@ export const ErrorMessage = styled.span`
   line-height: 1.33;
   letter-spacing: normal;
   color:${Colors.neonRed};
-  
-  margin:0px`;
+  margin:0px;
+  padding:0px;`;

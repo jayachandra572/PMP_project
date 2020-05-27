@@ -4,20 +4,23 @@ import {InputLabel} from "../../../Common/components/Lable";
 import {IbHubsLogo} from "../Asserts/IbHubsLogo";
 import strings from "../../i18n/strings.json";
 import {
-        SignFormContainer,
-        Header,SignPage,
-        SignButton,
+        LogInFormContainer,
+        Header,LogInPage,
+        LogInButton,
         UserName,
         UserPassWord,
         SignUp,
-        Footer} from "./stylesComponent";
+        Footer
+} from "./stylesComponent";
 
 
 @observer
-class SignInForm extends Component{
-    userNameRef = React.createRef();
-    componentDidMount(){
-        //this.userNameRef.current.focus();
+class LogInForm extends Component{
+    static defaultProps = {
+        errorMessage : {
+            userPasswordErrorMessage:"",
+            userNameErrorMessage:""
+        }
     }
     render(){
         const {
@@ -26,13 +29,12 @@ class SignInForm extends Component{
             onChangeName,
             onChangePassword,
             onSubmitForm,errorMessage,
-            isSubmit,
-            onEnterKeyPress,
             getAuthApiStatus}
         =this.props;
+
         return(
-            <SignFormContainer>
-               <SignPage>
+            <LogInFormContainer>
+               <LogInPage>
                     <IbHubsLogo/>
                     <Header>{strings.loginHeaderContent}</Header>
                     <InputLabel lableFor = {strings.userNameLable} content = {strings.userNameLable}/>
@@ -40,30 +42,30 @@ class SignInForm extends Component{
                         id = {strings.userNameLable}
                         type = "text"
                         value = {userName}
-                        onChangeContent = {onChangeName}
+                        onChange = {onChangeName}
                         errorMessage = {errorMessage.userNameErrorMessage}
                         isError = {errorMessage.userNameErrorMessage!==""}/>
                     <InputLabel lableFor = {strings.userPasswordLable} content = {strings.userPasswordLable}/>
                     <UserPassWord  
                         type = "text" 
                         id = {strings.userPasswordLable}
-                        defaultValue = {userPassword}
-                        onChangeContent = {onChangePassword}
+                        value = {userPassword}
+                        onChange = {onChangePassword}
                         errorMessage = {errorMessage.userPasswordErrorMessage}
                         isError = {errorMessage.userPasswordErrorMessage!==""}/>
-                    <SignButton 
+                    <LogInButton 
                         content = {strings.loginButton} 
                         onClick = {onSubmitForm}
                         apiStatus = {getAuthApiStatus}/>
                     <Footer> {strings.noAccount} <SignUp>signUp</SignUp></Footer>
-                </SignPage>
-            </SignFormContainer>
+                </LogInPage>
+            </LogInFormContainer>
                 
            );
     }
 }
 
-export default  SignInForm;
+export default  LogInForm;
 
 
 

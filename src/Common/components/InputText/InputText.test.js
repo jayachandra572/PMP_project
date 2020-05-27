@@ -1,6 +1,7 @@
 import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react";
-import strigns from "../../i18n/strings.json";
+import strings from "../../i18n/strings.json";
+
 
 import {InputField} from "."
 describe("Test cases InputText",()=>{
@@ -9,21 +10,22 @@ describe("Test cases InputText",()=>{
         const {getByTestId} = render(<InputField
                                 textType = "text"
                                 value = "UserName"
-                                onChangeValue = {mockOnChange}
-                                id = "UserName"
+                                onChange = {mockOnChange}
+                                id =  {strings.userNameLable}
                                 />);
         getByTestId("inputText");
     });
     it("Should test render errorMessage",()=>{
         const mockOnChange = jest.fn();
-        const {getByText} = render(<InputField
+        const {getByText,getByRole} = render(<InputField
                                 textType = "text"
                                 value = "UserName"
-                                onChangeValue = {mockOnChange}
-                                id = "UserName"
-                                errorMessage = {strigns.userNameErrorMessage}
+                                onChange = {mockOnChange}
+                                id = {strings.userNameLable}
+                                errorMessage = {strings.userNameErrorMessage}
+                                isError = {true}
                                 />);
-        getByText(strigns.userNameErrorMessage);
+        getByText(strings.userNameErrorMessage);
     })
     
     it("Should test render errorMessage",async ()=>{
@@ -32,9 +34,9 @@ describe("Test cases InputText",()=>{
         const {getByTestId} = render(<InputField
                                 textType = "text"
                                 value = "UserName"
-                                onChangeValue = {mockOnChange}
-                                id = "UserName"
-                                errorMessage = {strigns.userNameErrorMessage}
+                                onChange = {mockOnChange}
+                                id = {strings.userNameLable}
+                                errorMessage = {strings.userNameErrorMessage}
                                 />);
         const inputText = getByTestId("inputText");
         fireEvent.change(inputText,{target:{value:changeInputValue}});

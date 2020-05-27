@@ -8,6 +8,7 @@ class AuthenticationStore{
     @observable getAuthApiStatus=API_INITIAL
     @observable getAuthApiError=null
     @observable authApiToken
+    
    
     constructor(authService){
         this.authService=authService;
@@ -18,6 +19,7 @@ class AuthenticationStore{
     init(){
         this.authApiToken=getAccessToken();
         this.isError = false;
+        this.authorization = null;
     }
 
     @action.bound
@@ -33,15 +35,16 @@ class AuthenticationStore{
     
     @action.bound
     setAuthApiResponse(response){
-        const accessToken=response[0].access_token;
-        setAccessToken(accessToken);
+        const accessToken=response.access_token;
+        setAccessToken(response.member);
         this.authApiToken=getAccessToken();
+        this.authorization = response.member;
     }
-    
     @action.bound
     userSignIn(request, onSuccess, onFailure){
         const {authService:{signInAPI},setAuthApiResponse,setAuthApiError,setAuthApiStatus}=this;
         const signPromise=signInAPI(request);
+        
         return bindPromiseWithOnSuccess(signPromise)
         .to(setAuthApiStatus,(response)=>{
             setAuthApiResponse(response),

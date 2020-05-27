@@ -5,8 +5,8 @@ import {
   SIGN_IN_PATH,
 } from "../constants/RouteConstants";
 import {ProtectedRouter} from "../utils/AuthUtils";
-import {SignInRoute} from "./SignInRoute";
+import {LogInRoute} from "./LogInRoute";
 
-const signRoute=<Route path={SIGN_IN_PATH}  component={SignInRoute}/>;
+const logRoute=<Route path={SIGN_IN_PATH}  component={LogInRoute}/>;
 
-export {signRoute };
+export {logRoute };
