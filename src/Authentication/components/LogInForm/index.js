@@ -1,2 +1,2 @@
-import LogInForm from "./LogInForm";
-export  {LogInForm};
+import LogInForm from './LogInForm'
+export { LogInForm }

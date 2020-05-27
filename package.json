@@ -41,7 +41,19 @@
       "js:eject": "react-scripts eject",
       "deploy": "export PUBLIC_URL=/2019/$C9_USER/react && npm run build && ./deploy.sh",
       "storybook": "start-storybook -p 8080 -s public",
-      "build-storybook": "build-storybook -s public"
+      "build-storybook": "build-storybook -s public",
+      "pretty": "npx prettier --write \"src/**/*.js\""
+   },
+   "husky": {
+      "hooks": {
+         "pre-commit": "lint-staged"
+      }
+   },
+   "lint-staged": {
+      "./src/*.{js,jsx,ts,tsx}": [
+         "npx prettier --write",
+         "eslint src/*.js --fix-dry-run"
+      ]
    },
    "eslintConfig": {
       "extends": "react-app"
@@ -75,14 +87,16 @@
       "@testing-library/react": "10.0.3",
       "babel-eslint": "10.0.3",
       "customize-cra": "0.9.1",
+      "eslint": "7.1.0",
+      "husky": "4.2.5",
       "jest-environment-jsdom-sixteen": "1.0.3",
+      "lint-staged": "10.2.6",
       "react-app-rewired": "2.1.5",
       "tailwindcss": "^1.2.0"
    },
    "jest": {
       "testEnvironment": "node",
       "collectCoverageFrom": [
-         
          "src/Common/**/*.{ts,tsx,js,jsx}",
          "!src/Authentication/**/*.{ts,tsx,js,jsx}",
          "!src/*.{ts,tsx,js,jsx}",
@@ -90,5 +104,4 @@
          "!src/stores/**/*.{ts,tsx,js,jsx}"
       ]
    }
-   
 }

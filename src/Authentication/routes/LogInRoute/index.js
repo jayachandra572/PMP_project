@@ -1,2 +1,2 @@
-import {LogInRoute} from "./LogInRoute";
-export {LogInRoute};
+import { LogInRoute } from './LogInRoute'
+export { LogInRoute }
