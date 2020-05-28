@@ -1,7 +1,7 @@
 import React ,{Component}from "react";
 
 import Images from "../../themes/Images"
-import {ProfileLogoStyles} from "./stylesComponent"
+import {ProfileLogoStyles} from "./styleComponent"
 export class ProfileLogo extends Component{
     static defaultProps = {
         size :48,

@@ -60,14 +60,12 @@ export const Typo12DarkBlueGreyHKGroteskSemiBold = styled(Typo24DarkBlueGreyHKGr
   height: 16px;
   font-family: HKGrotesk;
   font-size: 12px;
-  font-weight: 600;
   letter-spacing: 0.12px;`
   
 export const Typo12SteelHKGroteskSemiBold = styled.span`
   height: 16px;
   font-family: HKGrotesk;
   font-size: 12px;
-  font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.33;
@@ -75,16 +73,15 @@ export const Typo12SteelHKGroteskSemiBold = styled.span`
   color:${Colors.steel};`
   
 export const Typo32BrightBlueHKGroteskMedium = styled.span`
-  height: 40px;
+  min-height: 40px;
   font-family: HKGrotesk;
   font-size: 32px;
-  font-weight: 500;
+  font-weight:500;
   font-stretch: normal;
   font-style: normal;
   line-height: 1.25;
   letter-spacing: normal;
   color: ${Colors.brightBlue}`
   
-
 
   

@@ -1,33 +1,53 @@
-import { observable, action } from 'mobx'
+import { observable, action,computed,reaction,autorun } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+
+import {Project} from "../models/Project";
 
 class ProjectsStore{
     @observable projects = []
     @observable getProjectsApiStatus = API_INITIAL
     @observable getProjectsApiError = null;
+    @observable activePageNumber = 1
+    @observable offset = 0;
     constructor(projectsService){
         this.projectsService = projectsService; 
         this.init();
     }
     
     init = () =>{
-        this.totalNoOfProducts = 0;
+        this.totalNoOfProjects= 0;
+        this.totalNumberOfPages = 1;
+        this.projectsPerPage =4;
+    }
+    
+    calculateTotalNumberOfPages = (totalNoOfProjects) =>{
+        const {projectsPerPage} =this;
+        this.totalNumberOfPages = Math.ceil(totalNoOfProjects/projectsPerPage);
     }
     
     @action.bound
+    createProjectModels (projects) {
+        this.projects = projects.map((project)=>new Project(project));
+    }
+ 
+    
+    @action.bound
     setProjectsApiStatus(status) {
-      this.getProjectsApiStatus = status
+      this.getProjectsApiStatus = status;
    }
    @action.bound
    setProjectsApiError(error) {
-      this.getProjectsApiError = error
+    
+      this.getProjectsApiError = error;
    }
    
     @action.bound
-   setProjectsApiResponse(response) {
-     this.projects = response.projects;
-     this.totalNoOfProducts = response.total_no_of_projects;
+    setProjectsApiResponse(response) {
+    const {projects,total_no_of_projects} = response;
+     this.createProjectModels(projects);
+     this.totalNoOfProjects = total_no_of_projects;
+     this.calculateTotalNumberOfPages(total_no_of_projects);
    }
    
     @action.bound
@@ -36,13 +56,48 @@ class ProjectsStore{
          projectsService: { projectsAPI },
          setProjectsApiResponse,
          setProjectsApiError,
-         setProjectsApiStatus
+         setProjectsApiStatus,
+         offset,
+         projectsPerPage
       } = this;
-      const projectsPromise = projectsAPI();
+      const projectsPromise = projectsAPI(offset,projectsPerPage);
       return bindPromiseWithOnSuccess(projectsPromise)
          .to(setProjectsApiStatus, setProjectsApiResponse)
          .catch(setProjectsApiError);
    }
+   
+    
+    @action.bound
+    navigateToNextPage () {
+        const {totalNoOfProjects,projectsPerPage,offset} =this;
+        if(totalNoOfProjects > offset+projectsPerPage ){
+            this.offset += projectsPerPage;
+            this.activePageNumber++;
+        }
+    } 
+    
+    
+    @action.bound
+    navigateToPreviousPage () {
+        const {projectsPerPage,offset} =this;
+        if(0 <= offset - projectsPerPage ){
+            this.offset -= projectsPerPage;
+            this.activePageNumber--;
+        }
+    }
+    
+    @action.bound
+    onClickPageNumber(number){
+        const {projectsPerPage} = this;
+        this.activePageNumber = number;
+        this.offset = (number-1)*projectsPerPage;
+    }
+    
+    
+    reaction1= reaction(()=>this.activePageNumber,
+        activePageNumber=>{this.getProjectsFromAPi()});
 }
+
+
 
 export  default ProjectsStore;

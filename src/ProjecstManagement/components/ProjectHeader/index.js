@@ -1,7 +1,7 @@
 import React,{Component} from "react"
 
 import strings from "../../i18n/strings";
-import {ProjectHeaderContainer,ProjectTitle,CreatProjectButton} from "./stylesComponent"
+import {ProjectHeaderContainer,ProjectTitle,CreatProjectButton} from "./styleComponent"
 function ProjectHeader(props){
     const {} = props;
     return (

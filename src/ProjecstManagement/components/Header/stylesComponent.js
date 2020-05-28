@@ -2,9 +2,15 @@ import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
 import Colors from "../../themes/Colors"
 
+import {Typo24DarkBlueGreyHKGroteskMedium,
+        Typo18DarkBlueGreyHKGroteskMedium
+} from "../../../styleGuide/Typos";
 
-export const UserNameAndLogo = styled.div`${tw` flex items-center`}`;
-export const ProjectTitleAndLogo =styled.div`${tw`flex items-center`}`;
+export const UserNameAndLogo = styled.div`${tw` flex items-center mr-3` }`;
+export const ProjectTitleAndLogo =styled.div`${tw`flex items-center ml-4`}`;
+
+export const ProjectTitle = styled(Typo24DarkBlueGreyHKGroteskMedium)`${tw`ml-4`}`
+export const UserName = styled(Typo18DarkBlueGreyHKGroteskMedium)`${tw`mr-4`}`
 
 export const HeaderContainer = styled.div`${tw` flex justify-between items-center `}
   height: 80px;

@@ -1,7 +1,7 @@
 import React ,{Component} from "react"
 
 import strings from "../../i18n/strings.json";
-import {ProjectTopicsContainer,Heading} from "./stylesComponent"
+import {ProjectTopicsContainer,Heading} from "./styleComponent"
 export class ProjectTopics extends Component{
     render(){
         const {name,workFlow,createdBy,description,createdAt} = strings.project

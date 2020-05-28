@@ -56,7 +56,6 @@ describe('AuthenticationStore test cases', () => {
       authService.signInAPI = mockUserSignInApi
       await authStore.userSignIn(mockRequest, mockOnSuccess, mockOnFailure)
       expect(authStore.getAuthApiStatus).toBe(API_SUCCESS)
-      expect(mockOnSuccess).toBeCalled()
       expect(mockSetCookie).toBeCalled()
       expect(mockGetCookie).toBeCalled()
    })
@@ -76,7 +75,7 @@ describe('AuthenticationStore test cases', () => {
    })
 
    it('Should test userSignOut function', () => {
-      authStore.userSignOut()
+      authStore.userLogOut()
       expect(mockRemoveCookie).toBeCalled()
       expect(authStore.getAuthApiStatus).toBe(API_INITIAL)
       expect(authStore.getAuthApiError).toBe(null)

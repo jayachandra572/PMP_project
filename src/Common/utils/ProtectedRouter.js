@@ -1,14 +1,12 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import { observer, inject } from 'mobx-react'
-// import {AuthContext} from "../../context/SignPageContext"
-import { SIGN_IN_PATH } from '../constants/RouteConstants'
+import { SIGN_IN_PATH } from '../../Authentication/constants/RouteConstants'
 
 const ProtectedRouter = inject('authenticationStore')(
    observer(({ component: Component, path, authenticationStore, ...rest }) => {
-      const accessToken = authenticationStore.authApiToken
-      const isLogin = !(accessToken === undefined || accessToken === '')
-      console.log(isLogin, rest)
+      const accessToken = authenticationStore.authApiToken;
+      const isLogin = !(accessToken === undefined || accessToken === '');
       return (
          <Route
             {...rest}

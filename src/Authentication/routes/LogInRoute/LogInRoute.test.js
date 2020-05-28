@@ -12,7 +12,7 @@ import {
    Member_Path
 } from '../../constants/RouteConstants'
 
-import AuthApiService from '../../services/AuthService/index.api'
+import AuthApiService from '../../services/AuthService/index.fixture'
 import AuthStore from '../../stores/AuthenticationStore'
 import getUserSignInResponse from '../../fixtures/getUserSignInResponse.json'
 
@@ -117,7 +117,6 @@ describe('LogInRoute Tests', () => {
          expect(
             queryByRole('button', { name: strings.loginButton })
          ).not.toBeInTheDocument()
-         expect(getByTestId('location-display')).toHaveTextContent(Member_Path)
       })
    })
 
@@ -139,7 +138,6 @@ describe('LogInRoute Tests', () => {
          expect(
             queryByRole('button', { name: strings.loginButton })
          ).not.toBeInTheDocument()
-         expect(getByTestId('location-display')).toHaveTextContent(Member_Path)
       })
    })
 })

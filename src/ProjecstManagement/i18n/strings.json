@@ -1,5 +1,5 @@
 {
-    "ProjectManageMent":"Project ManageMent",
+    "ProjectManageMent":"Project Management",
     "ProjectTitle":"Projects",
     "createButtonContent":"+ Add Project",
     "project":{
@@ -8,5 +8,11 @@
         "createdBy":"CREATED BY",
         "description":"DESCRIPTION",
         "createdAt":"CREATED AT"
-    }
+    },
+    "startingPageNumber":1,
+    "previousButton":"<",
+    "nextButton":">",
+    "name":"Jaya",
+    "previousButtonDataTestId":"previous-button",
+    "nextButtonDataTestId":"next-button"
 }

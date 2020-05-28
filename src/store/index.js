@@ -12,4 +12,4 @@ const projectsStore = new ProjectsStore(projectsService);
 export default {
    authenticationStore,
    projectsStore
-}
+};
