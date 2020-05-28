@@ -1,0 +1,12 @@
+{
+    "ProjectManageMent":"Project ManageMent",
+    "ProjectTitle":"Projects",
+    "createButtonContent":"+ Add Project",
+    "project":{
+        "name":"NAME",
+        "workFlow":"WORK FLOW",
+        "createdBy":"CREATED BY",
+        "description":"DESCRIPTION",
+        "createdAt":"CREATED AT"
+    }
+}

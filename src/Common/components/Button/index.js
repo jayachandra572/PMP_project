@@ -1,6 +1,8 @@
 import React from 'react'
 import Loader from 'react-loader-spinner'
 import { API_FETCHING } from '@ib/api-constants'
+
+import {Typo14WhiteRubikMedium} from "../../../styleGuide/Typos"
 import { ButtonStyleComponent } from './stylesComponent'
 
 function Button(props) {
@@ -19,7 +21,7 @@ function Button(props) {
       )
    return (
       <ButtonStyleComponent className={className} onClick={onClick}>
-         {content}
+         <Typo14WhiteRubikMedium>{content}</Typo14WhiteRubikMedium>
       </ButtonStyleComponent>
    )
 }

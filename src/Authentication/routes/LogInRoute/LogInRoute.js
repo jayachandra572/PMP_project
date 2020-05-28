@@ -6,12 +6,9 @@ import { Redirect } from 'react-router-dom'
 import { LogInForm } from '../../components/LogInForm'
 import strings from '../../i18n/strings.json'
 
-import { Product_Path } from '../../constants/RouteConstants'
-
 @inject('authenticationStore')
 @observer
 class LogInRoute extends Component {
-   @observable isSubmit
    @observable userName
    @observable userPassword
    @observable errorMessage
@@ -49,7 +46,7 @@ class LogInRoute extends Component {
    async onSubmitForm(e) {
       e.preventDefault()
       const { userSignIn } = this.props.authenticationStore
-      const { onLogInSuccess, userName, userPassword, onLogInFailure } = this
+      const { userName, userPassword, onLogInFailure } = this
 
       if (userName === '') {
          this.errorMessage.userNameErrorMessage = strings.userNameErrorMessage
@@ -67,34 +64,17 @@ class LogInRoute extends Component {
             userName: userName,
             userPassword: userPassword
          }
-         await userSignIn(requestObject, onLogInSuccess, onLogInFailure)
+         await userSignIn(requestObject, onLogInFailure)
       }
    }
 
-   @action.bound
-   onLogInSuccess() {
-      const {
-         authenticationStore: { authApiToken }
-      } = this.props
-      const { state } = this.props.location
-      if (authApiToken) {
-         if (state !== undefined) {
-            const { from } = state
-            this.props.history.replace(from)
-            //  return <Redirect to={{pathname:from}} render={()=><Component/>}/>
-         }
-      }
-   }
-
-   reDirectAdminPage = () => {
-      return <Redirect to='/admin' />
-   }
-   reDirectMemberPage() {
-      return <Redirect to='/member' />
+ 
+   reDirectProjectsPage() {
+      return <Redirect to="/projects" />;
    }
 
    render() {
-      let { getAuthApiStatus, authApiToken } = this.props.authenticationStore
+      let { getAuthApiStatus, authApiToken } = this.props.authenticationStore;
       const {
          onSubmitForm,
          username,
@@ -102,14 +82,10 @@ class LogInRoute extends Component {
          onChangeName,
          onChangePassword,
          errorMessage,
-         reDirectAdminPage,
-         reDirectMemberPage
+         reDirectProjectsPage
       } = this
-      authApiToken = ''
-      if (authApiToken === 'admin') {
-         return reDirectAdminPage()
-      } else if (authApiToken === 'member') {
-         return reDirectMemberPage()
+      if (authApiToken) {
+         return reDirectProjectsPage()
       }
 
       return (

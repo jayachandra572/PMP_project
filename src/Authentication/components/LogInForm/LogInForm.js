@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { observer } from 'mobx-react'
 import { InputLabel } from '../../../Common/components/Lable'
-import { IbHubsLogo } from '../Asserts/IbHubsLogo'
+import { IbHubsLogo } from '../../../Common/components/Logos/IbHubsLogo'
 import strings from '../../i18n/strings.json'
 import {
    LogInFormContainer,

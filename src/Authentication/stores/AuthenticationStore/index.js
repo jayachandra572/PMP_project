@@ -38,7 +38,7 @@ class AuthenticationStore {
    @action.bound
    setAuthApiResponse(response) {
       const accessToken = response.access_token
-      setAccessToken(response.member)
+      setAccessToken(accessToken)
       this.authApiToken = getAccessToken()
       this.authorization = response.member
    }
@@ -49,20 +49,17 @@ class AuthenticationStore {
          setAuthApiResponse,
          setAuthApiError,
          setAuthApiStatus
-      } = this
-      const signPromise = signInAPI(request)
-
+      } = this;
+      const signPromise = signInAPI(request);
       return bindPromiseWithOnSuccess(signPromise)
-         .to(setAuthApiStatus, response => {
-            setAuthApiResponse(response), onSuccess()
-         })
+         .to(setAuthApiStatus, setAuthApiResponse)
          .catch(error => {
             setAuthApiError(error), onFailure()
          })
    }
 
    @action.bound
-   userSignOut() {
+   userLogOut() {
       clearUserSession()
       this.init()
    }

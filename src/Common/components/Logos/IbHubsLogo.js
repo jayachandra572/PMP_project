@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import imagesSrc from './imagesSrc.json'
+import Images from '../../themes/Images';
 class IbHubsLogo extends Component {
    static defaultProps = {
       width: '90px',
@@ -8,13 +8,14 @@ class IbHubsLogo extends Component {
    }
 
    render() {
-      const { width, height } = this.props
+      const { width, height } = this.props;
       return (
          <img
-            src={imagesSrc.ibHubsLogo}
+            src={Images.ibHubsLogo}
             style={{ width: width, height: height }}
+            alt="iB_Hubs_Logo"
          />
-      )
+      );
    }
 }
 

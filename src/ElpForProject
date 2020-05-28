@@ -1,0 +1,42 @@
+Reporting Portal -:
+    common Components
+        - user profile
+            imageUrl
+        - searchElement
+            value
+            onChangeSearchText - function
+        - DropDown
+            selectedValue
+            dropdownoptions
+            onChangeValue
+    - page navigation:
+        activePage
+        totalPages
+        navigateToPreviousPage
+        navigateToNextPage
+        
+        
+projects Display:
+    buttonComponent:
+        content
+        onClick
+    ibHubsLogo
+    profile-logo:
+        image-url
+    ProjectsView:
+        array of projects
+        each project:
+                Name
+                Workflow type
+                Who created
+                Created at - time
+                Description
+    - page navigation:
+        activePage
+        totalPages
+        navigateToPreviousPage
+        navigateToNextPage
+
+        
+        
+                

@@ -42,7 +42,7 @@ export const Header = styled.span`
 export const LogInPage = styled.form`
    ${tw`flex flex-col justify-around items-center  `}
    padding-top:48px;
-   padding-bottom: 100px;
+   padding-bottom: 50px;
    max-width: 536px;
    max-height: 687px;
    flex-grow: 1;

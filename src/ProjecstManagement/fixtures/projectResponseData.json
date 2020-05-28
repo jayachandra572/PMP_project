@@ -1,0 +1,75 @@
+{
+   "projects":[{
+    "id": "1",
+    "name": "name 1",
+    "workflow_type": {},
+    "created_by": "created_by 1",
+    "description": "description 1",
+    "created_at": 1590590922
+  },
+  {
+    "id": "2",
+    "name": "name 2",
+    "workflow_type": {},
+    "created_by": "created_by 2",
+    "description": "description 2",
+    "created_at": 1590590862
+  },
+  {
+    "id": "3",
+    "name": "name 3",
+    "workflow_type": {},
+    "created_by": "created_by 3",
+    "description": "description 3",
+    "created_at": 1590590802
+  },
+  {
+    "id": "4",
+    "name": "name 4",
+    "workflow_type": {},
+    "created_by": "created_by 4",
+    "description": "description 4",
+    "created_at": 1590590742
+  },
+  {
+    "id": "5",
+    "name": "name 5",
+    "workflow_type": {},
+    "created_by": "created_by 5",
+    "description": "description 5",
+    "created_at": 1590590682
+  },
+  {
+    "id": "6",
+    "name": "name 6",
+    "workflow_type": {},
+    "created_by": "created_by 6",
+    "description": "description 6",
+    "created_at": 1590590622
+  },
+  {
+    "id": "7",
+    "name": "name 7",
+    "workflow_type": {},
+    "created_by": "created_by 7",
+    "description": "description 7",
+    "created_at": 1590590562
+  },
+  {
+    "id": "8",
+    "name": "name 8",
+    "workflow_type": {},
+    "created_by": "created_by 8",
+    "description": "description 8",
+    "created_at": 1590590502
+  },
+  {
+    "id": "9",
+    "name": "name 9",
+    "workflow_type": {},
+    "created_by": "created_by 9",
+    "description": "description 9",
+    "created_at": 1590590442
+  }],
+  "total_no_of_projects":9
+}
