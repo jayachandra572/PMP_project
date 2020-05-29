@@ -26,7 +26,6 @@ export const ContentArea = styled.input`
    letter-spacing: normal;
    color: ${Colors.darkBlueGray};
    padding: 8px 16px;
-   margin-bottom: 16px;
    border: solid 1px ${props => (props.isError ? Colors.neonRed : Colors.steel)};
    background-color: ${props =>
       props.isError ? Colors.neonRed5 : Colors.white};

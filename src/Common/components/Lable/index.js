@@ -1,10 +1,12 @@
 import React from 'react'
 
-import { Label } from './styleComponent'
+import { Label ,Star } from './styleComponent'
 function InputLabel(props) {
-   const { lableFor, content,className } = props
+   const { lableFor, content,className,isImportant } = props
 
-   return <Label className = {className} htmlFor={lableFor}>{content}</Label>
+   return <Label className = {className} htmlFor={lableFor}>
+   {content} {isImportant&&<Star>*</Star>}
+   </Label>
 }
 
 export { InputLabel }

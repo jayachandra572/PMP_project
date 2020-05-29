@@ -58,13 +58,6 @@ describe('ProjectsStore test cases', () => {
       })
    })
    
-   it("Should test activePageProjects ",()=>{
-       projectsStore.offset = 0;
-       projectsStore.projectsPerPage = 3
-       projectsStore.projects = [{"1":1},{"2":2},{"3":3},{"4":4},{"5":5}]
-       const expectedOutput = [{"1":1},{"2":2},{"3":3}]
-       expect(projectsStore.activePageProjects).toEqual(expectedOutput)
-   })
     it("Should test navigateToNextPage function",()=>{
         const mockProjectsPerPage =3
         projectsStore.activePageNumber =1

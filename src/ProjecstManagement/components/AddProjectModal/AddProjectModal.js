@@ -7,7 +7,7 @@ import 'semantic-ui-css/semantic.min.css'
 import strings from "../../i18n/strings";
 import Colors from "../../themes/Colors";
 
-import {AddProject} from "./AddProject";
+import {AddProject} from "../AddProject";
 
 @observer
 class  AddProjectModal extends Component  {

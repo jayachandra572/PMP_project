@@ -19,10 +19,12 @@ export const Header = styled.h2`  height: 32px;
   letter-spacing: normal;
   text-align:center;
   color: ${Colors.darkBlueGray}`
+  
 export const ProjectName = styled(InputField)`${tw``}
 width:400px;
-border:1px solid ${Colors.lightBlueGrey};
-border-radius:4px;`
+border:1px solid ${props=>props.isEmpty?"red":Colors.lightBlueGrey};
+border-radius:4px;
+color:${Colors.steel}`
 export const AddProjectContainer = styled.div`${tw`flex flex-col `}
 min-height:550px;
 min-width:450px`;
@@ -30,9 +32,9 @@ min-width:450px`;
 const Label = styled(InputLabel)`${tw`mb-5`}
 font-size: 12px;
 height: 16px;
-margin-top:16px;
+margin-top:30px;
 color:${Colors.steel};
-font-weight:550`
+font-weight:520`
 
 export const WorkflowType = styled(DropDown)``
 export const ProjectType = styled(DropDown)``
@@ -46,8 +48,13 @@ export const ProjectTypeLabel = styled(Label)`${tw`mt-5`}
 margin-top:30px;`
 
 export const DescriptionTextArea = styled(TextArea)`
-border:1px solid ${Colors.lightBlueGrey};
-width:400px;`
+border:1px solid ${props=>props.isError?"red":Colors.lightBlueGrey};
+width:400px;
+color:${Colors.steel}`
 
 export const SubmitButton = styled(Button)`${tw`px-7 mt-8`}
 width:400px;`
+
+export const Required = styled.span`${tw``}
+color:red;
+margin-top:4px;`

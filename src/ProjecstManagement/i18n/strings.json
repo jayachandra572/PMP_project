@@ -16,6 +16,7 @@
     "previousButtonDataTestId":"previous-button",
     "nextButtonDataTestId":"next-button",
     "addProject":{
+        "title":"PROJECT",
         "lableName":"NAME",
         "projectTypes":[{"id":"Classic Software","name":"classic_software"},
                         {"id":"Financial","name":"Financial"},{"id":"CRM","name":"CRM"}],

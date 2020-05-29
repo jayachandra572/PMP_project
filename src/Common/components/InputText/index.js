@@ -29,7 +29,7 @@ class InputField extends Component {
       return (
          <InputContainer>
             <ContentArea
-                className={className}
+               className={className}
                isError={isError}
                type={textType}
                id={id}

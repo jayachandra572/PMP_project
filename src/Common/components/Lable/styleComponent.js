@@ -15,3 +15,7 @@ export const Label = styled.label`
    color: #7e858e;
    margin-bottom: 8px;
 `
+
+export const Star = styled.span`
+color:red;
+`
