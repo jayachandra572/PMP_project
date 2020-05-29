@@ -10,6 +10,7 @@ class ProjectsStore{
     @observable getProjectsApiError = null;
     @observable activePageNumber = 1
     @observable offset = 0;
+    @observable isModalOpen = false;
     constructor(projectsService){
         this.projectsService = projectsService; 
         this.init();
@@ -96,6 +97,15 @@ class ProjectsStore{
     
     reaction1= reaction(()=>this.activePageNumber,
         activePageNumber=>{this.getProjectsFromAPi()});
+        
+    modalOpen = () =>{
+        this.isModalOpen = true;
+    }
+    
+    modalClose = () =>{
+        this.isModalOpen = false
+    }
+        
 }
 
 

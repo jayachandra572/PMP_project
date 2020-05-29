@@ -44,7 +44,6 @@ class LogInForm extends Component {
                />
                <UserName
                   id={strings.userNameLable}
-                  type='text'
                   value={userName}
                   onChange={onChangeName}
                   errorMessage={errorMessage.userNameErrorMessage}
@@ -55,7 +54,6 @@ class LogInForm extends Component {
                   content={strings.userPasswordLable}
                />
                <UserPassWord
-                  type='text'
                   id={strings.userPasswordLable}
                   value={userPassword}
                   onChange={onChangePassword}
@@ -68,7 +66,6 @@ class LogInForm extends Component {
                   apiStatus={getAuthApiStatus}
                />
                <Footer>
-                  {' '}
                   {strings.noAccount} <SignUp>signUp</SignUp>
                </Footer>
             </LogInPage>

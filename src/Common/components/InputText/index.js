@@ -12,7 +12,9 @@ import Colors from '../../themes/Colors'
 class InputField extends Component {
    static defaultProps = {
       isError: false,
-      errorMessage: ''
+      errorMessage: '',
+      id:'',
+      textType:"text"
    }
    render() {
       const {

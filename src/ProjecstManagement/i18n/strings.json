@@ -14,5 +14,13 @@
     "nextButton":">",
     "name":"Jaya",
     "previousButtonDataTestId":"previous-button",
-    "nextButtonDataTestId":"next-button"
+    "nextButtonDataTestId":"next-button",
+    "addProject":{
+        "lableName":"NAME",
+        "projectTypes":[{"key":"Classic Software","value":"classic_software","text":"Classic Software"},
+                        {"key":"Financial","value":"Financial","text":"Financial"},{"key":"CRM","value":"CRM","text":"CRM"}],
+        "lableDescription":"DESCRIPTION",
+        "WorkflowType":"WORK FLOW TYPE",
+        "ProjectType":"Project Type"
+    }
 }

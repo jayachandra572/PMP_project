@@ -33,11 +33,12 @@ class Projects extends Component {
             navigateToNextPage ,
             navigateToPreviousPage,
             onClickPageNumber,
-            projectsPerPage
+            projectsPerPage,
+            modalOpen
         } = this.props;
         return(
             <ProjectsContainer>
-                <ProjectHeader/>
+                <ProjectHeader modalOpen = {modalOpen}/>
                 <ProjectsBox projectsPerPage = {projectsPerPage}>
                     <ProjectTopics/>
                         {this.renderProjects()}
@@ -60,8 +61,6 @@ class Projects extends Component {
                 apiStatus = {getProjectsApiStatus}
                 onRetryClick = {this.doNetWorkCall}
                 renderSuccessUI = {this.renderSuccessUI}/>
-            
-            
             );
     }
 }

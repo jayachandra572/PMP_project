@@ -1,13 +1,11 @@
 import React,{Component} from "react"
 import { inject, observer } from 'mobx-react'
-import {reaction} from "react";
 
 
-import Projects from "../../components/ProjecstManagement";
+import ProjectsView from "../../components/ProjecstManagement";
 
 @inject('authenticationStore','projectsStore')
 @observer
-
 class ProjectsRoute extends Component{
     
     componentDidMount(){
@@ -16,7 +14,6 @@ class ProjectsRoute extends Component{
     }
     
     render(){
-        
         const {
             projects,
             activePageNumber,
@@ -27,10 +24,13 @@ class ProjectsRoute extends Component{
             onClickPageNumber,
             getProjectsApiStatus,
             getProjectsApiError,
-            getProjectsFromAPi
+            getProjectsFromAPi,
+            modalClose,
+            modalOpen,
+            isModalOpen
         } = this.props.projectsStore;
         const {userLogOut} = this.props.authenticationStore;
-        return(<Projects 
+        return(<ProjectsView 
                     projectsPerPage = {projectsPerPage}
                     userLogOut= {userLogOut} 
                     projects = {projects}
@@ -42,6 +42,9 @@ class ProjectsRoute extends Component{
                     getProjectsApiError = {getProjectsApiError}
                     getProjectsApiStatus = {getProjectsApiStatus}
                     getProjectsFromAPi = {getProjectsFromAPi}
+                    modalClose = {modalClose}
+                    modalOpen = {modalOpen}
+                    isModalOpen = {isModalOpen}
                     />
             );
     }
