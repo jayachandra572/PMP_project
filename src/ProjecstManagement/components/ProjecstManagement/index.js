@@ -2,8 +2,7 @@ import React,{Component} from "react"
 
 import {Header} from "../Header"
 import {Projects} from "../Projects"
-import {AddProject} from "../AddProject"
-import Modal from "../AddProject/Modal"
+import {AddProjectModal} from "../AddProjectModal"
 
 import {ProjectContainer} from "./styleComponent"
 class  ProjectsView extends Component{
@@ -21,11 +20,7 @@ class  ProjectsView extends Component{
             getProjectsApiError,
             getProjectsApiStatus,
             getProjectsFromAPi,
-            isModalOpen,
-            modalClose,
-            modalOpen
         } =this.props;
-        console.log(modalOpen,modalClose,isModalOpen)
         return(
             <ProjectContainer>
                 <Header/>
@@ -40,10 +35,9 @@ class  ProjectsView extends Component{
                     getProjectsApiError = {getProjectsApiError}
                     getProjectsApiStatus = {getProjectsApiStatus}
                     getProjectsFromAPi = {getProjectsFromAPi}
-                    modalOpen = {modalOpen}
                     />
-                <button onClick = {userLogOut}>logout</button>;
-                <Modal open = {isModalOpen} close = {modalClose}/>
+                <button onClick = {userLogOut}>logout</button>
+        
             </ProjectContainer>)
     }
 }

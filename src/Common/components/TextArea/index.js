@@ -2,13 +2,13 @@ import React,{Component} from "react";
 
 class TextArea extends Component{
     static defaultProps = {
-        cols:"50",
-        rows:"4"
+        cols:"40",
+        rows:"5"
     }
     render(){
-        const {value,onChange,cols,rows} = this.props;
+        const {value,onChange,cols,rows,className} = this.props;
         return(
-         <textarea value = {value} onChange = {onChange} cols = {cols}  rows = {rows}/>)
+         <textarea value = {value} className = {className} onChange = {onChange} cols = {cols}  rows = {rows}/>)
     }
 }
 

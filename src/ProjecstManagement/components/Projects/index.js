@@ -38,7 +38,7 @@ class Projects extends Component {
         } = this.props;
         return(
             <ProjectsContainer>
-                <ProjectHeader modalOpen = {modalOpen}/>
+                <ProjectHeader />
                 <ProjectsBox projectsPerPage = {projectsPerPage}>
                     <ProjectTopics/>
                         {this.renderProjects()}

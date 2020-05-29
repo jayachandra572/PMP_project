@@ -1,16 +1,18 @@
-import React,{Component} from "react"
+import React,{Component} from "react";
 
+import { Button } from 'semantic-ui-react';
 import strings from "../../i18n/strings";
-import {ProjectHeaderContainer,ProjectTitle,CreatProjectButton} from "./styleComponent"
+
+
+import {AddProjectModal} from "../AddProjectModal";
+
+
+import {ProjectHeaderContainer,ProjectTitle,} from "./styleComponent";
 function ProjectHeader(props){
-    const {modalOpen } = props;
-    
     return (
     <ProjectHeaderContainer>
         <ProjectTitle>{strings.ProjectTitle}</ProjectTitle>
-        <CreatProjectButton content = {strings.createButtonContent} 
-                  onClick={modalOpen}
-                 />
-    </ProjectHeaderContainer>)
+        <AddProjectModal />
+    </ProjectHeaderContainer>);
 }
-export {ProjectHeader}
+export {ProjectHeader};

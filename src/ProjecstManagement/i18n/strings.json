@@ -17,10 +17,13 @@
     "nextButtonDataTestId":"next-button",
     "addProject":{
         "lableName":"NAME",
-        "projectTypes":[{"key":"Classic Software","value":"classic_software","text":"Classic Software"},
-                        {"key":"Financial","value":"Financial","text":"Financial"},{"key":"CRM","value":"CRM","text":"CRM"}],
+        "projectTypes":[{"id":"Classic Software","name":"classic_software"},
+                        {"id":"Financial","name":"Financial"},{"id":"CRM","name":"CRM"}],
         "lableDescription":"DESCRIPTION",
         "WorkflowType":"WORK FLOW TYPE",
-        "ProjectType":"Project Type"
+        "ProjectType":"PROJECT TYPE",
+        "projectTypePlaceHolder":"Select project type",
+        "workflowTypePlaceHolder":"Select work flow type",
+        "submitButton":"Submit"
     }
 }

@@ -25,10 +25,11 @@ class InputField extends Component {
          errorMessage,
          isError,
          className
-      } = this.props
+      } = this.props;
       return (
-         <InputContainer className={className}>
+         <InputContainer>
             <ContentArea
+                className={className}
                isError={isError}
                type={textType}
                id={id}

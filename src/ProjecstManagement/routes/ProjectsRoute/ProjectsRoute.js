@@ -27,7 +27,7 @@ class ProjectsRoute extends Component{
             getProjectsFromAPi,
             modalClose,
             modalOpen,
-            isModalOpen
+            isCreateProjectFormOpen
         } = this.props.projectsStore;
         const {userLogOut} = this.props.authenticationStore;
         return(<ProjectsView 
@@ -44,7 +44,7 @@ class ProjectsRoute extends Component{
                     getProjectsFromAPi = {getProjectsFromAPi}
                     modalClose = {modalClose}
                     modalOpen = {modalOpen}
-                    isModalOpen = {isModalOpen}
+                    isCreateProjectFormOpen = {isCreateProjectFormOpen}
                     />
             );
     }

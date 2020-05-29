@@ -1,4 +1,4 @@
-import { observable, action,computed,reaction,autorun } from 'mobx'
+import { observable, action,reaction } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
@@ -10,7 +10,7 @@ class ProjectsStore{
     @observable getProjectsApiError = null;
     @observable activePageNumber = 1
     @observable offset = 0;
-    @observable isModalOpen = false;
+    @observable isCreateProjectFormOpen = false;
     constructor(projectsService){
         this.projectsService = projectsService; 
         this.init();
@@ -99,11 +99,11 @@ class ProjectsStore{
         activePageNumber=>{this.getProjectsFromAPi()});
         
     modalOpen = () =>{
-        this.isModalOpen = true;
+        this.isCreateProjectFormOpen = true;
     }
     
     modalClose = () =>{
-        this.isModalOpen = false
+        this.isCreateProjectFormOpen = false
     }
         
 }
