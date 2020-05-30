@@ -8,10 +8,11 @@ class  DropDown extends React.Component {
         styles:{
             width:"320px",border:"1px solid #7e858e"
         },
-        options:[]
+        options:[],
+        defaultValue :"Select option"
     }
     render(){
-    let {options,onChange, placeholder,styles} = this.props;
+    let {options,onChange, placeholder,styles,defaultValue} = this.props;
     options =  options!==null ?options.map(workFlow=>{
             return{
                 key:workFlow.id,

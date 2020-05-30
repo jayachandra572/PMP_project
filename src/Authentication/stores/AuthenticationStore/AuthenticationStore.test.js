@@ -68,7 +68,7 @@ describe('AuthenticationStore test cases', () => {
       const mockUserSignInApi = jest.fn()
       mockUserSignInApi.mockReturnValue(mockFailurePromise)
       authService.signInAPI = mockUserSignInApi
-      await authStore.userSignIn(mockRequest, mockOnSuccess, mockOnFailure)
+      await authStore.userSignIn(mockRequest, mockOnFailure)
       expect(authStore.getAuthApiStatus).toBe(API_FAILED)
       expect(authStore.getAuthApiError).toBe(mockError)
       expect(mockOnFailure).toBeCalled()

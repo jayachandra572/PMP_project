@@ -6,9 +6,9 @@ class TextArea extends Component{
         rows:"5"
     }
     render(){
-        const {value,onChange,cols,rows,className} = this.props;
+        const {value,onChange,cols,rows,className,id} = this.props;
         return(
-         <textarea value = {value} className = {className} onChange = {onChange} cols = {cols}  rows = {rows}/>)
+         <textarea id = {id} value = {value} className = {className} onChange = {onChange} cols = {cols}  rows = {rows}/>)
     }
 }
 

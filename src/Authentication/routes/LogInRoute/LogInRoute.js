@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { action, observable } from 'mobx'
+import { action, observable ,reaction} from 'mobx'
 import { Redirect } from 'react-router-dom'
+import {API_SUCCESS} from '@ib/api-constants'
 
 import { LogInForm } from '../../components/LogInForm'
 import strings from '../../i18n/strings.json'
@@ -64,7 +65,7 @@ class LogInRoute extends Component {
             userName: userName,
             userPassword: userPassword
          }
-         await userSignIn(requestObject, onLogInFailure)
+         userSignIn(requestObject, onLogInFailure)
       }
    }
 
@@ -72,6 +73,7 @@ class LogInRoute extends Component {
    reDirectProjectsPage() {
       return <Redirect to="/projects" />;
    }
+   
 
    render() {
       let { getAuthApiStatus, authApiToken } = this.props.authenticationStore;

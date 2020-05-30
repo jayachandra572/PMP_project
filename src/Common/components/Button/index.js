@@ -16,7 +16,7 @@ class Button extends React.Component {
          apiStatus === API_FETCHING ? (
             <Loader
                type='TailSpin'
-               color='black'
+               color='white'
                text-align='center'
                height={20}
             />

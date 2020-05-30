@@ -1,4 +1,4 @@
-import { observable, action } from 'mobx'
+import { observable, action,toJS } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
@@ -12,6 +12,7 @@ class AuthenticationStore {
    @observable getAuthApiStatus = API_INITIAL
    @observable getAuthApiError = null
    @observable authApiToken
+   @observable userData = {}
 
    constructor(authService) {
       this.authService = authService
@@ -21,8 +22,6 @@ class AuthenticationStore {
    @action.bound
    init() {
       this.authApiToken = getAccessToken()
-      this.isError = false
-      this.authorization = null
    }
 
    @action.bound
@@ -32,18 +31,18 @@ class AuthenticationStore {
 
    @action.bound
    setAuthApiError(error) {
-      this.getAuthApiError = error
+      this.getAuthApiError = error;
    }
 
    @action.bound
    setAuthApiResponse(response) {
-      const accessToken = response.access_token
-      setAccessToken(accessToken)
-      this.authApiToken = getAccessToken()
-      this.authorization = response.member
+      const accessToken = response.access_token;
+      setAccessToken(accessToken);
+      this.authApiToken = getAccessToken();
+      this.userData = response;
    }
    @action.bound
-   userSignIn(request, onSuccess, onFailure) {
+   userSignIn(request, onFailure) {
       const {
          authService: { signInAPI },
          setAuthApiResponse,

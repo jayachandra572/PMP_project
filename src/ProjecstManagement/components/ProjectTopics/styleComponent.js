@@ -1,6 +1,5 @@
 import tw from "tailwind.macro"
 import styled from "@emotion/styled"
-import Button from "../../../Common/components/Button"
 import Colors from "../../themes/Colors"
 
 import {

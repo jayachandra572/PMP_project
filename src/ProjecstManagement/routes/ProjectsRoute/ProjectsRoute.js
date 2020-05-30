@@ -1,7 +1,6 @@
 import React,{Component} from "react"
 import { inject, observer } from 'mobx-react'
 
-
 import ProjectsView from "../../components/ProjecstManagement";
 
 @inject('authenticationStore','projectsStore')
@@ -12,7 +11,7 @@ class ProjectsRoute extends Component{
         const {getProjectsFromAPi} = this.props.projectsStore;
         getProjectsFromAPi();
     }
-    
+
     render(){
         const {
             projects,
@@ -25,9 +24,6 @@ class ProjectsRoute extends Component{
             getProjectsApiStatus,
             getProjectsApiError,
             getProjectsFromAPi,
-            modalClose,
-            modalOpen,
-            isCreateProjectFormOpen
         } = this.props.projectsStore;
         const {userLogOut} = this.props.authenticationStore;
         return(<ProjectsView 
@@ -42,12 +38,10 @@ class ProjectsRoute extends Component{
                     getProjectsApiError = {getProjectsApiError}
                     getProjectsApiStatus = {getProjectsApiStatus}
                     getProjectsFromAPi = {getProjectsFromAPi}
-                    modalClose = {modalClose}
-                    modalOpen = {modalOpen}
-                    isCreateProjectFormOpen = {isCreateProjectFormOpen}
+                    userData = {{}}
                     />
             );
     }
 } 
 
-export {ProjectsRoute};
+export  default ProjectsRoute

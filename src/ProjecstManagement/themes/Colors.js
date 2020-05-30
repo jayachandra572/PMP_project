@@ -7,7 +7,8 @@ const Colors = {
    brightBlue: '#0b69ff',
    lightBlueGrey:"#d7dfe9",
    "lightBlueGrey24":"rgba(215, 223, 233, 0.24)",
-   whiteTwo:"#fbfbfb"
+   whiteTwo:"#fbfbfb",
+   red:"red"
 }
 
 export default Colors

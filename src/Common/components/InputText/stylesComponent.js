@@ -5,7 +5,7 @@ import { ErrorInfo } from '../Icons/ErrorInfo'
 
 export const ErrorIcon = styled(ErrorInfo)`
    ${tw`absolute `}
-   top:8px;
+   top:20px;
    right: 16px;
 `
 
@@ -14,7 +14,7 @@ export const InputContainer = styled.div`
 `
 
 export const ContentArea = styled.input`
-   ${tw``}
+   ${tw`relative`}
    width:320px;
    height: 40px;
    font-family: HKGrotesk;
@@ -43,5 +43,6 @@ export const ErrorMessage = styled.span`
    color: ${Colors.neonRed};
    margin: 0px;
    padding: 0px;
+   margin-top:3px;
 
 `

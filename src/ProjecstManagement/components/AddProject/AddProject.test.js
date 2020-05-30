@@ -10,7 +10,7 @@ import {AddProject} from "."
 
 let newProjectStore
 let newProjectService
-const {addProject} = strings;
+const {data_testid} = strings;
 const getScreen=()=>{
     return render(
         <Provider newProjectStore ={newProjectStore}>
@@ -29,12 +29,6 @@ describe("Test cases for AddProject Form  ",()=>{
         getByText("Loading")
     })
     
-    it("Should test render success state",async ()=>{
-        const { getByText,getByLabelText,getByTestId,getByDisplayValue} = getScreen();
-        await waitFor(()=>{
-          getByLabelText(addProject.lableName)
-          getByText(addProject.title)
-        })
-    })
+  
     
 })

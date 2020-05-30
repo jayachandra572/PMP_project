@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react'
 
 import store from './store'
 import { logRoute } from './Authentication/routes'
-import { projectsRoute } from './ProjecstManagement/routes'
+import { projectsRoute, tasksRoute } from './ProjecstManagement/routes'
 import './App.css'
 
 const App = () => {
@@ -13,9 +13,8 @@ const App = () => {
       <Provider {...store}>
          <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-               <Route exact path='/admin' component={Admin} />
-               <Route exact path='/member' component={Member} />
                {projectsRoute}
+               {tasksRoute}
                {logRoute}
             </Switch>
          </Router>
@@ -23,16 +22,4 @@ const App = () => {
    )
 }
 
-function Admin() {
-   return <h2>Admin</h2>
-}
-
-function Member() {
-   return (
-      <div>
-         <h2>Member</h2>
-         <button onClick={store.authenticationStore.userLogOut}>logout</button>
-      </div>
-   )
-}
 export default App

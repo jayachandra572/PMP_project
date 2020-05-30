@@ -5,56 +5,29 @@ import Button from '../../../Common/components/Button'
 import DropDown from "../../../Common/components/Filters/DropDown";
 import TextArea from "../../../Common/components/TextArea";
 
-import { InputLabel } from '../../../Common/components/Lable'
 import { InputField } from '../../../Common/components/InputText'
+import {Header,Label,Required,CloseButton,Container} from "../../styleComponent/FormStyles"
+export {Header,Required,CloseButton}
 
-
-export const Header = styled.h2`  height: 32px;
-  font-family: HKGrotesk;
-  font-size: 20px;
-  font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: 1.6;
-  letter-spacing: normal;
-  text-align:center;
-  color: ${Colors.darkBlueGray}`
-  
 export const ProjectName = styled(InputField)`${tw``}
 width:400px;
 border:1px solid ${props=>props.isEmpty?"red":Colors.lightBlueGrey};
 border-radius:4px;
 color:${Colors.steel}`
-export const AddProjectContainer = styled.div`${tw`flex flex-col `}
-min-height:550px;
-min-width:450px`;
+export const AddProjectContainer = styled(Container)``
 
-const Label = styled(InputLabel)`${tw`mb-5`}
-font-size: 12px;
-height: 16px;
-margin-top:30px;
-color:${Colors.steel};
-font-weight:520`
 
 export const WorkflowType = styled(DropDown)``
 export const ProjectType = styled(DropDown)``
-export const ProjectNameLabel = styled(Label)`
-margin-bottom:16px`
-export const DescriptionLabel = styled(Label)`
-margin-top:30px;`
-export const WorkflowTypeLabel = styled(Label)`${tw`mt-5`}
-margin-top:30px;`
-export const ProjectTypeLabel = styled(Label)`${tw`mt-5`}
-margin-top:30px;`
+export const ProjectNameLabel = styled(Label)``
+export const DescriptionLabel = styled(Label)``
+export const WorkflowTypeLabel = styled(Label)``
+export const ProjectTypeLabel = styled(Label)``
 
 export const DescriptionTextArea = styled(TextArea)`
 border:1px solid ${props=>props.isError?"red":Colors.lightBlueGrey};
 width:400px;
-color:${Colors.steel}`
+color:${Colors.steel}`;
 
-export const SubmitButton = styled(Button)`${tw`px-7 mt-8`}
-width:400px;`
-
-export const Required = styled.span`${tw``}
-color:red;
-margin-top:4px;`
+export const SubmitButton = styled(Button)`${tw`mt-8`}
+width:400px;`;

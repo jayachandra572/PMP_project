@@ -18,3 +18,10 @@ export const HeaderContainer = styled.div`${tw` flex justify-between items-cente
   background-color:${Colors.white};
   padding-left:8px;
   padding-right:16px`;
+export const LogOutButton = styled.button`
+padding:5px;
+margin-right:20px;
+border-radius:4px;
+background-color:${Colors.brightBlue};
+color:${Colors.white};
+`

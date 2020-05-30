@@ -3,7 +3,7 @@ import {networkCallWithApisauce} from "../../../Common/utils/APIUtils";
 import {apiMethods} from "../../../Common/constants/APIConstants";
 
 import APIService from "../../constants/APIService";
-import {Projects} from "../EndPoints";
+import {projects} from "../EndPoints";
 
 class ProjectsService{
     constructor(){
@@ -11,10 +11,10 @@ class ProjectsService{
             baseURL:APIService.baseUrl
         });
     }
-    getProductAPI=(limit,offset)=>{
+    projectsAPI=(limit,offset)=>{
         const {api}=this;
         const params = `?limit=${limit}&offset=${offset}`;
-        const endPoint = Projects+params;
+        const endPoint = projects+params;
         return networkCallWithApisauce(api,endPoint,{},apiMethods.get);
     }
 }

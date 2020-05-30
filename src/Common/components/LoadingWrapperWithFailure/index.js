@@ -23,7 +23,7 @@ class LoadingWrapperWithFailure extends React.Component {
    
       switch (apiStatus) {
          case API_FETCHING:
-            
+           
             return <LoadingView />
          case API_SUCCESS:
             

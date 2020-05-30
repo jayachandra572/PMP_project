@@ -3,18 +3,29 @@ import styled from '@emotion/styled'
 import Colors from '../../themes/Colors'
 import Button from '../../../Common/components/Button'
 import { InputField } from '../../../Common/components/InputText'
+import { InputLabel } from '../../../Common/components/Lable'
 
-export const LogInFormContainer = styled.div`${tw`w-screen h-screen flex justify-center items-center `}
+export const LogInFormContainer = styled.div`${tw`w-screen min-h-screen h-full flex justify-center items-center `}
 background-color:${Colors.iceBlue}`
 
 export const UserName = styled(InputField)`
-   margin-bottom: 20px;
+   margin-top:10px;
 `
 export const UserPassWord = styled(InputField)`
-   margin-bottom: 20px;
+   margin-top:10px;
+`;
+
+export const UserNameLabel = styled(InputLabel)`
+margin-top:20px;
 `
 
-export const LogInButton = styled(Button)``
+export const UserPasswordLabel  =styled(InputLabel)`
+margin-top:20px`
+
+
+export const LogInButton = styled(Button)`
+margin-top:30px;
+`
 
 export const SignUp = styled.span`
    color: ${Colors.brightBlue};

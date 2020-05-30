@@ -1,4 +1,5 @@
 {
+    "admin":"admin",
     "ProjectManageMent":"Project Management",
     "ProjectTitle":"Projects",
     "createButtonContent":"+ Add Project",
@@ -26,5 +27,36 @@
         "projectTypePlaceHolder":"Select project type",
         "workflowTypePlaceHolder":"Select work flow type",
         "submitButton":"Submit"
+    },
+    "tasks":{
+        "title":"TASKS",
+        "createTaskButtonContent":"+ Add Task",
+         "modal":{
+            "project":"PROJECT",
+            "issueType":"ISSUE TYPE",
+            "title" : "TITLE",
+            "description":"DESCRIPTION",
+           "createdBy":"CREATED BY",
+            "createdAt" : "CREATED AT",
+            "state" : "STATE"
+        },
+        "issueTypes":[{"id":"Task","name":"Task" },
+        {"id":"Bug","name":"Bug" } ,
+        {"id":"Task","name":"Task" },
+        {"id":" DeveloperStory","name":" Developer story" },
+        {"id":"UserStory","name":"User story" },
+        {"id":"Enhancement","name":"Enhancement" }],
+        "taskTitleLable":"TITLE",
+        "issueTypeLabel":"ISSUE TYPE",
+        "descriptionLabel":"DESCRIPTION",
+        "issueTypePlaceHolder":"Select issue type"
+        
+    },
+    "required":"Required",
+    "submitButton":"SUBMIT",
+    "loading":"Loading",
+    "data_testid":{
+        "workFlowTypeMenu":"work-flow-type",
+        "projectTypeMenu":"project-type"
     }
 }

@@ -8,7 +8,6 @@ import strings from '../../i18n/strings.json'
 
 import {
    SIGN_IN_PATH,
-   Admin_Path,
    Member_Path
 } from '../../constants/RouteConstants'
 
