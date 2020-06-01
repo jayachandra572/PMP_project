@@ -11,9 +11,14 @@ import TasksStore from '../ProjecstManagement/stores/TasksStore'
 import TasksService from '../ProjecstManagement/services/TasksService/index.fixtures'
 
 
+import CreateTaskStore from '../ProjecstManagement/stores/CreateTaskStore'
+
+
 
 const tasksService = new TasksService();
 const tasksStore = new TasksStore(tasksService)
+
+const createTaskStore = new CreateTaskStore(tasksService)
 
 const authService = new AuthService()
 const authenticationStore = new AuthenticationStore(authService)

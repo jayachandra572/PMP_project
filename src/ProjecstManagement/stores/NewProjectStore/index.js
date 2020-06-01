@@ -1,5 +1,4 @@
 import { observable } from 'mobx'
-import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
 import { API_INITIAL } from '@ib/api-constants';
 
 import ApiCallModel from "../models/ApiCallModel";

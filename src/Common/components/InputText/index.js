@@ -38,7 +38,7 @@ class InputField extends Component {
                onChange={onChange}
             />
             {isError && <ErrorIcon size={16} color={Colors.neonRed} />}
-            {isError && <ErrorMessage>{errorMessage}</ErrorMessage>}
+            {errorMessage!=="" && <ErrorMessage>{errorMessage}</ErrorMessage>}
          </InputContainer>
       )
    }

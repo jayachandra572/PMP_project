@@ -9,10 +9,12 @@ class  DropDown extends React.Component {
             width:"320px",border:"1px solid #7e858e"
         },
         options:[],
-        defaultValue :"Select option"
+        defaultValue :"",
+        loading :false,
+        onClick:()=>{}
     }
     render(){
-    let {options,onChange, placeholder,styles,defaultValue} = this.props;
+    let {options,onChange, placeholder,styles,loading,value,onClick} = this.props;
     options =  options!==null ?options.map(workFlow=>{
             return{
                 key:workFlow.id,
@@ -20,11 +22,16 @@ class  DropDown extends React.Component {
                 value:workFlow.id
             }}):[];
     return (<Dropdown
+        
+        defaultValue = {value}
         placeholder= {placeholder}
         fluid
         selection
+        loading = {loading}
+        disabled = {loading}
         options={options}
         onChange = {onChange}
+        onClick = {onClick}
         style = {styles}
     />);
 }

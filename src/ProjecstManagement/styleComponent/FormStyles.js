@@ -1,7 +1,7 @@
 import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
 
-import { InputLabel } from '../../Common/components/Lable'
+import { InputLabel } from '../../Common/components/Label'
 import Colors from "../themes/Colors"
 
 export const Header = styled.h2`  height: 32px;

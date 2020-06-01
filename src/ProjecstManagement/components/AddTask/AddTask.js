@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component ,Fragment} from 'react';
 import { observer,inject } from 'mobx-react';
 import {observable, reaction,action} from "mobx";
 import {RiCloseLine} from "react-icons/ri"
+import { API_SUCCESS } from '@ib/api-constants'
 
 import Colors from '../../themes/Colors';
 import strings from '../../i18n/strings.json';
@@ -84,28 +85,18 @@ class AddTask extends Component{
     reaction1 = reaction(
         ()=>this.props.tasksStore.postTask.getApiStatus,
         apiStatus=>{
-            if(apiStatus===200){
+            if(apiStatus === API_SUCCESS){
+                this.props.handleClose();
                 this.init();
             }
         })
-    
-    render(){
-        const {tasks} = strings;
-        const {postTask:{getApiStatus}} = this.props.tasksStore
-        const {
-            taskTitle,
-            issueType,
-            description,
-            onChangeDescription,
-            onChangeIssueType,
-            onChangeTaskTitle
-        } =this;
-        const {descriptionError,issueTypeError,taskTitleEmpty} =this.errorMessage;
-        return(
-            <AddTaskContainer>
-                 <Header>TASK</Header>
-                 <CloseButton onClick ={this.props.handleClose}><RiCloseLine size = {24}/></CloseButton>
-                 <TaskTitleLabel
+      
+      TaskTitleInput = observer(()=>{
+          const {tasks} = strings;
+          const {taskTitle,onChangeTaskTitle,errorMessage:{taskTitleEmpty}} =this
+      
+        return(<Fragment>
+                <TaskTitleLabel
                     isImportant = {true}
                     lableFor={tasks.taskTitleLable}
                     content={tasks.taskTitleLable}/>
@@ -115,7 +106,15 @@ class AddTask extends Component{
                     value={taskTitle}
                     onChange={onChangeTaskTitle}/>
                 {taskTitleEmpty&&<Required>{strings.required}</Required>}
-                <IssueTypeLabel
+            </Fragment>)
+      })
+      
+      IssueTypeMenu = observer(()=>{
+          const {tasks} = strings;
+          const {issueType,onChangeIssueType,errorMessage:{issueTypeError}} =this
+          return(
+              <Fragment>
+                 <IssueTypeLabel
                     isImportant = {true}
                     lableFor={tasks.issueTypeLabel}
                     content={tasks.issueTypeLabel}/>
@@ -130,7 +129,15 @@ class AddTask extends Component{
                         border:`1px solid ${issueTypeError?Colors.red:Colors.lightBlueGrey}`,
                         height:"40px"}}/>
                 {issueTypeError&&<Required>{strings.required}</Required>}
-                <DescriptionLabel
+              </Fragment>)
+      })
+    
+    DescriptionTextInput = observer(()=>{
+        const {description,onChangeDescription,errorMessage:{descriptionError}} = this
+        const {tasks} = strings;
+        return(
+            <Fragment>
+                 <DescriptionLabel
                      isImportant = {true}
                     lableFor={tasks.descriptionLabel}
                     content={tasks.descriptionLabel}/>
@@ -140,12 +147,29 @@ class AddTask extends Component{
                     value = {description} 
                     onChange = {onChangeDescription}/>
                 {descriptionError&&<Required>Required</Required>}
+            </Fragment>)
+    })
+    
+    
+    
+    render(){
+        const {postTask:{getApiStatus}} = this.props.tasksStore
+        const {TaskTitleInput,
+        IssueTypeMenu,
+        DescriptionTextInput
+        } = this
+        return(
+            <AddTaskContainer>
+                 <Header>TASK</Header>
+                 <CloseButton onClick ={this.props.handleClose}><RiCloseLine size = {24}/></CloseButton>
+               <TaskTitleInput/>
+               <IssueTypeMenu/>
+               <DescriptionTextInput/>
                 <SubmitButton 
                     content = {strings.submitButton}
                     apiStatus = {getApiStatus}
                     onClick = {this.submitTask}/>
-            </AddTaskContainer>
-            )
+            </AddTaskContainer>)
     }
 }
 

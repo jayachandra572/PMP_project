@@ -5,7 +5,7 @@ import { API_INITIAL } from '@ib/api-constants';
 class ApiCallModel{
     @observable getApiStatus =API_INITIAL;
     @observable getApiError = null
-    @observable response = null;
+    @observable response = []
     constructor (apiCallFunction){
         this.apiCallFunction=apiCallFunction;
     }
@@ -26,7 +26,7 @@ class ApiCallModel{
            setApiStatus,
            setApiResponse
        } = this;
-       const response =  this.apiCallFunction(requestObject)
+       const response =  this.apiCallFunction(requestObject);
        return bindPromiseWithOnSuccess(response)
        .to(setApiStatus,setApiResponse)
        .catch(setApiError);

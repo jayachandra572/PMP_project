@@ -2,7 +2,7 @@ import React ,{Component} from "react";
 
 import {EachProject} from "../EachProject"
 import {ProjectTopics} from "../ProjectTopics"
-import {ProjectHeader} from "../ProjectHeader"
+import ProjectHeader from "../ProjectHeader"
 import {PageNavigation} from"../PageNavigation"
 
 import LoadingWrapperWithFailure from "../../../Common/components/LoadingWrapperWithFailure";
@@ -48,12 +48,13 @@ class Projects extends Component {
                         <ProjectTopics/>
                             {this.renderProjects()}
                         </ProjectsBox>
+                    {totalNumberOfPages!==1&&
                     <PageNavigation
                         activePageNumber = {activePageNumber}
                         totalNumberOfPages = {totalNumberOfPages}
                         navigateToNextPage = {navigateToNextPage}
                         navigateToPreviousPage = {navigateToPreviousPage}
-                        onClickPageNumber={onClickPageNumber}/>
+                        onClickPageNumber={onClickPageNumber}/>}
                 </React.Fragment>
                     
                 }

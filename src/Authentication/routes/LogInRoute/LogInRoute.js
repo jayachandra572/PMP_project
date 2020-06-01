@@ -26,13 +26,17 @@ class LogInRoute extends Component {
       }
       this.apiError = null
    }
-
-   onChangePassword = e => {
+   
+   @action.bound
+   onChangePassword (e) {
       this.userPassword = e.target.value
+      this.validateUserPassword()
    }
-
-   onChangeName = e => {
+   
+   @action.bound
+   onChangeName (e) {
       this.userName = e.target.value
+      this.validateUserName();
    }
 
    onLogInFailure = () => {
@@ -42,21 +46,22 @@ class LogInRoute extends Component {
          this.errorMessage = 'Retry'
       }
    }
+   
+   validateUserName = () =>{
+      const {userName} =this;
+    this.errorMessage.userNameErrorMessage = userName===""?strings.userNameErrorMessage:""
+     
+   }
+   
+   validateUserPassword = () =>{
+      const {userPassword} = this;
+      this.errorMessage.userPasswordErrorMessage =userPassword===""?strings.userPasswordErrorMessage:""
+   }
 
-   @action.bound
-   async onSubmitForm(e) {
-      e.preventDefault()
-      const { userSignIn } = this.props.authenticationStore
-      const { userName, userPassword, onLogInFailure } = this
-
-      if (userName === '') {
-         this.errorMessage.userNameErrorMessage = strings.userNameErrorMessage
-      }
-      if (userPassword === '') {
-         this.errorMessage.userPasswordErrorMessage =
-            strings.userPasswordErrorMessage
-      }
-      if (userName !== '' && userPassword !== '') {
+   signUser = () =>{
+   const {userName,userPassword,onLogInFailure} = this;
+    const { userSignIn } = this.props.authenticationStore
+    if (userName !== '' && userPassword !== '') {
          this.errorMessage = {
             userPasswordErrorMessage: '',
             userNameErrorMessage: ''
@@ -66,7 +71,15 @@ class LogInRoute extends Component {
             userPassword: userPassword
          }
          userSignIn(requestObject, onLogInFailure)
-      }
+      }  
+   }
+   @action.bound
+   async onSubmitForm(e) {
+      e.preventDefault()
+     const {validateUserName,validateUserPassword,signUser} = this
+     validateUserName();
+     validateUserPassword();
+     signUser();
    }
 
  

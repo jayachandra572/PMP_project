@@ -6,7 +6,6 @@ import {
 } from "../../styleGuide/Typos";
 
 export const CommonStyle = styled(Typo12SteelHKGroteskSemiBold)`${tw`text-center flex-1`}
-min-width:auto;
 overflow: visible;`;
 
 export const Container =styled.div`${tw`flex w-full items-center justify-center`}

@@ -15,11 +15,12 @@ class  AddProjectModal extends Component  {
     handleOpen = () => this.modalOpen= true 
     handleClose = () => this.modalOpen = false 
     render(){
-      return<Modal style = {{width:"auto",padding:"20px"}} 
+      return<Modal
+      open = {this.modalOpen}
+      style = {{width:"auto",padding:"20px"}} 
        trigger={<Button onClick = {this.handleOpen} style = {{backgroundColor:`${Colors.brightBlue}`,color:`${Colors.white}`}}
        >{strings.createButtonContent}</Button>}
-       open={this.modalOpen}
-        onClose={this.handleClose}>
+       >
         <Modal.Content >
           <AddProject handleClose={this.handleClose}/>
         </Modal.Content>

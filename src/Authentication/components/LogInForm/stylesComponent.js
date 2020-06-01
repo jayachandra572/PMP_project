@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import Colors from '../../themes/Colors'
 import Button from '../../../Common/components/Button'
 import { InputField } from '../../../Common/components/InputText'
-import { InputLabel } from '../../../Common/components/Lable'
+import { InputLabel } from '../../../Common/components/Label'
 
 export const LogInFormContainer = styled.div`${tw`w-screen min-h-screen h-full flex justify-center items-center `}
 background-color:${Colors.iceBlue}`

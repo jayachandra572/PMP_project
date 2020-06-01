@@ -26,6 +26,7 @@ class Tasks extends Component {
             projectsPerPage,
             tasks
         } = this.props;
+        console.log(tasks)
         return(
             <TasksContainer>
                 <TasksHeader />

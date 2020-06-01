@@ -4,7 +4,7 @@ import Colors from '../../themes/Colors'
 import { ErrorInfo } from '../Icons/ErrorInfo'
 
 export const ErrorIcon = styled(ErrorInfo)`
-   ${tw`absolute `}
+   ${tw`absolute z-10`}
    top:20px;
    right: 16px;
 `

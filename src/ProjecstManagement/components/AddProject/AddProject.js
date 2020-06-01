@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component ,Fragment} from 'react';
 import { observer,inject } from 'mobx-react';
 import {observable, reaction,action} from "mobx";
-import { Dimmer, Loader } from 'semantic-ui-react';
 import {RiCloseLine} from "react-icons/ri"
+import { API_SUCCESS , API_INITIAL,API_FETCHING} from '@ib/api-constants'
 
 import Colors from '../../themes/Colors';
 import strings from '../../i18n/strings.json';
@@ -17,7 +17,7 @@ import {ProjectName,AddProjectContainer,WorkflowType,ProjectType,ProjectNameLabe
 @observer
 class AddProject extends Component{
     @observable projectName 
-    @observable workFlowTypeId = null
+    @observable workFlowTypeId = ""
     @observable projectType = ""
     @observable projectDescription
     @observable errorMessage
@@ -73,15 +73,15 @@ class AddProject extends Component{
     reaction1 = reaction(
         ()=>this.props.newProjectStore.newProject.getApiStatus,
         apiStatus=>{
-            if(apiStatus===200){
-               alert("Created project")
+            if(apiStatus === API_SUCCESS){
+               this.props.handleClose();
             }
         })
     checkProjectNameError=()=>{
         this.errorMessage.projectNameEmpty = this.projectName === "";
     }
     checkWorkFlowTypeIdError(){
-        this.errorMessage.projectWorkFlowError=this.workFlowTypeId ===null; 
+        this.errorMessage.projectWorkFlowError=this.workFlowTypeId ===""; 
     }
     checkProjectTypeError= () =>{
          this.errorMessage.projectTypeError =this.projectType=== "";
@@ -92,8 +92,8 @@ class AddProject extends Component{
     }
     
     anyErrorInPage =()=>{
-        const {projectNameEmpty,projectWorkFlowError,projectTypeError,projectDescriptionError} = this.errorMessage
-        return (projectNameEmpty || projectWorkFlowError || projectTypeError ||projectDescriptionError)
+        const {projectNameEmpty,projectWorkFlowError,projectTypeError,projectDescriptionError} = this.errorMessage;
+        return (projectNameEmpty || projectWorkFlowError || projectTypeError ||projectDescriptionError);
     }
     
     @action.bound
@@ -107,32 +107,16 @@ class AddProject extends Component{
         this.checkProjectNameError();
         if(!this.anyErrorInPage()){
             newProject.apiCall({pojectName,workFlowTypeId,projectType,projectDescription});
-            this.init();
         }
     }
     
-    render(){
-        
-        const {workFlowType,newProject} = this.props.newProjectStore;
+    
+    ProjectNameInput = observer(() =>{
+        const {onChangeProjectName,projectName} = this
+        const {projectNameEmpty} =this.errorMessage;
         const {addProject} = strings;
-        const {onChangeProjectName,projectName,onChangeWorkflowType,onChangeProjectType,submitDetailsOfProject,
-            projectDescription,onChangeDescription
-        } =this;
-        const {projectNameEmpty,projectWorkFlowError,projectTypeError,projectDescriptionError} = this.errorMessage
-        
-        if(workFlowType.getApiStatus===100){
-            return (
-                <AddProjectContainer>
-                    <Dimmer active inverted>
-                        <Loader size='medium'>{strings.loading}</Loader>
-                    </Dimmer>
-                </AddProjectContainer>);
-        }
-        return(
-            <AddProjectContainer>
-            <Header>PROJECT</Header>
-            <CloseButton onClick ={this.props.handleClose}><RiCloseLine size = {24}/></CloseButton>
-             <ProjectNameLabel
+        return(<Fragment>
+        <ProjectNameLabel
                 isImportant = {true}
                 lableFor={addProject.lableName}
                 content={addProject.lableName}
@@ -144,7 +128,15 @@ class AddProject extends Component{
                     onChange={onChangeProjectName}
                 />
                 {projectNameEmpty&&<Required>{strings.required}</Required>}
-            <ProjectTypeLabel
+        </Fragment>)
+    })
+    
+    ProjectTypeMenu = observer(() =>{
+        const {onChangeProjectType} = this;
+        const {projectTypeError} = this.errorMessage
+        const {addProject} = strings;
+        return(<Fragment>
+         <ProjectTypeLabel
                 isImportant = {true}
                 lableFor={addProject.ProjectType}
                 content={addProject.ProjectType}/>
@@ -159,7 +151,15 @@ class AddProject extends Component{
                         border:`1px solid ${projectTypeError?"red":Colors.lightBlueGrey}`,
                         height:"40px"}}/>
             {projectTypeError&&<Required>{strings.required}</Required>}
-            
+            </Fragment>);
+    })
+    
+    WorkFlowTypeMenu = observer(() => {
+        const {workFlowType:{response,getApiStatus}} =this.props.newProjectStore;
+        const {addProject} = strings;
+        const {errorMessage:{projectWorkFlowError},onChangeWorkflowType} = this
+        return(
+        <Fragment>
             <WorkflowTypeLabel
                 isImportant = {true}
                 lableFor={addProject.WorkflowType}
@@ -167,17 +167,26 @@ class AddProject extends Component{
                />
             <WorkflowType
                 data-testid = {strings.data_testid.workFlowTypeMenu}
-                options = {workFlowType.response}
+                options = {response}
                 onChange={onChangeWorkflowType} 
                 placeholder = {addProject.workflowTypePlaceHolder}
+                loading = {getApiStatus===API_FETCHING}
                 styles = {{
                     color:Colors.steel,
                     width:"400px",
                     border:`1px solid ${projectWorkFlowError?"red":Colors.lightBlueGrey}`,
                     height:"40px"}}/>
             {projectWorkFlowError&&<Required>{strings.required}</Required>}
-            
-             <DescriptionLabel
+            </Fragment>)
+    })
+    
+    DescriptionTextInput = observer(() =>{
+        const {addProject} = strings
+        const {projectDescriptionError} = this.errorMessage
+        const  {projectDescription,onChangeDescription} = this
+        return(
+            <Fragment>
+                <DescriptionLabel
                 isImportant = {true}
                 lableFor={addProject.lableDescription}
                 content={addProject.lableDescription}
@@ -188,11 +197,30 @@ class AddProject extends Component{
                 value = {projectDescription} 
                 onChange = {onChangeDescription}/>
             {projectDescriptionError&&<Required>{strings.required}</Required>}
-            <SubmitButton 
-                    type = "button" 
-                    content = {strings.submitButton}
-                    apiStatus = {newProject.getApiStatus}
-                    onClick = {submitDetailsOfProject}/>
+            </Fragment>);
+    })
+    render(){
+        const {newProject} = this.props.newProjectStore;
+        const {
+                submitDetailsOfProject,
+                ProjectNameInput,
+                ProjectTypeMenu,
+                WorkFlowTypeMenu,
+                DescriptionTextInput
+        } =this;
+        return(
+            <AddProjectContainer>
+            <Header>{strings.addProject.title}</Header>
+            <CloseButton onClick ={this.props.handleClose}><RiCloseLine size = {24}/></CloseButton>
+             <ProjectNameInput/>
+             <ProjectTypeMenu/>
+             <WorkFlowTypeMenu/>
+             <DescriptionTextInput/>
+             <SubmitButton 
+                type = "button" 
+                content = {strings.submitButton}
+                apiStatus = {newProject.getApiStatus}
+                onClick = {submitDetailsOfProject}/>
             </AddProjectContainer>);
     }
 }

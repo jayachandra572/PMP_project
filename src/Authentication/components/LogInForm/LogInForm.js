@@ -25,7 +25,7 @@ class LogInForm extends Component {
       }
    }
    
-   userNameInput = () =>{
+   UserNameInput = observer(() =>{
       const {userName,onChangeName,errorMessage} = this.props;
       return(
          <Fragment>
@@ -41,9 +41,9 @@ class LogInForm extends Component {
                   isError={errorMessage.userNameErrorMessage !== ''}
                />
             </Fragment>)
-   }
+   })
    
-   userPasswordInput = () =>{
+   UserPasswordInput = observer(() =>{
       const {userPassword,onChangePassword,errorMessage} =this.props;
       return(
       <Fragment>
@@ -59,33 +59,31 @@ class LogInForm extends Component {
                   isError={errorMessage.userPasswordErrorMessage !== ''}
                />
          </Fragment>);
-   }
+   })
    
-   signButton = () =>{
+   SignButton = observer(() =>{
       const {onSubmitForm,getAuthApiStatus} = this.props;
       return (<LogInButton
                   content={strings.loginButton}
                   onClick={onSubmitForm}
                   apiStatus={getAuthApiStatus}
                />)
-   }
-   
-   
+   })
    
    render() {
       const {
-         userNameInput,
-         userPasswordInput,
-         signButton
+         UserNameInput,
+         UserPasswordInput,
+         SignButton
       } = this
       return (
          <LogInFormContainer>
             <LogInPage>
                <IbHubsLogo />
                <Header>{strings.loginHeaderContent}</Header>
-              {userNameInput()}
-              {userPasswordInput()}
-              {signButton()}
+              <UserNameInput/>
+              <UserPasswordInput/>
+              <SignButton/>
                <Footer>
                   {strings.noAccount} <SignUp>signUp</SignUp>
                </Footer>

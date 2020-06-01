@@ -1,13 +1,57 @@
+import {observable,action} from "mobx"
+import { API_SUCCESS,API_INITIAL} from '@ib/api-constants'
+import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+
 class TaskModel {
-    constructor(task){
-        this.project = task.project
-        this.issueType = task.issue_type
-        this.title = task.title
-        this.description = task.description
-        this.createdBy = task.created_by
-        this.createdAt = task.created_at
-        this.state = task.state
+    @observable stateOptions
+    @observable getApiStatus =API_INITIAL;
+    @observable getApiError = null
+    @observable response = []
+    
+    constructor(task,changeTaskStatusAPI){
+        this.project = task.project;
+        this.issueType = task.issue_type;
+        this.title = task.title;
+        this.description = task.description;
+        this.createdBy = task.created_by;
+        this.createdAt = task.created_at;
+        this.state =task.state;
+        this.stateOptions = [{id:task.state,name:task.state}];
+        this.changeTaskStatusAPI = changeTaskStatusAPI;
     }
+    
+    changeTaskState = (newState) =>{
+        this.state = newState;
+    }
+    
+    
+     setApiError = (error) =>{
+     this.getApiError = error;
+   }
+   
+   @action.bound
+    setApiResponse  (response){
+       this.stateOptions = response
+        this.response = response;
+   }
+   setApiStatus = (status) =>{
+       this.getApiStatus = status;
+   }
+   
+   getStatusTransitionOptions =  () =>{
+      const {
+          setApiError,
+          setApiStatus,
+          setApiResponse,
+          state
+      } = this;
+      const response =  this.changeTaskStatusAPI(state);
+      return bindPromiseWithOnSuccess(response)
+      .to(setApiStatus,setApiResponse)
+      .catch(setApiError);
+   }
+    
+    
 }
 
 export default TaskModel;
