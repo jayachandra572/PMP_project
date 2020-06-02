@@ -1,4 +1,4 @@
-import React,{Component} from "react"
+import React,{Component,Fragment} from "react"
 import {observer} from "mobx-react"
 import { API_SUCCESS,API_FETCHING,API_FAILED} from '@ib/api-constants'
 import {RiCloseLine} from "react-icons/ri"
@@ -11,10 +11,6 @@ import LoadingView from "./LoadingView"
 
 @observer
 class ValidateTaskTransitionView extends Component{
-    
-    // onChange = (event,data)=>{
-    //     console.log(event.target.id,event.target.checked);
-    // }
     
     renderValidationConditions = () =>{
         const {response} = this.props.taskValidationField;
@@ -30,9 +26,12 @@ class ValidateTaskTransitionView extends Component{
     renderSuccessUI = () =>{
         const {renderValidationConditions} = this;
         return(
-            <TaskTransitionValidateContainer>
-                {renderValidationConditions()}
-            </TaskTransitionValidateContainer>);
+            <Fragment>
+                <Header>Task</Header>
+                <TaskTransitionValidateContainer>
+                    {renderValidationConditions()}
+                </TaskTransitionValidateContainer>
+            </Fragment>);
     }
     
     LoadingWrapperWithFailure = observer(() =>{
@@ -50,16 +49,14 @@ class ValidateTaskTransitionView extends Component{
         }
         
     })
-    
-    
     render(){
-       const {LoadingWrapperWithFailure} = this
+       const {LoadingWrapperWithFailure} = this;
         return(
             <FailureAndLoadingContainer>
                  <CloseButton onClick ={this.props.handleClose}><RiCloseLine size = {24}/></CloseButton>
                 <LoadingWrapperWithFailure/>
-            </FailureAndLoadingContainer>)
+            </FailureAndLoadingContainer>);
     }
 }
 
-export {ValidateTaskTransitionView}
+export {ValidateTaskTransitionView};

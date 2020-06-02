@@ -36,7 +36,8 @@
             "description":"DESCRIPTION",
            "createdBy":"CREATED BY",
             "createdAt" : "CREATED AT",
-            "state" : "STATE"
+            "state" : "STATE",
+            "info":"INFO"
         },
         "issueTypes":[{"id":"Task","name":"Task" },
         {"id":"Bug","name":"Bug" } ,

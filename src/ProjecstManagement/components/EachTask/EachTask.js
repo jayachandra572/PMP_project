@@ -5,7 +5,8 @@ import {observable} from "mobx"
 import {observer} from "mobx-react"
 
 import {TaskStateMenu} from "./TaskStateMenu";
-import {IssueType,Title,Description,CreatedAt,TaskContainer} from "./styleComponent";
+import TaskInfoCard from "./TaskInfoCard"
+import {IssueType,Title,Description,CreatedAt,TaskContainer,TaskInfo} from "./styleComponent";
 
 @observer
 class EachTask extends Component{
@@ -55,6 +56,7 @@ class EachTask extends Component{
                         modalOpen={modalOpen}
                         getApiStatus = {getApiStatus}
                         getValidateFields = {getValidateFields}/>
+                    <TaskInfoCard/>
                 </TaskContainer>
             );
         }

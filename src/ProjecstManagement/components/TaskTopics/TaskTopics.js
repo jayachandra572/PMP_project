@@ -4,7 +4,7 @@ import strings from "../../i18n/strings.json";
 import {TaskTopicsContainer,Heading} from "./styleComponent"
  class TaskTopics extends Component{
     render(){
-        const {issueType,title,description,createdBy,createdAt,state} = strings.tasks.modal;
+        const {issueType,title,description,createdBy,createdAt,state,info} = strings.tasks.modal;
         return(
             <TaskTopicsContainer>
                 <Heading>{issueType}</Heading>
@@ -13,6 +13,7 @@ import {TaskTopicsContainer,Heading} from "./styleComponent"
                 <Heading>{description}</Heading>
                 <Heading>{createdAt}</Heading>
                 <Heading>{state}</Heading>
+                <Heading>{info}</Heading>
             </TaskTopicsContainer>
             
             )

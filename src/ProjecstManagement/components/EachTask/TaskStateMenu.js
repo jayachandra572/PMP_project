@@ -38,7 +38,7 @@ class TaskStateMenu extends React.Component{
             closeDropdownMenu = {this.closeDropdownMenu} 
             styles = {{
                 minWidth:"90px",
-                maxWidth:"130px",
+                maxWidth:"110px",
                 width:"100%",
                 border:"none",
                 backgroundColor:"transparent"
