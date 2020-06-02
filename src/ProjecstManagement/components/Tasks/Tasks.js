@@ -14,10 +14,11 @@ import {TasksContainer,TasksBox} from "./styleComponent"
 @observer
 class Tasks extends Component {
     renderTasks = ()=>{
-        const {tasks} =this.props;
+        const {tasks,taskValidationField} =this.props;
         return (tasks.map((task,index)=>(<EachTask
                     key= {task.id} 
                     task = {task} 
+                    taskValidationField = {taskValidationField}
                     index = {index}/>)));
     }
     

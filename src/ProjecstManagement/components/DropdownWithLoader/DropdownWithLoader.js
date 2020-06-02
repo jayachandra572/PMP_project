@@ -3,7 +3,7 @@ import { Dropdown } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
 
 
-class  DropDown extends React.Component {
+class  DropdownWithLoader extends React.Component {
     static defaultProps = {
         styles:{
             width:"320px",border:"1px solid #7e858e"
@@ -13,8 +13,14 @@ class  DropDown extends React.Component {
         loading :false,
         onClick:()=>{},
     }
+    
+    onChangeState = (event,data) =>{
+        const {onChange,closeDropdownMenu} = this.props
+        onChange(event,data)
+        closeDropdownMenu()
+    }
     render(){
-    let {options,onChange, placeholder,styles,loading,value,onClick} = this.props;
+    let {options,styles,loading,value,onClick,open,closeDropdownMenu} = this.props;
     options =  options!==null ?options.map(workFlow=>{
             return{
                 key:workFlow.id,
@@ -22,18 +28,21 @@ class  DropDown extends React.Component {
                 value:workFlow.id
             }}):[];
     return (<Dropdown
-        defaultValue = {value}
-        placeholder= {placeholder}
+        data-testid = "dropdown"
+        open = {open}
+        value = {value}
         fluid
+        id={"2"}
         selection
         loading = {loading}
         disabled = {loading}
         options={options}
-        onChange = {onChange}
+        onChange = {this.onChangeState}
         onClick = {onClick}
         style = {styles}
+        onBlur = {closeDropdownMenu}
     />);
 }
 }
 
-export default DropDown;
+export {DropdownWithLoader};

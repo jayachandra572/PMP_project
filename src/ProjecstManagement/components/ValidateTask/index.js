@@ -1,12 +1,9 @@
 import React,{Component} from "react"
-import { Button, Modal } from 'semantic-ui-react'
+import {  Modal } from 'semantic-ui-react'
 import {observer} from "mobx-react"
 import 'semantic-ui-css/semantic.min.css'
 
-import strings from "../../i18n/strings";
-import Colors from "../../themes/Colors";
-
-import {AddProject} from "../AddProject";
+import {ValidateTaskTransitionView} from "./ValidateTaskTransitionView";
 
 @observer
 class  ValidateTask extends Component  {
@@ -14,10 +11,10 @@ class  ValidateTask extends Component  {
         const {handleClose,open} = this.props
       return<Modal
       open = {open}
-      style = {{width:"auto",padding:"20px"}} 
+      style = {{width:"auto"}} 
        >
         <Modal.Content >
-          <AddProject handleClose={handleClose}/>
+            <ValidateTaskTransitionView {...this.props}/>
         </Modal.Content>
       </Modal>;
     }

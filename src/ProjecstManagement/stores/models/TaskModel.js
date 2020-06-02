@@ -1,6 +1,6 @@
-import {observable,action} from "mobx"
-import { API_SUCCESS,API_INITIAL} from '@ib/api-constants'
-import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+import {observable,action} from "mobx";
+import { API_SUCCESS,API_INITIAL} from '@ib/api-constants';
+import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
 
 class TaskModel {
     @observable stateOptions
@@ -9,6 +9,7 @@ class TaskModel {
     @observable response = []
     
     constructor(task,changeTaskStatusAPI){
+        this.id = task.id;
         this.project = task.project;
         this.issueType = task.issue_type;
         this.title = task.title;
@@ -18,9 +19,13 @@ class TaskModel {
         this.state =task.state;
         this.stateOptions = [{id:task.state,name:task.state}];
         this.changeTaskStatusAPI = changeTaskStatusAPI;
+        this.previousTaskState = null;
+        this.fromStatus = null;
+        
     }
     
     changeTaskState = (newState) =>{
+        this.previousTaskState = this.state;
         this.state = newState;
     }
     
@@ -43,12 +48,12 @@ class TaskModel {
           setApiError,
           setApiStatus,
           setApiResponse,
-          state
+          state,
       } = this;
-      const response =  this.changeTaskStatusAPI(state);
-      return bindPromiseWithOnSuccess(response)
-      .to(setApiStatus,setApiResponse)
-      .catch(setApiError);
+        const response =  this.changeTaskStatusAPI(state);
+        return bindPromiseWithOnSuccess(response)
+        .to(setApiStatus,setApiResponse)
+        .catch(setApiError);
    }
     
     

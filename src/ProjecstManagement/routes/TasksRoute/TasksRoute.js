@@ -19,14 +19,17 @@ class TasksRoute extends Component{
 
     render(){
         const {getApiStatus,getApiError} = this.props.tasksStore.tasks;
-         const {userLogOut} = this.props.authenticationStore;
+        const {userLogOut} = this.props.authenticationStore;
         const {projectTasks} = this.props.tasksStore;
+        const {taskValidationField} = this.props.tasksStore
         return(<ProjectTasks
                 projectTasks = {projectTasks}
+                taskValidationField = {taskValidationField}
                 apiStatus = {getApiStatus}
                 apiError = {getApiError}
                 doNetWorkCall = {this.doNetWorkCall}
                 userLogOut = {userLogOut}
+                
         />);
     }
     

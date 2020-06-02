@@ -25,6 +25,11 @@ class TasksService{
         const {api} = this;
         return networkCallWithApisauce(api,changeTaskStatus,toStatus,apiMethods.post);
     }
+    
+    taskValidationFieldAPI = (request) =>{
+        const {api} = this;
+        return networkCallWithApisauce(api,"",request,apiMethods.post);
+    }
 }
 
 export default TasksService;

@@ -52,6 +52,7 @@ class LogInForm extends Component {
                   content={strings.userPasswordLable}
                />
                <UserPassWord
+                  textType = {"password"}
                   id={strings.userPasswordLable}
                   value={userPassword}
                   onChange={onChangePassword}
