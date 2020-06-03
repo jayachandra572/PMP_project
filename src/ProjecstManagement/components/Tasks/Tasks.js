@@ -1,7 +1,6 @@
 import React ,{Component} from "react";
 import {observer} from "mobx-react"
 
-import LoadingWrapperWithFailure from "../../../Common/components/LoadingWrapperWithFailure";
 import NoDataView from "../../../Common/components/NoDataView"
 import {EachTask} from "../EachTask"
 import {TaskTopics} from "../TaskTopics"
@@ -21,13 +20,10 @@ class Tasks extends Component {
                     taskValidationField = {taskValidationField}
                     index = {index}/>)));
     }
-    
-    renderSuccessUI = () =>{
-         const {
-            projectsPerPage,
+    render(){
+    const { projectsPerPage,
             tasks
         } = this.props;
-        console.log(tasks)
         return(
             <TasksContainer>
                 <TasksHeader />
@@ -36,18 +32,7 @@ class Tasks extends Component {
                     <TaskTopics/>
                     {this.renderTasks()}
                 </TasksBox>}
-            </TasksContainer>);
-    }
-    
-    render(){
-       const {apiError,apiStatus,doNetWorkCall} = this.props;
-        return (
-            <LoadingWrapperWithFailure
-                apiError = {apiError}
-                apiStatus = {apiStatus}
-                onRetryClick = {doNetWorkCall}
-                renderSuccessUI = {this.renderSuccessUI}/>
-            );
+            </TasksContainer>)
     }
 }
 

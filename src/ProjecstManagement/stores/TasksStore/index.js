@@ -1,9 +1,9 @@
 import { observable,reaction } from 'mobx';
 import { API_SUCCESS} from '@ib/api-constants'
 
-import ApiCallModel from "../models/ApiCallModel";
+import ApiCallModel from "../models/ApiCallModel/index";
 import TaskModel from "../models/TaskModel";
-import TaskValidationFieldsModel from "../models/TaskValidationFieldsModel"
+import TaskValidationFieldsModel from "../models/TaskValidationFieldsModel";
 
 
 class TasksStore {

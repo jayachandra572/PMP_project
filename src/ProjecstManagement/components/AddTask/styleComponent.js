@@ -22,7 +22,7 @@ export const TaskTitle = styled(InputField)`${tw``}
 width:400px;
 border:1px solid ${props=>props.isEmpty?"red":Colors.lightBlueGrey};
 border-radius:4px;
-color:${Colors.steel}`
+color:${Colors.steel};`
 
 export const AddTaskContainer = styled(Container)`
 min-height:300px;

@@ -21,7 +21,6 @@ export const Typo12HKGroteskSemiBoldSteel = styled.label`
   letter-spacing: 0.12px;`
   
 export const Typo14WhiteRubikMedium = styled.span`
-  height: 24px;
   font-family: Rubik;
   font-size: 14px;
   font-weight: 500;
@@ -31,7 +30,6 @@ export const Typo14WhiteRubikMedium = styled.span`
   letter-spacing: normal;`
 
 export const Typo14DarkBlueGreyHKGroteskRegular = styled.span`
-  height: 24px;
   font-family: HKGrotesk;
   font-size: 14px;
   font-weight: normal;
@@ -41,8 +39,7 @@ export const Typo14DarkBlueGreyHKGroteskRegular = styled.span`
   letter-spacing: normal;
   color: var(--dark-blue-grey);`;
   
-export const Typo24DarkBlueGreyHKGroteskMedium =styled.span`
-  height: 32px;
+export const Typo24DarkBlueGreyHKGroteskMedium =styled.p`${tw`p-0 m-0`}
   font-family: HKGrotesk;
   font-size: 24px;
   font-weight: 500;
@@ -50,10 +47,10 @@ export const Typo24DarkBlueGreyHKGroteskMedium =styled.span`
   font-style: normal;
   line-height: 1.33;
   letter-spacing: normal;
-  color: ${Colors.darkBlueGray};`
+  color: ${Colors.darkBlueGray};
+  `
 
 export const Typo18DarkBlueGreyHKGroteskMedium = styled(Typo24DarkBlueGreyHKGroteskMedium)`
-  height: 24px;
   font-size: 18px;);`
 
 export const Typo12DarkBlueGreyHKGroteskSemiBold = styled(Typo24DarkBlueGreyHKGroteskMedium)`
@@ -63,7 +60,6 @@ export const Typo12DarkBlueGreyHKGroteskSemiBold = styled(Typo24DarkBlueGreyHKGr
   letter-spacing: 0.12px;`
   
 export const Typo12SteelHKGroteskSemiBold = styled.span`
-  height: 16px;
   font-family: HKGrotesk;
   font-size: 12px;
   font-stretch: normal;
@@ -82,6 +78,7 @@ export const Typo32BrightBlueHKGroteskMedium = styled.span`
   line-height: 1.25;
   letter-spacing: normal;
   color: ${Colors.brightBlue}`
+  
   
 
   

@@ -1,7 +1,8 @@
 import React from "react";
 import { render, fireEvent,waitFor } from "@testing-library/react";
 import{Provider} from "mobx-react"
-
+import { createMemoryHistory } from "history";
+import {Router} from "react-router-dom"
 
 import AuthenticationStore from '../../../Authentication/stores/AuthenticationStore'
 import AuthService from '../../../Authentication/services/AuthService/index.fixture'
@@ -21,9 +22,12 @@ let projectsStore
 const getScreen=()=>{
     return render(
         <Provider {...{authenticationStore,projectsStore}} >
-            <ProjectsRoute />
+             <Router history={createMemoryHistory()}>
+                <ProjectsRoute />
+             </Router>
         </Provider>);
 };
+    
 
 const mockAPiServiceResponse=()=>{
      const mockErrorProjectPromise=new Promise((resolve,reject)=>{resolve(projectResponseData)});
@@ -52,18 +56,21 @@ describe("ProductsDashBoard tests",()=>{
     
      
     it("Should test render network error",async ()=>{
-        const mockErrorProjectPromise=new Promise((resolve,reject)=>{reject(new Error("Error"))});
+        const mockErrorProjectPromise=new Promise((resolve,reject)=>reject(new Error("Error")));
         const mockGetProductAPI=jest.fn()
         mockGetProductAPI.mockReturnValue(mockErrorProjectPromise);
         projectsService.projectsAPI=mockGetProductAPI;
         const {getByRole}=getScreen();
-        await waitFor(()=>{});
-        getByRole('button',{name:"Retry"});
+        await waitFor(()=>{
+             getByRole('button',{name:"Retry"})
+           
+        });
+       ;
     });
     
     it("Should test render  success UI",async ()=>{
         mockAPiServiceResponse
-        const {queryAllByText,getByText,getByRole,getByDisplayValue,getByTestId} = getScreen();
+        const {getByText,getByRole,getByTestId} = getScreen();
         getByText(strings.ProjectManageMent)
         await waitFor(()=>{
             const project = projectsStore.projects[0]

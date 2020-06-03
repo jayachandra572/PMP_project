@@ -1,18 +1,18 @@
 import React,{Fragment} from "react";
 import Loader from 'react-loader-spinner'
-            
+import {FailureAndLoadingContainer} from "./styleComponent" 
+
  function LoadingView (){
     return( 
-     <Fragment>
+     <FailureAndLoadingContainer>
            <Loader
                type='ThreeDots'
                color='#00BFFF'
                text-align='center'
-               height={70}
-               width = {70}
+               height={90}
+               width = {90}
             />
-            <p clasName="mt-3">Loading...</p>
-            </Fragment>);
+          </FailureAndLoadingContainer>);
 }
 
 export default LoadingView

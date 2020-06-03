@@ -3,6 +3,7 @@ import {observable,reaction} from "mobx"
 import {observer} from "mobx-react"
 import { API_SUCCESS , API_INITIAL,API_FETCHING} from '@ib/api-constants'
 
+import Colors from "../../themes/Colors"
 import {DropdownWithLoader} from "../DropdownWithLoader";
 import ValidateTask from "../ValidateTask"
 import {State} from "./styleComponent"
@@ -26,7 +27,10 @@ class TaskStateMenu extends React.Component{
         this.isDropdownMenuOpen = false;
     }
     render(){
-    const {options,value,onChangeState,handleClose,modalOpen,getApiStatus,onClickStateMenu,taskValidationField,getValidateFields} = this.props;
+    const {
+        options,value,onChangeState,handleClose,
+        modalOpen,getApiStatus,onClickStateMenu,
+        taskValidationField,getValidateFields,title,toStatus} = this.props;
     return(<State>
     <DropdownWithLoader
             options = {options}
@@ -39,16 +43,19 @@ class TaskStateMenu extends React.Component{
             styles = {{
                 minWidth:"90px",
                 maxWidth:"110px",
-                width:"100%",
                 border:"none",
-                backgroundColor:"transparent"
+                backgroundColor:"transparent",
+                color:`${Colors.steel}`
             }}
     />
         <ValidateTask 
             getValidateFields = {getValidateFields}
             taskValidationField = {taskValidationField} 
             open = {modalOpen} 
-            handleClose = {handleClose}/>
+            title = {title}
+            handleClose = {handleClose}
+            toStatus = {toStatus}
+            fromStatus = {value}/>
     </State>);
 }
 }

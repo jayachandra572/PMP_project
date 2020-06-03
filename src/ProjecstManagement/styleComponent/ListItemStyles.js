@@ -5,10 +5,13 @@ import {
     Typo12SteelHKGroteskSemiBold
 } from "../../styleGuide/Typos";
 
-export const CommonStyle = styled(Typo12SteelHKGroteskSemiBold)`${tw`text-center flex-1`}
-overflow: visible;`;
+export const CommonStyle = styled(Typo12SteelHKGroteskSemiBold)`${tw`text-center  flex-1`}
+max-width:100%;
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;`;
 
-export const Container =styled.div`${tw`flex w-full items-center justify-center`}
+export const Container =styled.div`${tw`flex w-full items-center flex-wrap justify-center`}
     min-height:66px;
     border: solid 1px ${Colors.lightBlueGrey};
     padding-left:5px;

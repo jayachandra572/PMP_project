@@ -2,16 +2,13 @@ import React,{Component} from "react"
 
 import {Header} from "../Header"
 import {Projects} from "../Projects"
-import { withRouter } from 'react-router-dom';
+import LoadingWrapperWithFailure from "../../../Common/components/LoadingWrapperWithFailure";
+import WithModal from "../../hoc/withModal"
 
-import {ProjectContainer} from "./styleComponent"
+import {ProjectContainer} from "./styleComponent";
 class  ProjectsView extends Component{
-    onClickProject = ()=>{
-        this.props.history.push(`/tasks`);
-    }
-    render(){
-        const {
-            userLogOut,
+    renderSuccessUI = () =>{
+         const {
             projects,
             activePageNumber , 
             totalNumberOfPages , 
@@ -19,31 +16,43 @@ class  ProjectsView extends Component{
             navigateToPreviousPage,
             onClickPageNumber,
             projectsPerPage,
+            onClickProject
+        } =this.props;
+        return(<Projects 
+            projects = {projects}
+            activePageNumber = {activePageNumber}
+            totalNumberOfPages = {totalNumberOfPages}
+            navigateToNextPage = {navigateToNextPage}
+            navigateToPreviousPage = {navigateToPreviousPage}
+            onClickPageNumber = {onClickPageNumber}
+            projectsPerPage = {projectsPerPage}
+            onClickProject = {onClickProject}/>)
+    }
+    
+    render(){
+        const {
+            userLogOut,
             getProjectsApiError,
             getProjectsApiStatus,
-            getProjectsFromAPi,
-            userData
+            userData,
+        doNetWorkCall
         } =this.props;
         return(
             <ProjectContainer>
                 <Header userLogOut = {userLogOut} userData = {userData}/>
-                <Projects 
-                    projects = {projects}
-                    activePageNumber = {activePageNumber}
-                    totalNumberOfPages = {totalNumberOfPages}
-                    navigateToNextPage = {navigateToNextPage}
-                    navigateToPreviousPage = {navigateToPreviousPage}
-                    onClickPageNumber = {onClickPageNumber}
-                    projectsPerPage = {projectsPerPage}
-                    getProjectsApiError = {getProjectsApiError}
-                    getProjectsApiStatus = {getProjectsApiStatus}
-                    getProjectsFromAPi = {getProjectsFromAPi}
-                    onClickProject = {this.onClickProject}
-                    />
-            </ProjectContainer>)
+                <LoadingWrapperWithFailure
+                apiError = {getProjectsApiError}
+                apiStatus = {getProjectsApiStatus}
+                onRetryClick = {doNetWorkCall}
+                renderSuccessUI = {this.renderSuccessUI}/>
+                <WithModal>
+                    <button>hi</button>
+                    <p>jai</p>
+                </WithModal>
+            </ProjectContainer>);
     }
 }
 
 
 
-export default withRouter(ProjectsView)
+export default ProjectsView

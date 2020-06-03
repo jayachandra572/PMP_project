@@ -23,6 +23,5 @@ describe("Test Cases for EachTask component",()=>{
         getByText(createdAt)
         getByText(title)
         getByText(issueType)
-        getByText(state)
     })
 })

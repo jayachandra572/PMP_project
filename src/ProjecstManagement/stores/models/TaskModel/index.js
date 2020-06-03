@@ -20,7 +20,7 @@ class TaskModel {
         this.stateOptions = [{id:task.state,name:task.state}];
         this.changeTaskStatusAPI = changeTaskStatusAPI;
         this.previousTaskState = null;
-        this.fromStatus = null;
+        this.toStatus = null;
         
     }
     
@@ -36,8 +36,14 @@ class TaskModel {
    
    @action.bound
     setApiResponse  (response){
-       this.stateOptions = response
-        this.response = response;
+    console.log(response)
+    if(response.findIndex(option=>option.name===this.state) === -1){
+        response.unshift({id:this.state,name:this.state});
+    }
+ 
+    
+    this.stateOptions = response;
+    this.response = response;
    }
    setApiStatus = (status) =>{
        this.getApiStatus = status;

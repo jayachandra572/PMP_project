@@ -5,7 +5,9 @@ import {RiCloseLine} from "react-icons/ri"
 
 import CheckboxWithLabel from "../../../Common/components/CheckboxWithLabel";
 import {Header,Required,CloseButton} from "../../styleComponent/FormStyles"
-import {FailureAndLoadingContainer,TaskTransitionValidateContainer } from "./styleComponent"
+import {FromAndToStatus,FromStatus,ToStatus,TaskTransitionValidateContainer,
+CheckBoxContainer,SubmitButton,From,To,Status,
+VadationFields} from "./styleComponent"
 import FailureView from "./FailureView"
 import LoadingView from "./LoadingView"
 
@@ -15,22 +17,24 @@ class ValidateTaskTransitionView extends Component{
     renderValidationConditions = () =>{
         const {response} = this.props.taskValidationField;
         return(response.map(eachCondition=>(
-            <CheckboxWithLabel
-                id = {eachCondition.id}
-                label = {eachCondition.label}
-                value = {eachCondition.value}
-                onChange = {eachCondition.onChange}
-            />)));
+            <CheckBoxContainer>
+                <CheckboxWithLabel
+                    id = {eachCondition.id}
+                    label = {eachCondition.label}
+                    value = {eachCondition.value}
+                    onChange = {eachCondition.onChange}
+                />
+            </CheckBoxContainer>)));
     }
     
     renderSuccessUI = () =>{
         const {renderValidationConditions} = this;
         return(
             <Fragment>
-                <Header>Task</Header>
-                <TaskTransitionValidateContainer>
+                <VadationFields>
                     {renderValidationConditions()}
-                </TaskTransitionValidateContainer>
+                </VadationFields>
+                <SubmitButton content = {"SUBMIT"}/>
             </Fragment>);
     }
     
@@ -50,12 +54,21 @@ class ValidateTaskTransitionView extends Component{
         
     })
     render(){
-       const {LoadingWrapperWithFailure} = this;
+       const {LoadingWrapperWithFailure,props:{toStatus,fromStatus,title}} = this;
         return(
-            <FailureAndLoadingContainer>
-                 <CloseButton onClick ={this.props.handleClose}><RiCloseLine size = {24}/></CloseButton>
+            <TaskTransitionValidateContainer>
+             <CloseButton onClick ={this.props.handleClose}><RiCloseLine size = {24}/></CloseButton>
+                <Header>{title.toUpperCase()}</Header>
+                <FromAndToStatus>
+                    <FromStatus>
+                        <From>Form :</From><Status>{fromStatus}</Status>
+                    </FromStatus>
+                    <ToStatus>
+                        <To>To : </To><Status>{toStatus}</Status>
+                    </ToStatus>
+                </FromAndToStatus>
                 <LoadingWrapperWithFailure/>
-            </FailureAndLoadingContainer>);
+            </TaskTransitionValidateContainer>)
     }
 }
 

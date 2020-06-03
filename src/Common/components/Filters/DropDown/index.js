@@ -22,7 +22,8 @@ class  DropDown extends React.Component {
                 value:workFlow.id
             }}):[];
     return (<Dropdown
-        defaultValue = {value}
+        data-testid = "dropdown"
+        value = {value}
         placeholder= {placeholder}
         fluid
         selection

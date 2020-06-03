@@ -26,7 +26,7 @@ describe("Test cases for AddProject Form  ",()=>{
     });
     it("Should test render loading state",()=>{
         const { getByText} = getScreen();
-        getByText("Loading")
+       
     })
     
   

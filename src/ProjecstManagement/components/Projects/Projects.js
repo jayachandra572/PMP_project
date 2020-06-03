@@ -4,32 +4,23 @@ import {EachProject} from "../EachProject"
 import {ProjectTopics} from "../ProjectTopics"
 import ProjectHeader from "../ProjectHeader"
 import {PageNavigation} from"../PageNavigation"
-
-import LoadingWrapperWithFailure from "../../../Common/components/LoadingWrapperWithFailure";
 import NoDataView from "../../../Common/components/NoDataView"
 import {ProjectsContainer,ProjectsBox} from "./styleComponent"
 
 class Projects extends Component {
     
-    componentDidMount(){
-        this.doNetWorkCall();
-    }
-    
-    doNetWorkCall = () =>{
-        this.props.getProjectsFromAPi();
-    }
-    
     renderProjects = ()=>{
-        const {onClickProject,projects} =this.props
+        const {onClickProject,projects} =this.props;
         return (projects.map((project,index)=>(<EachProject 
                     onClick = {onClickProject}
                     key= {project.id} 
                     project = {project} 
                     index = {index}/>)));
     }
+
     
-    renderSuccessUI = () =>{
-         const {
+    render(){
+        const {
             activePageNumber , 
             totalNumberOfPages , 
             navigateToNextPage ,
@@ -55,22 +46,9 @@ class Projects extends Component {
                         navigateToNextPage = {navigateToNextPage}
                         navigateToPreviousPage = {navigateToPreviousPage}
                         onClickPageNumber={onClickPageNumber}/>}
-                </React.Fragment>
-                    
-                }
-                
+                </React.Fragment>}
             </ProjectsContainer>)
-    }
-    
-    render(){
-       const {getProjectsApiError,getProjectsApiStatus} = this.props;
-        return (
-            <LoadingWrapperWithFailure
-                apiError = {getProjectsApiError}
-                apiStatus = {getProjectsApiStatus}
-                onRetryClick = {this.doNetWorkCall}
-                renderSuccessUI = {this.renderSuccessUI}/>
-            );
+            
     }
 }
 

@@ -1,5 +1,6 @@
 import React,{Component} from "react"
 import { inject, observer } from 'mobx-react'
+import { withRouter } from 'react-router-dom';
 
 import ProjectsView from "../../components/ProjecstManagement";
 
@@ -8,10 +9,17 @@ import ProjectsView from "../../components/ProjecstManagement";
 class ProjectsRoute extends Component{
     
     componentDidMount(){
-        const {getProjectsFromAPi} = this.props.projectsStore;
+       this.doNetWorkCall();
+    }
+    
+    onClickProject = (projectId)=>{
+        this.props.history.push(`/tasks/${projectId}`);
+    }
+    doNetWorkCall = () =>{
+         const {getProjectsFromAPi} = this.props.projectsStore;
         getProjectsFromAPi();
     }
-
+    
     render(){
         const {
             projects,
@@ -38,10 +46,12 @@ class ProjectsRoute extends Component{
                     getProjectsApiError = {getProjectsApiError}
                     getProjectsApiStatus = {getProjectsApiStatus}
                     getProjectsFromAPi = {getProjectsFromAPi}
+                    doNetWorkCall = {this.doNetWorkCall}
                     userData = {{}}
+                    onClickProject = {this.onClickProject}
                     />
             );
     }
 } 
 
-export  default ProjectsRoute
+export  default withRouter(ProjectsRoute)

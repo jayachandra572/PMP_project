@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 
-import strings from "../../i18n/strings";
+import strings from "../../i18n/strings.json";
 import {AddProjectModal} from "."
 
 describe("Test cases for AddProjectModal ",()=>{

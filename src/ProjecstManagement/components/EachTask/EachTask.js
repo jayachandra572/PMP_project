@@ -13,16 +13,14 @@ class EachTask extends Component{
     @observable modalOpen = false
     
     onChangeState =(event,data)=>{
-        this.props.task.fromStatus = data.value;
+        this.props.task.toStatus = data.value;
         this.getValidateFields();
         this.handleOpen();
-        this.props.task.changeTaskState(data.value);
     }
     
     getValidateFields = () =>{
-        const {taskValidationField,task:{state,fromStatus}} = this.props;
-        taskValidationField.apiCall({toStatus:state,fromStatus:fromStatus});
-        console.log(taskValidationField.getApiStatus,"jsdngjkngkjsngk")
+        const {taskValidationField,task:{state,toStatus}} = this.props;
+        taskValidationField.apiCall({fromStatus:state,toStatus:toStatus});
     }
     
     onClickStateMenu = (event,data)=>{
@@ -35,14 +33,14 @@ class EachTask extends Component{
     
     render(){
         const {index,taskValidationField} = this.props;
-        const {issueType,title,description,createdBy,createdAt,
-        state,stateOptions,getApiStatus} = this.props.task;
+        const {issueType,title,createdBy,createdAt,
+        state,stateOptions,getApiStatus,description,toStatus} = this.props.task;
         const {getValidateFields,onChangeState,handleClose,modalOpen,onClickStateMenu} =this;
         const isOdd = index%2 ===1;
         return(
                 <TaskContainer isOdd = {isOdd} >
-                    <IssueType>{issueType}</IssueType>
                     <Title>{title}</Title>
+                    <IssueType>{issueType}</IssueType>
                     <CreatedBy name = {createdBy} />
                     <Description>{description}</Description>
                     <CreatedAt>{createdAt}</CreatedAt>
@@ -55,10 +53,12 @@ class EachTask extends Component{
                         handleClose={handleClose}
                         modalOpen={modalOpen}
                         getApiStatus = {getApiStatus}
-                        getValidateFields = {getValidateFields}/>
-                    <TaskInfoCard/>
-                </TaskContainer>
-            );
+                        getValidateFields = {getValidateFields}
+                        title = {title}
+                        toStatus = {toStatus}/>
+                    <TaskInfoCard
+                         taskDetails = {this.props.task}/>
+                </TaskContainer>);
         }
 }
 
