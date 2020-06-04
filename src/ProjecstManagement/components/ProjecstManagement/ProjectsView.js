@@ -45,10 +45,6 @@ class  ProjectsView extends Component{
                 apiStatus = {getProjectsApiStatus}
                 onRetryClick = {doNetWorkCall}
                 renderSuccessUI = {this.renderSuccessUI}/>
-                <WithModal>
-                    <button>hi</button>
-                    <p>jai</p>
-                </WithModal>
             </ProjectContainer>);
     }
 }

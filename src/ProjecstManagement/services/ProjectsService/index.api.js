@@ -2,19 +2,20 @@ import {create} from "apisauce";
 import {networkCallWithApisauce} from "../../../Common/utils/APIUtils";
 import {apiMethods} from "../../../Common/constants/APIConstants";
 
-import APIService from "../../constants/APIService";
+import ServiceConstants from "../../constants/ServiceConstants";
 import {projects} from "../EndPoints";
 
 class ProjectsService{
     constructor(){
         this.api=create({
-            baseURL:APIService.baseUrl
+            baseURL:ServiceConstants.baseURL
         });
     }
-    projectsAPI=(limit,offset)=>{
+    projectsAPI=(offset,limit)=>{
+        console.log(offset,limit)
         const {api}=this;
-        const params = `?limit=${limit}&offset=${offset}`;
-        const endPoint = projects+params;
+        const params = `?offset=${offset}&limit=${limit}`;
+        const endPoint = '/projects/v1/'+params;
         return networkCallWithApisauce(api,endPoint,{},apiMethods.get);
     }
 }

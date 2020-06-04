@@ -1,25 +1,23 @@
 import React , {Component} from "react"
-
+import {toJS} from "mobx"
 import {CreatedBy} from "../CreatedBy"
-import {observable} from "mobx"
-import {observer} from "mobx-react"
+import {observer} from "mobx-react";
+import {reaction} from "mobx";
 
 import {TaskStateMenu} from "./TaskStateMenu";
 import TaskInfoCard from "./TaskInfoCard"
-import {IssueType,Title,Description,CreatedAt,TaskContainer,TaskInfo} from "./styleComponent";
+import {IssueType,Title,Description,CreatedAt,TaskContainer} from "./styleComponent";
 
 @observer
 class EachTask extends Component{
-    @observable modalOpen = false
     
-    onChangeState =(event,data)=>{
-        this.props.task.toStatus = data.value;
-        this.getValidateFields();
-        this.handleOpen();
+    onChangeState =(toStatus)=>{
+        this.getValidateFields(toStatus);
+        this.props.task.toStatus = toStatus;
     }
     
-    getValidateFields = () =>{
-        const {taskValidationField,task:{state,toStatus}} = this.props;
+    getValidateFields = (toStatus) =>{
+        const {taskValidationField,task:{state}} = this.props;
         taskValidationField.apiCall({fromStatus:state,toStatus:toStatus});
     }
     
@@ -28,13 +26,10 @@ class EachTask extends Component{
         getStatusTransitionOptions();
     }
     
-    handleOpen = () => this.modalOpen= true 
-    handleClose = () => this.modalOpen = false
-    
     render(){
         const {index,taskValidationField} = this.props;
         const {issueType,title,createdBy,createdAt,
-        state,stateOptions,getApiStatus,description,toStatus} = this.props.task;
+        state,stateOptions,getApiStatus,description,taskTrasitionState,getApiError} = this.props.task;
         const {getValidateFields,onChangeState,handleClose,modalOpen,onClickStateMenu} =this;
         const isOdd = index%2 ===1;
         return(
@@ -49,13 +44,14 @@ class EachTask extends Component{
                         onChangeState = {onChangeState} 
                         onClickStateMenu = {onClickStateMenu}
                         options = {stateOptions} 
-                        value = {state} 
                         handleClose={handleClose}
                         modalOpen={modalOpen}
                         getApiStatus = {getApiStatus}
+                        getApiError = {getApiError}
                         getValidateFields = {getValidateFields}
                         title = {title}
-                        toStatus = {toStatus}/>
+                        fromStatus = {state} 
+                        taskTrasitionState = {taskTrasitionState}/>
                     <TaskInfoCard
                          taskDetails = {this.props.task}/>
                 </TaskContainer>);

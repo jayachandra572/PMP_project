@@ -1,22 +1,14 @@
 import React ,{Component}from "react"
-
+import {observer} from "mobx-react"
 import LoadingWrapperWithFailure from "../../../Common/components/LoadingWrapperWithFailure";
 import {Header} from "../Header"
 import {Tasks} from "../Tasks"
 import {TasksContainer} from "./styledComponent"
 
+@observer
 class ProjectTasks extends Component{
-    renderSuccessUI = () =>{
-        const {apiStatus,apiError,projectTasks,taskValidationField} = this.props;
-        return(<Tasks 
-                    tasks = {projectTasks}
-                    taskValidationField = {taskValidationField}
-                    projectsPerPage = {"5"}
-                    apiStatus = {apiStatus}
-                    apiError = {apiError}
-                    />)}
-    
-    
+    renderSuccessUI = observer(() =>{
+        return(<Tasks {...this.props}/>)})
     render(){
         const {apiStatus,apiError,doNetWorkCall,userLogOut} = this.props;
         return ( <TasksContainer>
@@ -26,7 +18,7 @@ class ProjectTasks extends Component{
                     apiStatus = {apiStatus}
                     onRetryClick = {doNetWorkCall}
                     renderSuccessUI = {this.renderSuccessUI}/>
-    </TasksContainer>)
+    </TasksContainer>);
     }
 }
 

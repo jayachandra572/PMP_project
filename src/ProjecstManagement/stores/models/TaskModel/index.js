@@ -1,16 +1,18 @@
-import {observable,action} from "mobx";
+import {observable,action,reaction} from "mobx";
 import { API_SUCCESS,API_INITIAL} from '@ib/api-constants';
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise';
+import ApiCallModel from "../ApiCallModel";
 
 class TaskModel {
     @observable stateOptions
     @observable getApiStatus =API_INITIAL;
     @observable getApiError = null
     @observable response = []
+    @observable state
     
-    constructor(task,changeTaskStatusAPI){
+    constructor(task,changeTaskStatusAPI,postTaskTransitionValidationAPI){
+        this.taskTrasitionState = new ApiCallModel(postTaskTransitionValidationAPI)
         this.id = task.id;
-        this.project = task.project;
         this.issueType = task.issue_type;
         this.title = task.title;
         this.description = task.description;
@@ -19,15 +21,18 @@ class TaskModel {
         this.state =task.state;
         this.stateOptions = [{id:task.state,name:task.state}];
         this.changeTaskStatusAPI = changeTaskStatusAPI;
-        this.previousTaskState = null;
         this.toStatus = null;
-        
     }
     
-    changeTaskState = (newState) =>{
-        this.previousTaskState = this.state;
-        this.state = newState;
-    }
+    
+    changeTaskStateReaction = reaction(
+        ()=>this.taskTrasitionState.getApiStatus,
+        apiStatus=>{
+            if(apiStatus===API_SUCCESS){
+                alert(this.toStatus)
+                this.state = this.toStatus;
+            }
+        })
     
     
      setApiError = (error) =>{
@@ -36,7 +41,6 @@ class TaskModel {
    
    @action.bound
     setApiResponse  (response){
-    console.log(response)
     if(response.findIndex(option=>option.name===this.state) === -1){
         response.unshift({id:this.state,name:this.state});
     }

@@ -2,8 +2,10 @@ import React, { Component ,Fragment} from 'react';
 import { observer,inject } from 'mobx-react';
 import {observable, reaction,action} from "mobx";
 import {RiCloseLine} from "react-icons/ri"
-import { API_SUCCESS , API_INITIAL,API_FETCHING} from '@ib/api-constants'
+import { API_SUCCESS , API_INITIAL,API_FETCHING,API_FAILED} from '@ib/api-constants'
 
+import {getUserDisplayableErrorMessage} from "../../../Common/utils/APIUtils"
+import toaster from "../../utils/Toaster";
 import Colors from '../../themes/Colors';
 import strings from '../../i18n/strings.json';
 
@@ -38,7 +40,7 @@ class AddProject extends Component{
     init() {
         this.projectName = ""
         this.projectDescription = ""
-        this.errorMessage = {}
+        this.errorMessage = {};
     }
     
     @action.bound
@@ -69,14 +71,7 @@ class AddProject extends Component{
         this.props.handleClose();
         
     }
-    
-    reaction1 = reaction(
-        ()=>this.props.newProjectStore.newProject.getApiStatus,
-        apiStatus=>{
-            if(apiStatus === API_SUCCESS){
-               this.props.handleClose();
-            }
-        })
+
     checkProjectNameError=()=>{
         this.errorMessage.projectNameEmpty = this.projectName === "";
     }
@@ -99,17 +94,27 @@ class AddProject extends Component{
     @action.bound
     submitDetailsOfProject(){
         const {newProject} =this.props.newProjectStore;
-        const {pojectName,workFlowTypeId,projectType,projectDescription} =this;
+        const {projectName,workFlowTypeId,projectType,projectDescription} =this;
         
         this.checkWorkFlowTypeIdError();
         this.checkProjectTypeError();
         this.checkProjectDescriptionError();
         this.checkProjectNameError();
         if(!this.anyErrorInPage()){
-            newProject.apiCall({pojectName,workFlowTypeId,projectType,projectDescription});
+            newProject.apiCall({projectName,workFlowTypeId,projectType,projectDescription});
         }
     }
     
+      createProjectReaction = reaction(
+        ()=>this.props.newProjectStore.newProject.getApiStatus,
+        apiStatus=>{
+            if(apiStatus === API_SUCCESS){
+               this.props.handleClose();
+            }else if(apiStatus === API_FAILED){
+                const{newProject:{getApiError}} = this.props.newProjectStore
+                toaster('error',getApiError);   
+            }
+        })
     
     ProjectNameInput = observer(() =>{
         const {onChangeProjectName,projectName} = this
@@ -155,7 +160,7 @@ class AddProject extends Component{
     })
     
     WorkFlowTypeMenu = observer(() => {
-        const {workFlowType:{response,getApiStatus}} =this.props.newProjectStore;
+        const {workFlowType:{response,getApiStatus,getApiError}} =this.props.newProjectStore;
         const {addProject} = strings;
         const {errorMessage:{projectWorkFlowError},onChangeWorkflowType} = this
         return(
@@ -171,19 +176,21 @@ class AddProject extends Component{
                 onChange={onChangeWorkflowType} 
                 placeholder = {addProject.workflowTypePlaceHolder}
                 loading = {getApiStatus===API_FETCHING}
+                error = {getApiStatus === API_FAILED}
                 styles = {{
                     color:Colors.steel,
                     width:"400px",
                     border:`1px solid ${projectWorkFlowError?"red":Colors.lightBlueGrey}`,
                     height:"40px"}}/>
             {projectWorkFlowError&&<Required>{strings.required}</Required>}
-            </Fragment>)
+            {getApiStatus === API_FAILED && <Required>{getUserDisplayableErrorMessage(getApiError)}</Required>}
+            </Fragment>);
     })
     
     DescriptionTextInput = observer(() =>{
-        const {addProject} = strings
-        const {projectDescriptionError} = this.errorMessage
-        const  {projectDescription,onChangeDescription} = this
+        const {addProject} = strings;
+        const {projectDescriptionError} = this.errorMessage;
+        const  {projectDescription,onChangeDescription} = this;
         return(
             <Fragment>
                 <DescriptionLabel

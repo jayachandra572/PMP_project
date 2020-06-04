@@ -41,7 +41,8 @@ class PageNavigation extends Component{
         const isNextButtonDisabled = activePageNumber ===totalNumberOfPages;
         return(
             <PageNavigationContainer>
-                <PreviousButton 
+                <PreviousButton
+                    disabled = {isPreviousButtonDisabled}
                     data-testid={strings.previousButtonDataTestId}
                     onClick = {navigateToPreviousPage}
                     isPreviousButtonDisabled={isPreviousButtonDisabled}
@@ -49,6 +50,7 @@ class PageNavigation extends Component{
                 </PreviousButton>
                   {this.renderPageNumberButtons()}
                 <NextButton 
+                    disabled = {isNextButtonDisabled}
                     data-testid = {strings.nextButtonDataTestId}
                     onClick = {navigateToNextPage}
                     isNextButtonDisabled = {isNextButtonDisabled}>

@@ -1,4 +1,4 @@
 const endPoints = {
-   signAPI: 'v1/signin/'
+   signAPI: '/user/login/v1/'
 }
 export default endPoints

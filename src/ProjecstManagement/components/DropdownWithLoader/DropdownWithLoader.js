@@ -24,15 +24,14 @@ class  DropdownWithLoader extends React.Component {
     options =  options!==null ?options.map(workFlow=>{
             return{
                 key:workFlow.id,
-                text:workFlow.name,
-                value:workFlow.id
+                value:workFlow.id,
+                text:workFlow.name
             }}):[];
     return (<Dropdown
         data-testid = "dropdown"
         open = {open}
         value = {value}
         fluid
-        id={"2"}
         selection
         loading = {loading}
         disabled = {loading}

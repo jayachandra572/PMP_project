@@ -1,4 +1,4 @@
-import { observable, action,reaction } from 'mobx'
+import { observable, action,reaction ,toJS} from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
@@ -35,16 +35,18 @@ class ProjectsStore{
     
     @action.bound
     setProjectsApiStatus(status) {
+        console.log(status,"status")
       this.getProjectsApiStatus = status;
    }
    @action.bound
    setProjectsApiError(error) {
-    
+       console.log(error,"error")
       this.getProjectsApiError = error;
    }
    
     @action.bound
     setProjectsApiResponse(response) {
+        console.log(response,"response")
     const {projects,total_no_of_projects} = response;
      this.createProjectModels(projects);
      this.totalNoOfProjects = total_no_of_projects;
@@ -96,15 +98,8 @@ class ProjectsStore{
     
     
     reaction1= reaction(()=>this.activePageNumber,
-        activePageNumber=>{this.getProjectsFromAPi()});
-        
-    modalOpen = () =>{
-        this.isCreateProjectFormOpen = true;
-    }
+        activePageNumber=>{
+            this.getProjectsFromAPi()});
     
-    modalClose = () =>{
-        this.isCreateProjectFormOpen = false
-    }
-        
 }
 export  default ProjectsStore;

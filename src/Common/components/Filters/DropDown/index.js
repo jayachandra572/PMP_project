@@ -11,10 +11,11 @@ class  DropDown extends React.Component {
         options:[],
         defaultValue :"",
         loading :false,
+        error : false,
         onClick:()=>{},
     }
     render(){
-    let {options,onChange, placeholder,styles,loading,value,onClick} = this.props;
+    let {options,onChange, placeholder,styles,loading,value,onClick,error} = this.props;
     options =  options!==null ?options.map(workFlow=>{
             return{
                 key:workFlow.id,
@@ -27,8 +28,9 @@ class  DropDown extends React.Component {
         placeholder= {placeholder}
         fluid
         selection
+        error = {error}
         loading = {loading}
-        disabled = {loading}
+        disabled = {loading||error}
         options={options}
         onChange = {onChange}
         onClick = {onClick}

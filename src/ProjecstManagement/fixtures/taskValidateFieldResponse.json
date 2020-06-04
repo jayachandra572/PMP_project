@@ -2,23 +2,23 @@
     "id":"1",
     "condition":"complete the Elp",
     "is_mandatory":"true",
-    "default_value":"false"
+    "default_value":false
 },
 {
     "id":"5",
     "condition":"complete the Elp",
     "is_mandatory":"true",
-    "default_value":"false"
+    "default_value":false
 },
 {
     "id":"3",
     "condition":"Are you planned Elp for next one",
     "is_mandatory":"flase",
-    "default_value":"false"
+    "default_value":false
 },
 {
     "id":"4",
     "condition":"is there any bugs in code",
     "is_mandatory":"true",
-    "default_value":"false"
+    "default_value":false
 }]

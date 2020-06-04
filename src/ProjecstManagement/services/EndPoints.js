@@ -1,6 +1,7 @@
-export const projects = "";
-export const tasks = ""
-export const postProject = ""
-export const getWorkFlowTypes = ""
-export const postProjectTask = ""
+export const projects = "/projects/v1/";
+export const createProject = "/project/create/v1/"
+export const tasks = "/user/"
+
+export const getWorkFlowTypes = "/workflows/v1/"
+export const createProjectTask = "/user/task/create/v1/"
 export const changeTaskStatus = ""

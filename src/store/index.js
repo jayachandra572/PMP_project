@@ -1,24 +1,22 @@
 import AuthenticationStore from '../Authentication/stores/AuthenticationStore'
-import AuthService from '../Authentication/services/AuthService/index.fixture'
+import AuthService from '../Authentication/services/AuthService/index.api'
 
 import ProjectsStore from '../ProjecstManagement/stores/ProjectsStore'
-import ProjectsService from '../ProjecstManagement/services/ProjectsService/index.fixtures'
+import ProjectsService from '../ProjecstManagement/services/ProjectsService/index.api'
 
 import NewProjectStore from '../ProjecstManagement/stores/NewProjectStore'
-import NewProjectService from '../ProjecstManagement/services/NewProjectService/index.fixtures'
+import NewProjectService from '../ProjecstManagement/services/NewProjectService/index.api'
 
 import TasksStore from '../ProjecstManagement/stores/TasksStore'
 import TasksService from '../ProjecstManagement/services/TasksService/index.fixtures'
 
 
-import CreateTaskStore from '../ProjecstManagement/stores/CreateTaskStore'
 
 
 
 const tasksService = new TasksService();
 const tasksStore = new TasksStore(tasksService)
 
-const createTaskStore = new CreateTaskStore(tasksService)
 
 const authService = new AuthService()
 const authenticationStore = new AuthenticationStore(authService)

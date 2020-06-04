@@ -1,12 +1,14 @@
+import {observable} from "mobx"
 class TaskValidationFieldsModel{
+    @observable value
     constructor(field){
         this.id = field.id;
         this.label = field.condition
         this.isMandatory = field.is_mandatory;
-        this.value = this.default_value;
+        this.value = field.default_value;
     }
     
-    onChangeValue = () =>{
+    onClick = () =>{
         this.value = !this.value;
     }
 }

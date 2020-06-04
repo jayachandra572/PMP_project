@@ -11,7 +11,7 @@ class TasksService{
             baseURL:APIService.baseUrl
         });
     }
-    getProjectTask=(projectId)=>{
+    getProjectTaskAPI=(projectId)=>{
         const {api} = this;
         return networkCallWithApisauce(api,Tasks,{projectId},apiMethods.get);
     }
@@ -29,6 +29,12 @@ class TasksService{
     taskValidationFieldAPI = (request) =>{
         const {api} = this;
         return networkCallWithApisauce(api,"",request,apiMethods.post);
+    }
+    
+    postTaskTransitionValidationAPI = (request) =>{
+        console.log(request)
+        const {api} = this;
+        return networkCallWithApisauce (api,"",request,apiMethods.post);
     }
 }
 

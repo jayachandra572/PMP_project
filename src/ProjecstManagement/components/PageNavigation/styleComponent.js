@@ -17,11 +17,12 @@ export const PageNumberButton = styled.button`${tw`flex justify-center items-cen
 
 export const PageNavigationButton = styled(PageNumberButton)`
 border: solid 1px ${Colors.lightBlueGrey};
-color : black;
-cursor:${props=>props.isDisabled?"not-allowed":"default"}`;
+color : black;`;
 
-export const PreviousButton = styled(PageNavigationButton)``;
-export const NextButton = styled(PageNavigationButton)``;
+export const PreviousButton = styled(PageNavigationButton)`
+cursor:${props=>props.isPreviousButtonDisabled?"not-allowed":"default"}`;
+export const NextButton = styled(PageNavigationButton)`
+cursor:${props=>props.isNextButtonDisabled?"not-allowed":"default"}`;
 
 export const  PageNavigationSymbol = styled.img`
 width:16px;

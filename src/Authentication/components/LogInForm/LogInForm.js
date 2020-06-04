@@ -68,6 +68,7 @@ class LogInForm extends Component {
                   content={strings.loginButton}
                   onClick={onSubmitForm}
                   apiStatus={getAuthApiStatus}
+
                />)
    })
    

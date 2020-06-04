@@ -5,8 +5,11 @@ import taskValidateFieldResponse from "../../fixtures/taskValidateFieldResponse.
 
 class TasksService{
     getProjectTaskAPI(request){
+    console.log(request)
+    const {limit,offset} = request
+    const tasks =   taskResponseData.tasks.slice().splice(offset,limit);
       return new Promise((resolve) => {
-         setTimeout(()=> resolve(taskResponseData), 1000);
+         setTimeout(()=> resolve({...taskResponseData,tasks}), 1000);
       });
     }
     
@@ -17,7 +20,7 @@ class TasksService{
     }
     
     changeTaskStatusAPI = (toStatus) =>{
-        return new Promise((resolve) => {
+        return new Promise((resolve,reject) => {
          setTimeout(()=> resolve(taskStatusChangeResponse), 1000);
       });
     }
@@ -27,6 +30,13 @@ class TasksService{
         return new Promise((resolve) => {
          setTimeout(()=> resolve(taskValidateFieldResponse), 2000);
       });
+    }
+    
+    postTaskTransitionValidationAPI = (request) =>{
+        console.log(request)
+        return new Promise((resolve,reject) => {
+         setTimeout(()=> resolve("Error"), 2000);
+      });   
     }
 }
 

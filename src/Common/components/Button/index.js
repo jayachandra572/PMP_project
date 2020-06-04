@@ -11,7 +11,7 @@ class Button extends React.Component {
    }
    render(){
       let { content, onClick, apiStatus, className } = this.props
-      const disabled = apiStatus === API_FETCHING ? 'disabled' : ''
+      const disabled = apiStatus === API_FETCHING 
       content =
          apiStatus === API_FETCHING ? (
             <Loader
@@ -24,7 +24,7 @@ class Button extends React.Component {
             content
          )
       return (
-         <ButtonStyleComponent className={className} onClick={onClick}>
+         <ButtonStyleComponent className={className} onClick={onClick} disabled = {disabled}>
             <Typo14WhiteRubikMedium>{content}</Typo14WhiteRubikMedium>
          </ButtonStyleComponent>
       )

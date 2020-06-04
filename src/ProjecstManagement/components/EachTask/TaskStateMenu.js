@@ -1,8 +1,9 @@
 import React from "react"
-import {observable,reaction} from "mobx"
+import {observable,reaction,action} from "mobx"
 import {observer} from "mobx-react"
-import { API_SUCCESS , API_INITIAL,API_FETCHING} from '@ib/api-constants'
+import { API_SUCCESS , API_INITIAL,API_FETCHING,API_FAILED} from '@ib/api-constants'
 
+import toaster from "../../utils/Toaster";
 import Colors from "../../themes/Colors"
 import {DropdownWithLoader} from "../DropdownWithLoader";
 import ValidateTask from "../ValidateTask"
@@ -11,31 +12,50 @@ import {State} from "./styleComponent"
 @observer
 class TaskStateMenu extends React.Component{
     @observable isDropdownMenuOpen = false;
+    @observable modalOpen = false
+    @observable toStatus = null
+    
+    handleOpen = () => this.modalOpen= true 
+    handleClose = () => this.modalOpen = false
+    
+    
+    openDropdownMenu = ()=> this.isDropdownMenuOpen = true;
+    
+    closeDropdownMenu = ()=> this.isDropdownMenuOpen = false;
+    
+    @action.bound
+    onChangeStateValue  (event,data) {
+        const {onChangeState} = this.props;
+        this.toStatus = data.value;
+        onChangeState(data.value);
+        this.handleOpen();
+    }
+    
     
     openDropdownReaction = reaction(
         ()=>this.props.getApiStatus,
         apiStatus=>{
             if(apiStatus===API_SUCCESS){
                 this.openDropdownMenu();
+            }else if(apiStatus === API_FAILED){
+                const {getApiError} = this.props;
+                toaster('error',getApiError);
             }
         })
-    openDropdownMenu = ()=>{
-        this.isDropdownMenuOpen = true;
-    }
-    
-    closeDropdownMenu = ()=>{
-        this.isDropdownMenuOpen = false;
-    }
+        
+        
     render(){
     const {
-        options,value,onChangeState,handleClose,
-        modalOpen,getApiStatus,onClickStateMenu,
-        taskValidationField,getValidateFields,title,toStatus} = this.props;
-    return(<State>
-    <DropdownWithLoader
+        options,getApiStatus,onClickStateMenu,
+        taskValidationField,getValidateFields,title,fromStatus,taskTrasitionState} = this.props;
+    const {onChangeStateValue,modalOpen,handleClose,toStatus} = this;
+
+    return(
+    <State>
+        <DropdownWithLoader
             options = {options}
-            value = {value}
-            onChange = {onChangeState}
+            value = {fromStatus}
+            onChange = {onChangeStateValue}
             onClick = {onClickStateMenu}
             loading = {getApiStatus===API_FETCHING}
             open = {this.isDropdownMenuOpen}
@@ -46,17 +66,17 @@ class TaskStateMenu extends React.Component{
                 border:"none",
                 backgroundColor:"transparent",
                 color:`${Colors.steel}`
-            }}
-    />
+            }}/>
         <ValidateTask 
+            taskTrasitionState = {taskTrasitionState}
             getValidateFields = {getValidateFields}
             taskValidationField = {taskValidationField} 
             open = {modalOpen} 
             title = {title}
             handleClose = {handleClose}
             toStatus = {toStatus}
-            fromStatus = {value}/>
-    </State>);
+            fromStatus = {fromStatus}/>
+        </State>);
 }
 }
 

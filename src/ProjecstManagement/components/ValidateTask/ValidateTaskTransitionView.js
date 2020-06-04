@@ -1,44 +1,70 @@
 import React,{Component,Fragment} from "react"
 import {observer} from "mobx-react"
+import {reaction} from "mobx"
 import { API_SUCCESS,API_FETCHING,API_FAILED} from '@ib/api-constants'
 import {RiCloseLine} from "react-icons/ri"
 
 import CheckboxWithLabel from "../../../Common/components/CheckboxWithLabel";
 import {Header,Required,CloseButton} from "../../styleComponent/FormStyles"
+import Toaster from "../../utils/Toaster";
+
+import FailureView from "./FailureView"
+import LoadingView from "./LoadingView"
 import {FromAndToStatus,FromStatus,ToStatus,TaskTransitionValidateContainer,
 CheckBoxContainer,SubmitButton,From,To,Status,
 VadationFields} from "./styleComponent"
-import FailureView from "./FailureView"
-import LoadingView from "./LoadingView"
+
 
 @observer
 class ValidateTaskTransitionView extends Component{
     
-    renderValidationConditions = () =>{
+    onSubmit = ()=>{
+        const {taskValidationField:{response},taskTrasitionState} = this.props;
+        const isCheckedAllFields = response.findIndex(field=>field.value===false)!==-1;
+        if(!isCheckedAllFields){
+            taskTrasitionState.apiCall(response);
+        }else{
+            Toaster('info',"Select all validation fields");
+        }
+    }
+    
+    onSubmitSuccessReaction = reaction(
+        ()=>this.props.taskTrasitionState.getApiStatus,
+        apiStatus=>{
+            if(apiStatus===API_SUCCESS){
+                this.props.handleClose();
+            }else if(apiStatus===API_FAILED){
+                const {taskTrasitionState:{getApiError}} = this.props;
+                Toaster('error',getApiError);
+            }
+        })
+        
+        RenderValidationConditions = observer(() =>{
         const {response} = this.props.taskValidationField;
         return(response.map(eachCondition=>(
-            <CheckBoxContainer>
+            <CheckBoxContainer key = {eachCondition.id}>
                 <CheckboxWithLabel
+                    key = {eachCondition.id}
                     id = {eachCondition.id}
                     label = {eachCondition.label}
                     value = {eachCondition.value}
-                    onChange = {eachCondition.onChange}
+                    onClick = {eachCondition.onClick}
                 />
             </CheckBoxContainer>)));
-    }
-    
+    })
+        
     renderSuccessUI = () =>{
-        const {renderValidationConditions} = this;
+        const {RenderValidationConditions,onSubmit} = this;
+        const {taskTrasitionState:{getApiStatus}} = this.props;
         return(
             <Fragment>
                 <VadationFields>
-                    {renderValidationConditions()}
+                    <RenderValidationConditions/>
                 </VadationFields>
-                <SubmitButton content = {"SUBMIT"}/>
-            </Fragment>);
-    }
+                <SubmitButton apiStatus = {getApiStatus} content = {"SUBMIT"} onClick = {onSubmit}/>
+            </Fragment>)}
     
-    LoadingWrapperWithFailure = observer(() =>{
+     LoadingWrapperWithFailure = observer(() =>{
         const {getValidateFields} = this.props;
         const {getApiStatus,getApiError} =  this.props.taskValidationField;
         switch(getApiStatus){
@@ -51,8 +77,8 @@ class ValidateTaskTransitionView extends Component{
             default:
                 return null;
         }
-        
     })
+    
     render(){
        const {LoadingWrapperWithFailure,props:{toStatus,fromStatus,title}} = this;
         return(
