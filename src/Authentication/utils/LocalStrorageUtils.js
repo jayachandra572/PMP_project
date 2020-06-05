@@ -6,6 +6,7 @@ export const setUserDetails = (userDetails) =>{
 }
 
 export const getUserDetails = ()=>{
+    console.log(localStorage.getItem(userDetailsKey))
     return JSON.parse(localStorage.getItem(userDetailsKey));
 }
 

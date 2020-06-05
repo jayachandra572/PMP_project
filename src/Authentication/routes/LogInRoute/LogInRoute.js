@@ -46,6 +46,11 @@ class LogInRoute extends Component {
       const { getAuthApiError: apiError } = this.props.authenticationStore
       if (apiError !== null && apiError !== undefined) {
          console.log(apiError)
+         if(apiError==="Invalid username"){
+             this.errorMessage.userNameErrorMessage = apiError
+         }else if(apiError === "Invalid password"){
+           this.errorMessage.userPasswordErrorMessage = apiError
+         }
       }
    }
    

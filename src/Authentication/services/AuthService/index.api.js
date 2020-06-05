@@ -32,7 +32,7 @@ class AuthService {
    getUserDetails = () =>{
       const {api} = this;
       console.log(apiMethods.get)
-      return networkCallWithApisauce(api,endPoints.userDetailsAPI,apiMethods.get);
+      return networkCallWithApisauce(api,endPoints.userDetailsAPI,{},apiMethods.get);
    } 
 }
 

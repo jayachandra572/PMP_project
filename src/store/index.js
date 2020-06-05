@@ -1,15 +1,15 @@
 import AuthenticationStore from '../Authentication/stores/AuthenticationStore'
-import AuthService from '../Authentication/services/AuthService/index.api';
+import AuthService from '../Authentication/services/AuthService/index.fixtures';
 import UserDetailsStore from "../Authentication/stores/UserDetailsStore"
 
 import ProjectsStore from '../ProjecstManagement/stores/ProjectsStore';
-import ProjectsService from '../ProjecstManagement/services/ProjectsService/index.api';
+import ProjectsService from '../ProjecstManagement/services/ProjectsService/index.fixtures';
 
 import NewProjectStore from '../ProjecstManagement/stores/NewProjectStore';
-import NewProjectService from '../ProjecstManagement/services/NewProjectService/index.api';
+import NewProjectService from '../ProjecstManagement/services/NewProjectService/index.fixtures';
 
 import TasksStore from '../ProjecstManagement/stores/TasksStore';
-import TasksService from '../ProjecstManagement/services/TasksService/index.api';
+import TasksService from '../ProjecstManagement/services/TasksService/index.fixtures';
 
 
 

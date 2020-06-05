@@ -24,6 +24,13 @@ class TaskModel {
         this.toStatus = null;
     }
     
+    changeTaskStateReaction = reaction(
+        ()=>this.taskTrasitionState.getApiStatus,
+        apiStatus=>{
+            if(apiStatus===API_SUCCESS){
+                this.state = this.toStatus;
+            }
+        })
     
     
      setApiError = (error) =>{
@@ -61,12 +68,5 @@ class TaskModel {
 export default TaskModel;
 
 
-// changeTaskStateReaction = reaction(
-//         ()=>this.taskTrasitionState.getApiStatus,
-//         apiStatus=>{
-//             if(apiStatus===API_SUCCESS){
-//                 this.state = this.toStatus;
-//             }
-//         })
-    
+
     

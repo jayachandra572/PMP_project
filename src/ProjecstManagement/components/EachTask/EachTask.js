@@ -2,7 +2,7 @@ import React , {Component} from "react"
 import { API_SUCCESS } from '@ib/api-constants'
 import {CreatedBy} from "../CreatedBy"
 import {observer} from "mobx-react";
-import {reaction} from "mobx";
+import getDisplayEnumsText from "../../utils/getDisplayEnumsText"
 
 import {TaskStateMenu} from "./TaskStateMenu";
 import TaskInfoCard from "./TaskInfoCard"
@@ -11,10 +11,7 @@ import {IssueType,Title,Description,CreatedAt,TaskContainer} from "./styleCompon
 @observer
 class EachTask extends Component{
     
-    componentWillUnmount(){
-        this.taskTrasitionStateReaction();
-    }
-    onChangeState =(toStatus)=>{
+    State =(toStatus)=>{
         this.getValidateFields(toStatus);
         this.props.task.toStatus = toStatus;
     }
@@ -29,14 +26,6 @@ class EachTask extends Component{
         getStatusTransitionOptions();
     }
     
-    taskTrasitionStateReaction = reaction(
-        ()=>this.props.task.taskTrasitionState.getApiStatus,
-        apiStatus=>{
-            if(apiStatus === API_SUCCESS){
-                alert(1)
-                this.props.doNetWorkCall();
-            }
-        })
     
     render(){
         const {index,taskValidationField} = this.props;
@@ -47,7 +36,7 @@ class EachTask extends Component{
         return(
                 <TaskContainer isOdd = {isOdd} >
                     <Title>{title}</Title>
-                    <IssueType>{issueType}</IssueType>
+                    <IssueType>{getDisplayEnumsText(issueType)}</IssueType>
                     <CreatedBy name = {createdBy} />
                     <Description>{description}</Description>
                     <CreatedAt>{createdAt}</CreatedAt>

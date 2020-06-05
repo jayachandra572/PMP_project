@@ -9,7 +9,9 @@ import {ProjectTitleAndLogo,UserNameAndLogo,HeaderContainer,ProjectTitle,UserNam
 
 @inject('userDetailsStore')
 class Header extends Component{
-   
+   componentDidMount(){
+       this.props.userDetailsStore.getUserDetailsApi();
+   }
     render(){
         const {userLogOut} =this.props
         const {name} = getUserDetails();
