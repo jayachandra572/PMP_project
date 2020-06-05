@@ -3,7 +3,7 @@ import {networkCallWithApisauce} from "../../../Common/utils/APIUtils";
 import {apiMethods} from "../../../Common/constants/APIConstants";
 
 import ServiceConstants from "../../constants/ServiceConstants";
-import {getWorkFlowTypes,createProject,} from "../EndPoints";
+import {getWorkFlowTypesEndPoint,createProjectEndPoint,} from "../EndPoints";
 
 class TasksService{
     constructor(){
@@ -21,13 +21,13 @@ class TasksService{
             project_type:projectType
         };
         const {api} = this;
-        return networkCallWithApisauce(api,createProject,requestObj,apiMethods.post);
+        return networkCallWithApisauce(api,createProjectEndPoint,requestObj,apiMethods.post);
     }
     
     workFlowTypesAPI = () =>{
         console.log(ServiceConstants)
         const {api} = this;
-        return networkCallWithApisauce(api,getWorkFlowTypes,{},apiMethods.get);
+        return networkCallWithApisauce(api,getWorkFlowTypesEndPoint,{},apiMethods.get);
     }
 }
 

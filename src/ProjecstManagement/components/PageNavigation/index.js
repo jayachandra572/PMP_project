@@ -39,6 +39,9 @@ class PageNavigation extends Component{
         } = this.props;
         const isPreviousButtonDisabled = 1===activePageNumber;
         const isNextButtonDisabled = activePageNumber ===totalNumberOfPages;
+        if(totalNumberOfPages===0 || totalNumberOfPages==1){
+            return null;
+        }
         return(
             <PageNavigationContainer>
                 <PreviousButton

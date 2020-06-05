@@ -1,4 +1,4 @@
-import { observable,reaction ,action} from 'mobx';
+import { observable,reaction ,action,toJS} from 'mobx';
 import { API_SUCCESS} from '@ib/api-constants'
 
 import ApiCallModel from "../models/ApiCallModel/index";
@@ -10,8 +10,8 @@ class TasksStore {
     @observable projectTasks = []
     @observable tasks = {}
     @observable taskValidationField = {};
-    @observable activePageNumber = 1
-     @observable offset = 0;
+    @observable activePageNumber 
+    @observable offset 
     constructor(tasksService){
         this.init();
         this.tasksService = tasksService;
@@ -21,13 +21,19 @@ class TasksStore {
         this.taskTrasitionState = new ApiCallModel(tasksService.postTaskTransitionValidationAPI);
     }
     init = ()=>{
+        this.projectId = 0; 
+        this.offset = 0
+        this.activePageNumber = 1
         this.totalNoOfTasks= 0;
         this.totalNumberOfPages = 1;
         this.tasksPerPage =2;
     }
     
+    upDateProjectId =(id)=>{
+        this.projectId = id;
+    }
      calculateTotalNumberOfPages = (totalNoOfTasks) =>{
-         this.totalNoOfTasks = totalNoOfTasks
+         this.totalNoOfTasks = totalNoOfTasks;
         const {tasksPerPage} =this;
         this.totalNumberOfPages = Math.ceil(totalNoOfTasks/tasksPerPage);
     }
@@ -36,10 +42,11 @@ class TasksStore {
         ()=> this.tasks.getApiStatus,
         apiStatus=>{
             if(apiStatus===API_SUCCESS){
-                this.projectTasks = this.tasks.response.tasks.map(task=>{
+                console.log(toJS(this.tasks.response.Tasks))
+                this.projectTasks = this.tasks.response.Tasks.map(task=>{
                     return (new TaskModel(task,this.tasksService.changeTaskStatusAPI,this.tasksService.postTaskTransitionValidationAPI));
                 });
-                this.calculateTotalNumberOfPages(this.tasks.response.no_of_tasks);
+                this.calculateTotalNumberOfPages(this.tasks.response.total_no_of_tasks);
             }
         })
     

@@ -2,39 +2,60 @@ import {create} from "apisauce";
 import {networkCallWithApisauce} from "../../../Common/utils/APIUtils";
 import {apiMethods} from "../../../Common/constants/APIConstants";
 
-import APIService from "../../constants/APIService";
-import {Tasks,postProjectTask,changeTaskStatus} from "../EndPoints";
+import ServiceConstants from "../../constants/ServiceConstants";
+import {getTasks,createProjectTaskEndPoint,changeTaskStatusEndPoint} from "../EndPoints";
 
 class TasksService{
     constructor(){
         this.api=create({
-            baseURL:APIService.baseUrl
+            baseURL:ServiceConstants.baseURL
         });
     }
-    getProjectTaskAPI=(projectId)=>{
+    getProjectTaskAPI=(request)=>{
         const {api} = this;
-        return networkCallWithApisauce(api,Tasks,{projectId},apiMethods.get);
+        const {id,offset,limit} =request
+        const getTasksEndPoint = `/user/${id}/tasks/v1/?offset=${offset}&limit=${limit}`
+        return networkCallWithApisauce(api,getTasksEndPoint,{},apiMethods.get);
     }
     
-    postProjectTask = (taskRequest)=>{
+    postProjectTaskAPI = (taskRequest)=>{
+        const {projectId,taskTitle,issueType,description} = taskRequest;
          const {api} = this;
-        return networkCallWithApisauce(api,postProjectTask,{taskRequest},apiMethods.post)
+        
+         const requestObj = {
+             project_id:projectId,
+             issue_type:issueType,
+             title:taskTitle,
+             description,
+         };
+        return networkCallWithApisauce(api,createProjectTaskEndPoint,requestObj,apiMethods.post);
     }
     
-    changeTaskStatusAPI = (toStatus) =>{
+    changeTaskStatusAPI = (request) =>{
+        const {id,state} =request;
         const {api} = this;
-        return networkCallWithApisauce(api,changeTaskStatus,toStatus,apiMethods.post);
+        console.log(request)
+        const endPoint = `/project/${id}/${state}/states/v1/`;
+        return networkCallWithApisauce(api,endPoint,{},apiMethods.get);
     }
     
     taskValidationFieldAPI = (request) =>{
+        const {fromStatus,toStatus,id} = request;
         const {api} = this;
-        return networkCallWithApisauce(api,"",request,apiMethods.post);
+        const endPoint = `/project/${id}/${fromStatus}/${toStatus}/checklist/v1/`
+        return networkCallWithApisauce(api,endPoint,request,apiMethods.get);
     }
     
     postTaskTransitionValidationAPI = (request) =>{
-        console.log(request)
+        const {fromStatus,toStatus,validateArrayIds,taskId} = request
+        console.log(validateArrayIds,"ids")
+        const requestObj ={
+            "from_state": fromStatus,
+            "to_state": toStatus,
+            "satisfied_checklist":validateArrayIds}
         const {api} = this;
-        return networkCallWithApisauce (api,"",request,apiMethods.post);
+        const endPoint = `/project/${taskId}/state/update/v1/`
+        return networkCallWithApisauce (api,endPoint,requestObj,apiMethods.put);
     }
 }
 

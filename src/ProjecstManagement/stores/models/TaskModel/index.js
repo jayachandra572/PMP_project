@@ -16,7 +16,7 @@ class TaskModel {
         this.issueType = task.issue_type;
         this.title = task.title;
         this.description = task.description;
-        this.createdBy = task.created_by;
+        this.createdBy = "jaya";
         this.createdAt = task.created_at;
         this.state =task.state;
         this.stateOptions = [{id:task.state,name:task.state}];
@@ -24,15 +24,6 @@ class TaskModel {
         this.toStatus = null;
     }
     
-    
-    changeTaskStateReaction = reaction(
-        ()=>this.taskTrasitionState.getApiStatus,
-        apiStatus=>{
-            if(apiStatus===API_SUCCESS){
-                alert(this.toStatus)
-                this.state = this.toStatus;
-            }
-        })
     
     
      setApiError = (error) =>{
@@ -44,10 +35,7 @@ class TaskModel {
     if(response.findIndex(option=>option.name===this.state) === -1){
         response.unshift({id:this.state,name:this.state});
     }
- 
-    
     this.stateOptions = response;
-    this.response = response;
    }
    setApiStatus = (status) =>{
        this.getApiStatus = status;
@@ -59,8 +47,9 @@ class TaskModel {
           setApiStatus,
           setApiResponse,
           state,
+          id
       } = this;
-        const response =  this.changeTaskStatusAPI(state);
+        const response =  this.changeTaskStatusAPI({state,id});
         return bindPromiseWithOnSuccess(response)
         .to(setApiStatus,setApiResponse)
         .catch(setApiError);
@@ -70,3 +59,14 @@ class TaskModel {
 }
 
 export default TaskModel;
+
+
+// changeTaskStateReaction = reaction(
+//         ()=>this.taskTrasitionState.getApiStatus,
+//         apiStatus=>{
+//             if(apiStatus===API_SUCCESS){
+//                 this.state = this.toStatus;
+//             }
+//         })
+    
+    

@@ -1,3 +1,3 @@
-const baseURL = "https://995e9c4b815f.ngrok.io/api/project_management_portal"
+const baseURL = "https://8cde6b26ab89.ngrok.io/api/project_management_portal"
 
 export default { baseURL }

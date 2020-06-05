@@ -1,24 +1,48 @@
 import React,{Component} from "react"
-
+import { API_SUCCESS } from '@ib/api-constants'
 import {observer,inject} from "mobx-react"
 import { withRouter } from 'react-router-dom';
-import {reaction} from "mobx";
+import {reaction,toJS} from "mobx";
 import ProjectTasks from "../../components/ProjectTasks";
 
-@inject("tasksStore",'authenticationStore')
+@inject("tasksStore",'authenticationStore',)
 @observer
 class TasksRoute extends Component{
     doNetWorkCall = ()=>{
-        const {tasks,offset,tasksPerPage} = this.props.tasksStore;
-        const {params:{id}} = this.props.match;
-        tasks.apiCall({id:id,offset:offset,limit:tasksPerPage});
+        const {tasks,offset,tasksPerPage,projectId} = this.props.tasksStore;
+        tasks.apiCall({id:projectId,offset:offset,limit:tasksPerPage});
     }
     
-    taskNetWorkCall = reaction(
+    updateTaskReaction = reaction(
+        ()=>this.props.tasksStore.postTask.getApiStatus,
+        apiStatus =>{
+            if(apiStatus === API_SUCCESS){
+                this.doNetWorkCall();
+            }
+        })
+    
+    taskNetWorkCallDepose = reaction(
         () =>this.props.tasksStore.activePageNumber,
         ()=>this.doNetWorkCall())
+        
+    componentWillUnmount(){
+        this.taskNetWorkCallDepose();
+        this.onCreateTaskReactionDeposer();
+        this.props.tasksStore.init();
+    }
+    
+    onCreateTaskReactionDeposer = reaction(
+        ()=>this.props.tasksStore.taskTrasitionState.getApiStatus,
+        apiStatus=>{
+            if(apiStatus === API_SUCCESS){
+                this.doNetWorkCall();
+            }
+        })
     
     componentDidMount(){
+        const {upDateProjectId} = this.props.tasksStore;
+        const {params:{id}} = this.props.match;
+        upDateProjectId(id);
         this.doNetWorkCall();
     }
 

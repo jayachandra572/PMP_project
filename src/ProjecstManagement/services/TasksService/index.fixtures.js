@@ -1,19 +1,19 @@
 import taskResponseData from '../../fixtures/taskResponseData.json'
 import taskStatusChangeResponse from "../../fixtures/taskStatusChangeResponse.json"
 import taskValidateFieldResponse from "../../fixtures/taskValidateFieldResponse.json"
-
+import {toJS} from "mobx"
 
 class TasksService{
     getProjectTaskAPI(request){
-    console.log(request)
     const {limit,offset} = request
-    const tasks =   taskResponseData.tasks.slice().splice(offset,limit);
+    const Tasks =   taskResponseData.Tasks.slice().splice(offset,limit);
       return new Promise((resolve) => {
-         setTimeout(()=> resolve({...taskResponseData,tasks}), 1000);
+         setTimeout(()=> resolve({...taskResponseData,Tasks}), 1000);
       });
     }
     
     postProjectTaskAPI (request){
+        console.log(request)
         return new Promise((resolve) => {
          setTimeout(()=> resolve(), 1000);
       });
@@ -33,7 +33,7 @@ class TasksService{
     }
     
     postTaskTransitionValidationAPI = (request) =>{
-        console.log(request)
+        console.log(toJS(request),"response")
         return new Promise((resolve,reject) => {
          setTimeout(()=> resolve("Error"), 2000);
       });   

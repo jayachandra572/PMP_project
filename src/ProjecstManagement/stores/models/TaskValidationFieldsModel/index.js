@@ -5,7 +5,7 @@ class TaskValidationFieldsModel{
         this.id = field.id;
         this.label = field.condition
         this.isMandatory = field.is_mandatory;
-        this.value = field.default_value;
+        this.value = false;
     }
     
     onClick = () =>{

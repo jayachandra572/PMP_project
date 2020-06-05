@@ -10,7 +10,6 @@ class ProjectsStore{
     @observable getProjectsApiError = null;
     @observable activePageNumber = 1
     @observable offset = 0;
-    @observable isCreateProjectFormOpen = false;
     constructor(projectsService){
         this.projectsService = projectsService; 
         this.init();
@@ -29,7 +28,12 @@ class ProjectsStore{
     
     @action.bound
     createProjectModels (projects) {
-        this.projects = projects.map((project)=>new Project(project));
+        console.log(projects)
+        this.projects = projects.map((project)=>{
+            
+            return new Project(project);
+            
+        });
     }
  
     
@@ -46,7 +50,7 @@ class ProjectsStore{
    
     @action.bound
     setProjectsApiResponse(response) {
-        console.log(response,"response")
+        console.log(response.projects,"response")
     const {projects,total_no_of_projects} = response;
      this.createProjectModels(projects);
      this.totalNoOfProjects = total_no_of_projects;

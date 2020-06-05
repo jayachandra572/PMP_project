@@ -8,7 +8,6 @@ import endPoints from '../endPoints'
 class AuthService {
    constructor() {
       this.api = create({
-         // baseURL:"https://f6e5ec5fa370.ngrok.io/api/lets_ride"
          baseURL: serviceConstants.baseURL
       });
    }
@@ -22,7 +21,6 @@ class AuthService {
       return networkCallWithApisauce(
          api,
        endPoints.signAPI,
-      // "/user/login/v1/",
          {
             username:userName,
             password:userPassword
@@ -30,6 +28,12 @@ class AuthService {
          apiMethods.post
       )
    }
+   
+   getUserDetails = () =>{
+      const {api} = this;
+      console.log(apiMethods.get)
+      return networkCallWithApisauce(api,endPoints.userDetailsAPI,apiMethods.get);
+   } 
 }
 
 export default AuthService

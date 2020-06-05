@@ -9,7 +9,7 @@ function EachProject(props){
     return(
             <ProjectContainer id={id} isOdd = {isOdd} onClick= {()=>onClick(id)} >
                 <ProjectName>{name}</ProjectName>
-                <WorkFlow>workflowType</WorkFlow>
+                <WorkFlow id = {workFlowType.id}>{workFlowType.name}</WorkFlow>
                 <CreatedBy name = {createdBy} />
                 <Description>{description}</Description>
                 <CreatedAt>{createdAt}</CreatedAt>

@@ -1,5 +1,5 @@
 import React ,{Component} from "react";
-
+import LoadingWrapperWithFailure from "../../../Common/components/LoadingWrapperWithFailure";
 import {EachProject} from "../EachProject"
 import {ProjectTopics} from "../ProjectTopics"
 import ProjectHeader from "../ProjectHeader"
@@ -17,39 +17,50 @@ class Projects extends Component {
                     project = {project} 
                     index = {index}/>)));
     }
-
+    renderSuccessUI = () =>{
+         const {
+            
+            projectsPerPage,
+            projects,
+        } = this.props;
+       if(projects.length===0){
+           return <NoDataView/>;
+       }else{
+              return( 
+                    <ProjectsBox projectsPerPage = {projectsPerPage}>
+                        <ProjectTopics/>
+                            {this.renderProjects()}
+                        </ProjectsBox>);
+       }
+    }
     
     render(){
         const {
+            doNetWorkCall,
+            userRole,getProjectsApiError,
+            getProjectsApiStatus,
             activePageNumber , 
             totalNumberOfPages , 
             navigateToNextPage ,
             navigateToPreviousPage,
             onClickPageNumber,
-            projectsPerPage,
-            projects,
-            userRole
         } = this.props;
         return(
             <ProjectsContainer>
-                <ProjectHeader />
-                {projects.length===0?<NoDataView/>:
-                <React.Fragment>
-                    <ProjectsBox projectsPerPage = {projectsPerPage}>
-                        <ProjectTopics/>
-                            {this.renderProjects()}
-                        </ProjectsBox>
-                    {totalNumberOfPages!==1&&
+                <ProjectHeader doNetWorkCall ={doNetWorkCall} />
+                <LoadingWrapperWithFailure
+                apiError = {getProjectsApiError}
+                apiStatus = {getProjectsApiStatus}
+                onRetryClick = {doNetWorkCall}
+                renderSuccessUI = {this.renderSuccessUI}/>
                     <PageNavigation
                         activePageNumber = {activePageNumber}
                         totalNumberOfPages = {totalNumberOfPages}
                         navigateToNextPage = {navigateToNextPage}
                         navigateToPreviousPage = {navigateToPreviousPage}
-                        onClickPageNumber={onClickPageNumber}/>}
-                </React.Fragment>}
-            </ProjectsContainer>)
+                        onClickPageNumber={onClickPageNumber}/>
+            </ProjectsContainer>);
             
     }
 }
-
 export {Projects};

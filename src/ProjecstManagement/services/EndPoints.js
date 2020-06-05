@@ -1,7 +1,14 @@
-export const projects = "/projects/v1/";
-export const createProject = "/project/create/v1/"
-export const tasks = "/user/"
+export const getProjectsEndPoint = "/projects/v1/";
+export const createProjectEndPoint = "/project/create/v1/"
 
-export const getWorkFlowTypes = "/workflows/v1/"
-export const createProjectTask = "/user/task/create/v1/"
-export const changeTaskStatus = ""
+export const getTasks = "/user/"
+
+export const getWorkFlowTypesEndPoint = "/workflows/v1/"
+export const createProjectTaskEndPoint = "/user/task/create/v1/"
+export const changeTaskStatusEndPoint = ""
+
+export const getPossibleStateChanges = "/project/"
+
+export const getTaskStateTransitionChecklist = "/project/"
+
+export const updateTaskStatus = "/project/"

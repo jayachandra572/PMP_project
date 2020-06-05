@@ -1,15 +1,18 @@
 import React ,{Component} from "react"
-
+import {inject} from "mobx-react"
 
 import {IbHubsLogo} from "../../../Common/components/Logos/IbHubsLogo";
+import {getUserDetails} from "../../../Authentication/utils/LocalStrorageUtils"
 import strings from "../../i18n/strings.json";
 import {ProfileLogo} from "../ProfileLogo";
 import {ProjectTitleAndLogo,UserNameAndLogo,HeaderContainer,ProjectTitle,UserName,LogOutButton} from "./stylesComponent";
 
-
+@inject('userDetailsStore')
 class Header extends Component{
+   
     render(){
         const {userLogOut} =this.props
+        const {name} = getUserDetails();
         return(
                 <HeaderContainer>
                     <ProjectTitleAndLogo>
@@ -21,7 +24,7 @@ class Header extends Component{
                     <UserNameAndLogo>
                         <LogOutButton onClick = {userLogOut}>SIGN OUT</LogOutButton>
                         <UserName>
-                            {strings.name}
+                            {name}
                         </UserName>
                         <ProfileLogo />
                     </UserNameAndLogo>

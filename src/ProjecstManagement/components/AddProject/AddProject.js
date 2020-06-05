@@ -110,8 +110,10 @@ class AddProject extends Component{
         apiStatus=>{
             if(apiStatus === API_SUCCESS){
                this.props.handleClose();
+               console.log(this.props.doNetWorkCall)
+               this.props.doNetWorkCall();
             }else if(apiStatus === API_FAILED){
-                const{newProject:{getApiError}} = this.props.newProjectStore
+                const{newProject:{getApiError}} = this.props.newProjectStore;
                 toaster('error',getApiError);   
             }
         })

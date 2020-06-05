@@ -18,15 +18,21 @@ VadationFields} from "./styleComponent"
 @observer
 class ValidateTaskTransitionView extends Component{
     
+    
+    componentWillUnmount (){
+        this.onSubmitSuccessReaction();
+    }
     onSubmit = ()=>{
-        const {taskValidationField:{response},taskTrasitionState} = this.props;
+        const {taskValidationField:{response},taskTrasitionState,toStatus,fromStatus,taskId} = this.props;
         const isCheckedAllFields = response.findIndex(field=>field.value===false)!==-1;
-        if(!isCheckedAllFields){
-            taskTrasitionState.apiCall(response);
+        if(true){
+            const validateArrayIds = response.filter(field=>field.value).map(field=>field.id);
+            taskTrasitionState.apiCall({taskId,validateArrayIds,fromStatus,toStatus});
         }else{
             Toaster('info',"Select all validation fields");
         }
     }
+
     
     onSubmitSuccessReaction = reaction(
         ()=>this.props.taskTrasitionState.getApiStatus,

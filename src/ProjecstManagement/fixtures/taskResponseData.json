@@ -1,5 +1,5 @@
 {
-    "tasks":[
+    "Tasks":[
         {"id":"1",
         "issue_type":"jaya",
         "title":"title",
@@ -45,5 +45,5 @@
         "created_at":"created_at",
         "state":"state"}
         ],
-        "no_of_tasks":7
+        "total_no_of_tasks":7
 }

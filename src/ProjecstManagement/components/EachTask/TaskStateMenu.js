@@ -4,6 +4,7 @@ import {observer} from "mobx-react"
 import { API_SUCCESS , API_INITIAL,API_FETCHING,API_FAILED} from '@ib/api-constants'
 
 import toaster from "../../utils/Toaster";
+import strings from "../../i18n/strings.json"
 import Colors from "../../themes/Colors"
 import {DropdownWithLoader} from "../DropdownWithLoader";
 import ValidateTask from "../ValidateTask"
@@ -36,6 +37,7 @@ class TaskStateMenu extends React.Component{
         ()=>this.props.getApiStatus,
         apiStatus=>{
             if(apiStatus===API_SUCCESS){
+                console.log(this.props.options)
                 this.openDropdownMenu();
             }else if(apiStatus === API_FAILED){
                 const {getApiError} = this.props;
@@ -47,7 +49,7 @@ class TaskStateMenu extends React.Component{
     render(){
     const {
         options,getApiStatus,onClickStateMenu,
-        taskValidationField,getValidateFields,title,fromStatus,taskTrasitionState} = this.props;
+        taskValidationField,getValidateFields,title,fromStatus,taskTrasitionState,taskId} = this.props;
     const {onChangeStateValue,modalOpen,handleClose,toStatus} = this;
 
     return(
@@ -75,6 +77,7 @@ class TaskStateMenu extends React.Component{
             title = {title}
             handleClose = {handleClose}
             toStatus = {toStatus}
+            taskId = {taskId}
             fromStatus = {fromStatus}/>
         </State>);
 }

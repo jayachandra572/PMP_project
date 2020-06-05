@@ -71,14 +71,14 @@ class AddTask extends Component{
     
     @action.bound
     submitTask  () {
-        const {postTask} =this.props.tasksStore
+        const {postTask,projectId} =this.props.tasksStore
         const {checkTaskTitle,checkDescription,checkIssueType,anyErrorInPage} = this;
         checkTaskTitle();
         checkIssueType();
         checkDescription();
         if(!anyErrorInPage()){
             const {taskTitle,issueType,description} = this;
-            postTask.apiCall({taskTitle,issueType,description});
+            postTask.apiCall({projectId,taskTitle,issueType,description});
         }
     }
     
@@ -106,12 +106,12 @@ class AddTask extends Component{
                     value={taskTitle}
                     onChange={onChangeTaskTitle}/>
                 {taskTitleEmpty&&<Required>{strings.required}</Required>}
-            </Fragment>)
+            </Fragment>);
       })
       
       IssueTypeMenu = observer(()=>{
           const {tasks} = strings;
-          const {issueType,onChangeIssueType,errorMessage:{issueTypeError}} =this
+          const {issueType,onChangeIssueType,errorMessage:{issueTypeError}} =this;
           return(
               <Fragment>
                  <IssueTypeLabel
@@ -129,7 +129,7 @@ class AddTask extends Component{
                         border:`1px solid ${issueTypeError?Colors.red:Colors.lightBlueGrey}`,
                         height:"40px"}}/>
                 {issueTypeError&&<Required>{strings.required}</Required>}
-              </Fragment>)
+              </Fragment>);
       })
     
     DescriptionTextInput = observer(()=>{

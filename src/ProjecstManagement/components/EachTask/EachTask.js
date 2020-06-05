@@ -1,5 +1,5 @@
 import React , {Component} from "react"
-import {toJS} from "mobx"
+import { API_SUCCESS } from '@ib/api-constants'
 import {CreatedBy} from "../CreatedBy"
 import {observer} from "mobx-react";
 import {reaction} from "mobx";
@@ -11,14 +11,17 @@ import {IssueType,Title,Description,CreatedAt,TaskContainer} from "./styleCompon
 @observer
 class EachTask extends Component{
     
+    componentWillUnmount(){
+        this.taskTrasitionStateReaction();
+    }
     onChangeState =(toStatus)=>{
         this.getValidateFields(toStatus);
         this.props.task.toStatus = toStatus;
     }
     
     getValidateFields = (toStatus) =>{
-        const {taskValidationField,task:{state}} = this.props;
-        taskValidationField.apiCall({fromStatus:state,toStatus:toStatus});
+        const {taskValidationField,task:{state,id}} = this.props;
+        taskValidationField.apiCall({fromStatus:state,toStatus:toStatus,id:id});
     }
     
     onClickStateMenu = (event,data)=>{
@@ -26,10 +29,19 @@ class EachTask extends Component{
         getStatusTransitionOptions();
     }
     
+    taskTrasitionStateReaction = reaction(
+        ()=>this.props.task.taskTrasitionState.getApiStatus,
+        apiStatus=>{
+            if(apiStatus === API_SUCCESS){
+                alert(1)
+                this.props.doNetWorkCall();
+            }
+        })
+    
     render(){
         const {index,taskValidationField} = this.props;
         const {issueType,title,createdBy,createdAt,
-        state,stateOptions,getApiStatus,description,taskTrasitionState,getApiError} = this.props.task;
+        state,stateOptions,getApiStatus,description,taskTrasitionState,getApiError,id} = this.props.task;
         const {getValidateFields,onChangeState,handleClose,modalOpen,onClickStateMenu} =this;
         const isOdd = index%2 ===1;
         return(
@@ -51,6 +63,7 @@ class EachTask extends Component{
                         getValidateFields = {getValidateFields}
                         title = {title}
                         fromStatus = {state} 
+                        taskId = {id}
                         taskTrasitionState = {taskTrasitionState}/>
                     <TaskInfoCard
                          taskDetails = {this.props.task}/>

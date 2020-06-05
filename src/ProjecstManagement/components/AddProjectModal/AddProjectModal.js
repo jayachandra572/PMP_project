@@ -15,6 +15,7 @@ class  AddProjectModal extends Component  {
     handleOpen = () => this.modalOpen= true 
     handleClose = () => this.modalOpen = false 
     render(){
+    const {doNetWorkCall} = this.props;
       return<Modal
       open = {this.modalOpen}
       style = {{width:"auto",padding:"20px"}} 
@@ -22,7 +23,7 @@ class  AddProjectModal extends Component  {
        >{strings.createButtonContent}</Button>}
        >
         <Modal.Content >
-          <AddProject handleClose={this.handleClose}/>
+          <AddProject doNetWorkCall={doNetWorkCall} handleClose={this.handleClose}/>
         </Modal.Content>
       </Modal>;
     }

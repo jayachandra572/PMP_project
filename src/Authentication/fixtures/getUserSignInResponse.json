@@ -2,6 +2,6 @@
   "access_token": "accesstoken",
   "user_id": "9966133092",
   "expires_in": "86400",
-  "role1":"admin",
-  "role2":"member"
+  "is_admin":false,
+  "name":"jayachandra"
 }

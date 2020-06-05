@@ -15,8 +15,7 @@ class  TaskInfoModal extends Component  {
     handleClose = () => this.modalOpen = false 
     
     RenderTaskInfo = ()=>{
-        let {taskDetails:{title,description,createdAt,createdBy,state}} =this.props
-        description = 'yhwwersdfghjkoiugwesdfghjkifdgesdtyhwwersdfgyhwwersdfghjkoiugwesdfghjkifdgesdtyhwwersdfgyhwwersdfghjkoiugwesdfghjkifdgesdtyhwwersdfghjkoiugwesdfghjkifdgesdtyhwwersdfghjkoiugwesdfghjkifdgesdtyhwwersdfghjkoiugwesdfghjkifdgesdt'
+        const  {taskDetails:{title,description,createdAt,createdBy,state}} =this.props
         return(
             <TaskDetailsContainer>
             <CloseIconButton onClick ={this.handleClose}><RiCloseLine size = {24}/></CloseIconButton>

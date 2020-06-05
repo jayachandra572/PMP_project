@@ -24,7 +24,7 @@ class  DropdownWithLoader extends React.Component {
     options =  options!==null ?options.map(workFlow=>{
             return{
                 key:workFlow.id,
-                value:workFlow.id,
+                value:workFlow.name,
                 text:workFlow.name
             }}):[];
     return (<Dropdown

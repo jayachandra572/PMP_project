@@ -39,8 +39,7 @@
             "state" : "STATE",
             "info":"INFO"
         },
-        "issueTypes":[{"id":"Task","name":"Task" },
-        {"id":"BUG","name":"Bug" } ,
+        "issueTypes":[{"id":"BUG","name":"Bug" } ,
         {"id":"TASK","name":"Task" },
         {"id":" DEVELOPER_STORY","name":" Developer story" },
         {"id":"USER_STORY","name":"User story" },
@@ -74,5 +73,6 @@
                             {"id":"Completed","name":"Completd"},
                             {"id":"Onhold","name":"Onhold"}],
         "addButton":"ADD"
-    }
+    },
+    "endOfTheTaskStateMessage":"There is no further task state transition"
 }

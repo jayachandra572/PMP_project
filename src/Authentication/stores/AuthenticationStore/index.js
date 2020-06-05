@@ -2,6 +2,7 @@ import { observable, action,toJS } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import {getUserDisplayableErrorMessage} from "../../utils/APIUtils"
+import {setUserDetails} from "../../utils/LocalStrorageUtils"
 
 import {
    setAccessToken,
@@ -13,7 +14,6 @@ class AuthenticationStore {
    @observable getAuthApiStatus = API_INITIAL
    @observable getAuthApiError = null
    @observable authApiToken
-   @observable userData = {}
 
    constructor(authService) {
       this.authService = authService
@@ -27,7 +27,6 @@ class AuthenticationStore {
 
    @action.bound
    setAuthApiStatus(status) {
-      console.log(status)
       this.getAuthApiStatus = status
    }
 
@@ -38,11 +37,10 @@ class AuthenticationStore {
 
    @action.bound
    setAuthApiResponse(response) {
-      console.log(response,"response");
       const accessToken = response.access_token;
       setAccessToken(accessToken);
       this.authApiToken = getAccessToken();
-      this.userData = response;
+      setUserDetails(response);
    }
    @action.bound
    userSignIn(request, onFailure) {
