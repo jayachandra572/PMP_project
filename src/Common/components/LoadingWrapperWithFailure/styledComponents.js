@@ -18,3 +18,7 @@ export const FailureViewMessage = styled.p`
 export const RetryButton = styled.button`
    ${tw`px-8 py-2 bg-blue-500 text-white text-2xl rounded`}
 `
+
+export const NoDataViewImg = styled.img`
+   ${tw`h-full`};
+`
