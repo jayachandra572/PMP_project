@@ -6,6 +6,11 @@ class AuthService {
          setTimeout(function() {resolve(userSignInResponse)}, 1000);
       })
    }
+   getUserDetails = () =>{
+      return new Promise((resolve, reject) => {
+         setTimeout(function() {resolve(userSignInResponse)}, 1000);
+      })
+   } 
 }
 
 export default AuthService

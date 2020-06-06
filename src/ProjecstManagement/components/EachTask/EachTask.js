@@ -31,18 +31,17 @@ class EachTask extends Component{
         const {index,taskValidationField} = this.props;
         const {issueType,title,createdBy,createdAt,
         state,stateOptions,getApiStatus,description,taskTrasitionState,getApiError,id} = this.props.task;
-        const {getValidateFields,onChangeState,handleClose,modalOpen,onClickStateMenu} =this;
+        const {getValidateFields,handleClose,modalOpen,onClickStateMenu} =this;
         const isOdd = index%2 ===1;
         return(
                 <TaskContainer isOdd = {isOdd} >
                     <Title>{title}</Title>
                     <IssueType>{getDisplayEnumsText(issueType)}</IssueType>
-                    <CreatedBy name = {createdBy} />
+                    <CreatedBy userDetails = {createdBy} />
                     <Description>{description}</Description>
                     <CreatedAt>{createdAt}</CreatedAt>
                     <TaskStateMenu 
                         taskValidationField = {taskValidationField}
-                        onChangeState = {onChangeState} 
                         onClickStateMenu = {onClickStateMenu}
                         options = {stateOptions} 
                         handleClose={handleClose}

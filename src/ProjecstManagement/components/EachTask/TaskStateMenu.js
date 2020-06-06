@@ -26,9 +26,7 @@ class TaskStateMenu extends React.Component{
     
     @action.bound
     onChangeStateValue  (event,data) {
-        const {onChangeState} = this.props;
         this.toStatus = data.value;
-        onChangeState(data.value);
         this.handleOpen();
     }
     
@@ -37,8 +35,11 @@ class TaskStateMenu extends React.Component{
         ()=>this.props.getApiStatus,
         apiStatus=>{
             if(apiStatus===API_SUCCESS){
-                console.log(this.props.options)
-                this.openDropdownMenu();
+                if(this.props.options.length ===1){
+                    toaster('info','There is no next task transitions')
+                }else{
+                    this.openDropdownMenu()
+                }
             }else if(apiStatus === API_FAILED){
                 const {getApiError} = this.props;
                 toaster('error',getApiError);
@@ -51,7 +52,7 @@ class TaskStateMenu extends React.Component{
         options,getApiStatus,onClickStateMenu,
         taskValidationField,getValidateFields,title,fromStatus,taskTrasitionState,taskId} = this.props;
     const {onChangeStateValue,modalOpen,handleClose,toStatus} = this;
-
+    console.log(options)
     return(
     <State>
         <DropdownWithLoader

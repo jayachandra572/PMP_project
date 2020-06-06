@@ -18,7 +18,9 @@ VadationFields} from "./styleComponent"
 @observer
 class ValidateTaskTransitionView extends Component{
     
-    
+    componentDidMount (){
+        this.props.getValidateFields();
+    }
     componentWillUnmount (){
         this.onSubmitSuccessReaction();
     }

@@ -11,12 +11,12 @@ class TaskModel {
     @observable state
     
     constructor(task,changeTaskStatusAPI,postTaskTransitionValidationAPI){
-        this.taskTrasitionState = new ApiCallModel(postTaskTransitionValidationAPI)
+        this.taskTrasitionState = new ApiCallModel(postTaskTransitionValidationAPI);
         this.id = task.id;
         this.issueType = task.issue_type;
         this.title = task.title;
         this.description = task.description;
-        this.createdBy = "jaya";
+        this.createdBy = task.created_by;
         this.createdAt = task.created_at;
         this.state =task.state;
         this.stateOptions = [{id:task.state,name:task.state}];

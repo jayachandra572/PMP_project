@@ -5,7 +5,7 @@ import {
     Typo12SteelHKGroteskSemiBold
 } from "../../styleGuide/Typos";
 
-export const CommonStyle = styled(Typo12SteelHKGroteskSemiBold)`${tw`text-center  flex-1`}
+export const CommonStyle = styled(Typo12SteelHKGroteskSemiBold)`${tw`text-center px-3  flex-1`}
 max-width:100%;
 text-overflow: ellipsis;
 white-space: nowrap;

@@ -8,7 +8,7 @@ class Project {
         this.id = id;
         this.name = name;
         this.workFlowType = workflow_type;
-        this.createdBy = "jaya";
+        this.createdBy = created_by;
         this.description = description;
         this.createdAt = created_at;
     }

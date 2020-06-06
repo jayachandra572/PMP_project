@@ -6,10 +6,10 @@ import {CreatedByContainer,UserName} from "./styleComponent"
 
 class   CreatedBy extends Component {
     render(){
-        const {imageUrl , name} = this.props; 
+        const {profile_pic , name} = this.props.userDetails; 
         return (
             <CreatedByContainer >
-                <ProfileLogo imageUrl = {imageUrl} size = {32}/>
+                <ProfileLogo imageUrl = {profile_pic} size = {32}/>
                 <UserName>{name}</UserName>
             </CreatedByContainer>
             )

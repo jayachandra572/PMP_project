@@ -7,8 +7,8 @@ class TasksService{
     getProjectTaskAPI(request){
     const {limit,offset} = request
     const Tasks =   taskResponseData.Tasks.slice().splice(offset,limit);
-      return new Promise((resolve) => {
-         setTimeout(()=> resolve({...taskResponseData,Tasks}), 1000);
+      return new Promise((resolve,reject) => {
+         setTimeout(()=> reject({...taskResponseData,Tasks}), 1000);
       });
     }
     
