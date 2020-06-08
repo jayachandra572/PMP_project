@@ -26,7 +26,7 @@ class TasksStore {
         this.activePageNumber = 1
         this.totalNoOfTasks= 0;
         this.totalNumberOfPages = 1;
-        this.tasksPerPage =2;
+        this.tasksPerPage =4;
     }
     
     upDateProjectId =(id)=>{

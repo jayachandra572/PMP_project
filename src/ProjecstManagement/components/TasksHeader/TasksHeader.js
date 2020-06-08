@@ -9,7 +9,7 @@ function TasksHeader(props){
     return (
     <TasksHeaderContainer>
         <TasksTitle>{strings.tasks.title}</TasksTitle>
-        <AddTaskModal/>
+        <AddTaskModal apiStatus = {props.apiStatus}/>
     </TasksHeaderContainer>);
 }
 export {TasksHeader};

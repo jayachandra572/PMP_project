@@ -11,13 +11,13 @@ import {IssueType,Title,Description,CreatedAt,TaskContainer} from "./styleCompon
 @observer
 class EachTask extends Component{
     
-    State =(toStatus)=>{
-        this.getValidateFields(toStatus);
-        this.props.task.toStatus = toStatus;
+    upDateToStatus =(toStatus)=>{
+        this.props.task.toStatus = toStatus; 
     }
     
     getValidateFields = (toStatus) =>{
         const {taskValidationField,task:{state,id}} = this.props;
+       this.upDateToStatus(toStatus);
         taskValidationField.apiCall({fromStatus:state,toStatus:toStatus,id:id});
     }
     

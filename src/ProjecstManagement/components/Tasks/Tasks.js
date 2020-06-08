@@ -47,7 +47,7 @@ class Tasks extends Component {
         } = this.props;
         return(
             <TasksContainer>
-                <TasksHeader />
+                <TasksHeader apiStatus = {apiStatus} />
                 <LoadingWrapperWithFailure
                     apiError = {apiError}
                     apiStatus = {apiStatus}

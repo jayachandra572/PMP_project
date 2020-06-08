@@ -8,13 +8,13 @@ import {AddProjectModal} from "../AddProjectModal";
 import {ProjectHeaderContainer,ProjectTitle} from "./styleComponent";
 class  ProjectHeader extends Component{
     render(){
-    const {userRole,doNetWorkCall} =this.props;
+    const {userRole,doNetWorkCall,apiStatus} =this.props;
     const {is_admin} = getUserDetails();
     console.log(getUserDetails())
         return (
         <ProjectHeaderContainer>
             <ProjectTitle>{strings.ProjectTitle}</ProjectTitle>
-            {is_admin&&<AddProjectModal doNetWorkCall={doNetWorkCall}/>}
+            {is_admin&&<AddProjectModal apiStatus = {apiStatus} doNetWorkCall={doNetWorkCall}/>}
         </ProjectHeaderContainer>);
     }
 }

@@ -52,7 +52,6 @@ class TaskStateMenu extends React.Component{
         options,getApiStatus,onClickStateMenu,
         taskValidationField,getValidateFields,title,fromStatus,taskTrasitionState,taskId} = this.props;
     const {onChangeStateValue,modalOpen,handleClose,toStatus} = this;
-    console.log(options)
     return(
     <State>
         <DropdownWithLoader
@@ -65,7 +64,7 @@ class TaskStateMenu extends React.Component{
             closeDropdownMenu = {this.closeDropdownMenu} 
             styles = {{
                 minWidth:"90px",
-                maxWidth:"110px",
+                maxWidth:"130px",
                 border:"none",
                 backgroundColor:"transparent",
                 color:`${Colors.steel}`

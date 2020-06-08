@@ -2,8 +2,9 @@ import React, { Component ,Fragment} from 'react';
 import { observer,inject } from 'mobx-react';
 import {observable, reaction,action} from "mobx";
 import {RiCloseLine} from "react-icons/ri"
-import { API_SUCCESS } from '@ib/api-constants'
+import { API_SUCCESS,API_FAILED } from '@ib/api-constants'
 
+import toaster from "../../utils/Toaster";
 import Colors from '../../themes/Colors';
 import strings from '../../i18n/strings.json';
 
@@ -22,6 +23,9 @@ class AddTask extends Component{
     constructor(props){
         super(props)
         this.init();
+    }
+    componentWillUnmount (){
+        this.reaction1()
     }
     
     @action.bound
@@ -86,8 +90,12 @@ class AddTask extends Component{
         ()=>this.props.tasksStore.postTask.getApiStatus,
         apiStatus=>{
             if(apiStatus === API_SUCCESS){
+                toaster('success','successfully created task'); 
                 this.props.handleClose();
                 this.init();
+            }else if(apiStatus === API_FAILED){
+                const{getApiError} = this.props.tasksStore.postTask;
+                toaster('error',getApiError);   
             }
         })
       

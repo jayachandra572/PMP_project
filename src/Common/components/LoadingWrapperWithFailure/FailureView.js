@@ -16,7 +16,7 @@ class FailureView extends React.Component {
 
       return (
          <FailureViewContainer>
-            <NoDataViewImg src = {NoDataViewImg} alt = "page not found"/>
+            <NoDataViewImg src = {pageNotFound} alt = "page not found"/>
             <FailureViewMessage>{errorMessage}</FailureViewMessage>
             <RetryButton onClick={onRetryClick}>Retry</RetryButton>
          </FailureViewContainer>

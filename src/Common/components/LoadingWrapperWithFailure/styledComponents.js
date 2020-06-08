@@ -8,7 +8,9 @@ export const LoadingViewContainer = styled.div`
 `
 
 export const FailureViewContainer = styled.div`
-   ${tw`flex flex-col justify-center items-center min-h-screen bg-gray-200`}
+   ${tw`flex flex-col justify-center items-center  bg-gray-200`}
+   background-color:#fbfbfb;
+   flex-grow:1;
 `
 
 export const FailureViewMessage = styled.p`
@@ -20,5 +22,7 @@ export const RetryButton = styled.button`
 `
 
 export const NoDataViewImg = styled.img`
-   ${tw`h-full`};
+   ${tw``}
+   flex-grow:1;
+   height:300px;
 `

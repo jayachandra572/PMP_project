@@ -13,7 +13,7 @@ class ProjectsRoute extends Component{
     }
     
     onClickProject = (projectId)=>{
-        this.props.history.push(`/tasks/${projectId}`);
+        this.props.history.push(`/projects/${projectId}/tasks`);
     }
     doNetWorkCall = () =>{
          const {getProjectsFromAPi} = this.props.projectsStore;

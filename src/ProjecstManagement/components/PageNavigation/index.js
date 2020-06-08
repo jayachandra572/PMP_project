@@ -1,5 +1,5 @@
 import React,{Component} from "react"
-
+import { API_SUCCESS} from '@ib/api-constants';
 import strings from "../../i18n/strings.json";
 import Images from "../../themes/Images"
 import {
@@ -35,11 +35,12 @@ class PageNavigation extends Component{
             activePageNumber , 
             totalNumberOfPages , 
             navigateToNextPage ,
-            navigateToPreviousPage
+            navigateToPreviousPage,
+            apiStatus
         } = this.props;
         const isPreviousButtonDisabled = 1===activePageNumber;
         const isNextButtonDisabled = activePageNumber ===totalNumberOfPages;
-        if(totalNumberOfPages===0 || totalNumberOfPages==1){
+        if(apiStatus!==API_SUCCESS || totalNumberOfPages===0 || totalNumberOfPages==1){
             return null;
         }
         return(

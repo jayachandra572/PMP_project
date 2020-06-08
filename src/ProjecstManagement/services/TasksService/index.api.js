@@ -34,7 +34,6 @@ class TasksService{
     changeTaskStatusAPI = (request) =>{
         const {id,state} =request;
         const {api} = this;
-        console.log(request)
         const endPoint = `/project/${id}/${state}/states/v1/`;
         return networkCallWithApisauce(api,endPoint,{},apiMethods.get);
     }
@@ -48,7 +47,6 @@ class TasksService{
     
     postTaskTransitionValidationAPI = (request) =>{
         const {fromStatus,toStatus,validateArrayIds,taskId} = request
-        console.log(validateArrayIds,"ids")
         const requestObj ={
             "from_state": fromStatus,
             "to_state": toStatus,

@@ -1,5 +1,7 @@
 import React ,{Component} from "react";
 import LoadingWrapperWithFailure from "../../../Common/components/LoadingWrapperWithFailure";
+
+import withPMPHeader from "../../hoc/withPmpHeader"
 import {EachProject} from "../EachProject"
 import {ProjectTopics} from "../ProjectTopics"
 import ProjectHeader from "../ProjectHeader"
@@ -37,7 +39,7 @@ class Projects extends Component {
     render(){
         const {
             doNetWorkCall,
-            userRole,getProjectsApiError,
+            getProjectsApiError,
             getProjectsApiStatus,
             activePageNumber , 
             totalNumberOfPages , 
@@ -47,20 +49,22 @@ class Projects extends Component {
         } = this.props;
         return(
             <ProjectsContainer>
-                <ProjectHeader doNetWorkCall ={doNetWorkCall} />
+                <ProjectHeader doNetWorkCall ={doNetWorkCall} apiStatus = {getProjectsApiStatus}/>
                 <LoadingWrapperWithFailure
                 apiError = {getProjectsApiError}
                 apiStatus = {getProjectsApiStatus}
                 onRetryClick = {doNetWorkCall}
                 renderSuccessUI = {this.renderSuccessUI}/>
-                    <PageNavigation
-                        activePageNumber = {activePageNumber}
-                        totalNumberOfPages = {totalNumberOfPages}
-                        navigateToNextPage = {navigateToNextPage}
-                        navigateToPreviousPage = {navigateToPreviousPage}
-                        onClickPageNumber={onClickPageNumber}/>
+                <PageNavigation
+                    apiStatus = {getProjectsApiStatus}
+                    activePageNumber = {activePageNumber}
+                    totalNumberOfPages = {totalNumberOfPages}
+                    navigateToNextPage = {navigateToNextPage}
+                    navigateToPreviousPage = {navigateToPreviousPage}
+                    onClickPageNumber={onClickPageNumber}/>
+                
             </ProjectsContainer>);
             
     }
 }
-export {Projects};
+export default Projects;

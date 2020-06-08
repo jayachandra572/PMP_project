@@ -2,7 +2,8 @@ import React,{Component} from "react"
 import { API_SUCCESS } from '@ib/api-constants'
 import {observer,inject} from "mobx-react"
 import { withRouter } from 'react-router-dom';
-import {reaction,toJS} from "mobx";
+import {reaction} from "mobx";
+import { PROJECT_ROUTE} from '../../constants/RouteConstants'
 import ProjectTasks from "../../components/ProjectTasks";
 
 @inject("tasksStore",'authenticationStore',)
@@ -45,7 +46,9 @@ class TasksRoute extends Component{
         upDateProjectId(id);
         this.doNetWorkCall();
     }
-
+    backToProjectsPage = () =>{
+        this.props.history.replace(PROJECT_ROUTE)
+    }
 
     render(){
         const {getApiStatus,getApiError} = this.props.tasksStore.tasks;
@@ -55,6 +58,7 @@ class TasksRoute extends Component{
         } = this.props.tasksStore;
        const {taskValidationField} = this.props.tasksStore;
         return(<ProjectTasks
+                backToProjectsPage = {this.backToProjectsPage}
                 projectTasks = {projectTasks}
                 taskValidationField = {taskValidationField}
                 apiStatus = {getApiStatus}

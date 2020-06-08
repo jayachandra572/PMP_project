@@ -1,8 +1,9 @@
 {
     "admin":"admin",
-    "ProjectManageMent":"Project Management",
+    "ProjectManageMent":"Project Management Platform",
     "ProjectTitle":"Projects",
     "createButtonContent":"+ Add Project",
+    "backButtonText":"Back to projects page",
     "project":{
         "name":"NAME",
         "workFlow":"WORK FLOW",

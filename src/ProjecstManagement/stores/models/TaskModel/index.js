@@ -13,6 +13,7 @@ class TaskModel {
     constructor(task,changeTaskStatusAPI,postTaskTransitionValidationAPI){
         this.taskTrasitionState = new ApiCallModel(postTaskTransitionValidationAPI);
         this.id = task.id;
+        this.projectName = task.project;
         this.issueType = task.issue_type;
         this.title = task.title;
         this.description = task.description;

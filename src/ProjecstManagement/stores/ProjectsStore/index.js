@@ -28,7 +28,6 @@ class ProjectsStore{
     
     @action.bound
     createProjectModels (projects) {
-        console.log(projects)
         this.projects = projects.map((project)=>{
             
             return new Project(project);
