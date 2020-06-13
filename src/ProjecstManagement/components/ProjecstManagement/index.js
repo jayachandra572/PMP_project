@@ -1,2 +1,2 @@
-import ProjectsView from "./ProjectsView"
-export default ProjectsView;
+import ProjectsView from './ProjectsView'
+export default ProjectsView

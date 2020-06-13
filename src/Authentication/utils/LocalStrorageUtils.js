@@ -1,18 +1,17 @@
-const userDetailsKey = "userDetails"
+const userDetailsKey = 'userDetails'
 
-
-export const setUserDetails = (userDetails) =>{
-    localStorage.setItem(userDetailsKey,JSON.stringify(userDetails));
+export const setUserDetails = userDetails => {
+   localStorage.setItem(userDetailsKey, JSON.stringify(userDetails))
 }
 
-export const getUserDetails = ()=>{
-    return JSON.parse(localStorage.getItem(userDetailsKey));
+export const getUserDetails = () => {
+   return JSON.parse(localStorage.getItem(userDetailsKey))
 }
 
-export const removeUserDetails = () =>{
-    localStorage.removeItem(userDetailsKey);
+export const removeUserDetails = () => {
+   localStorage.removeItem(userDetailsKey)
 }
 
-export const clearStrorage = () =>{
-    localStorage.clear();
+export const clearStrorage = () => {
+   localStorage.clear()
 }

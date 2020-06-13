@@ -6,10 +6,7 @@ import { createMemoryHistory } from 'history'
 
 import strings from '../../i18n/strings.json'
 
-import {
-   SIGN_IN_PATH,
-   Member_Path
-} from '../../constants/RouteConstants'
+import { SIGN_IN_PATH, Member_Path } from '../../constants/RouteConstants'
 
 import AuthApiService from '../../services/AuthService/index.fixture'
 import AuthStore from '../../stores/AuthenticationStore'

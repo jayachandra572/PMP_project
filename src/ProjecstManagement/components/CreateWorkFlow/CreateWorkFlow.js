@@ -1,11 +1,11 @@
-import React ,{Component} from "react";
+import React, { Component } from 'react'
 
-import {AddTransition} from "../AddTransition"
+import { AddTransition } from '../AddTransition'
 
-class CreateWorkFlow extends Component{
-    render(){
-        return(<AddTransition/>)
-    }
+class CreateWorkFlow extends Component {
+   render() {
+      return <AddTransition />
+   }
 }
 
-export {CreateWorkFlow};
+export { CreateWorkFlow }

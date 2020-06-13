@@ -1,7 +1,7 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 
-import pageNotFound from "../Asserts/pageNotFound.png"
+import pageNotFound from '../Asserts/pageNotFound.png'
 import {
    FailureViewContainer,
    FailureViewMessage,
@@ -16,7 +16,7 @@ class FailureView extends React.Component {
 
       return (
          <FailureViewContainer>
-            <NoDataViewImg src = {pageNotFound} alt = "page not found"/>
+            <NoDataViewImg src={pageNotFound} alt='page not found' />
             <FailureViewMessage>{errorMessage}</FailureViewMessage>
             <RetryButton onClick={onRetryClick}>Retry</RetryButton>
          </FailureViewContainer>

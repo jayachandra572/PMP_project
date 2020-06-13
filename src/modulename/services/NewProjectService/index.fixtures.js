@@ -1,20 +1,18 @@
-
-import workFlowTypesResponse from '../../fixtures/workFlowTypesAPI.json';
+import workFlowTypesResponse from '../../fixtures/workFlowTypesAPI.json'
 
 class NewProjectService {
-    
-    workFlowTypesAPI (){
-         return new Promise((resolve, reject) => {
-         setTimeout(()=> resolve(workFlowTypesResponse), 1000)
-      });
-    }
-    
-    postCreateProject (request){
-        console.log(request)
-         return new Promise((resolve, reject) => {
-         setTimeout(()=> reject({request}), 1000)
-      });
-    }
+   workFlowTypesAPI() {
+      return new Promise((resolve, reject) => {
+         setTimeout(() => resolve(workFlowTypesResponse), 1000)
+      })
+   }
+
+   postCreateProject(request) {
+      console.log(request)
+      return new Promise((resolve, reject) => {
+         setTimeout(() => reject({ request }), 1000)
+      })
+   }
 }
 
-export default NewProjectService;
+export default NewProjectService

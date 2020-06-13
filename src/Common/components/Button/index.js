@@ -1,17 +1,17 @@
 import React from 'react'
 import Loader from 'react-loader-spinner'
-import { API_FETCHING,API_SUCCESS } from '@ib/api-constants'
+import { API_FETCHING, API_SUCCESS } from '@ib/api-constants'
 
-import {Typo14WhiteRubikMedium} from "../../../styleGuide/Typos"
+import { Typo14WhiteRubikMedium } from '../../../styleGuide/Typos'
 import { ButtonStyleComponent } from './stylesComponent'
 
 class Button extends React.Component {
    static defaultProps = {
-      apiStatus:API_SUCCESS
+      apiStatus: API_SUCCESS
    }
-   render(){
+   render() {
       let { content, onClick, apiStatus, className } = this.props
-      const disabled = apiStatus === API_FETCHING 
+      const disabled = apiStatus === API_FETCHING
       content =
          apiStatus === API_FETCHING ? (
             <Loader
@@ -24,7 +24,11 @@ class Button extends React.Component {
             content
          )
       return (
-         <ButtonStyleComponent className={className} onClick={onClick} disabled = {disabled}>
+         <ButtonStyleComponent
+            className={className}
+            onClick={onClick}
+            disabled={disabled}
+         >
             <Typo14WhiteRubikMedium>{content}</Typo14WhiteRubikMedium>
          </ButtonStyleComponent>
       )

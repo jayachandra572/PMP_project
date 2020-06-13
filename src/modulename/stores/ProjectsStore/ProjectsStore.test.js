@@ -5,25 +5,25 @@ import {
    API_INITIAL
 } from '@ib/api-constants'
 
-import {  waitFor } from '@testing-library/react'
+import { waitFor } from '@testing-library/react'
 
-import ProjectsService from "../../services/ProjectsService/index.fixtures"
-import ProjectsStore from "."
+import ProjectsService from '../../services/ProjectsService/index.fixtures'
+import ProjectsStore from '.'
 
 describe('ProjectsStore test cases', () => {
    let projectsStore
    let projectsService
- 
+
    beforeEach(() => {
       projectsService = new ProjectsService()
       projectsStore = new ProjectsStore(projectsService)
    })
-   
-    it('should test intialisation', () => {
+
+   it('should test intialisation', () => {
       expect(projectsStore.getProjectsApiStatus).toBe(API_INITIAL)
       expect(projectsStore.getProjectsApiError).toBe(null)
    })
-   
+
    it('Should test projectsAPI fecting status', () => {
       const mockFetchingPromise = new Promise((resolve, reject) => {})
       let mockprojectsAPI = jest.fn()
@@ -32,59 +32,62 @@ describe('ProjectsStore test cases', () => {
       projectsStore.getProjectsFromAPi()
       expect(projectsStore.getProjectsApiStatus).toBe(API_FETCHING)
    })
-   
+
    it('Should test projectsAPI success status', async () => {
-      const mockSuccessPromise = new Promise((resolve, reject) => {resolve({projects:[]})})
+      const mockSuccessPromise = new Promise((resolve, reject) => {
+         resolve({ projects: [] })
+      })
       let mockprojectsAPI = jest.fn()
       mockprojectsAPI.mockReturnValue(mockSuccessPromise)
       projectsService.projectsAPI = mockprojectsAPI
       projectsStore.getProjectsFromAPi()
-     await waitFor(()=>{
-         expect(projectsStore.getProjectsApiStatus).toBe(API_SUCCESS) })
+      await waitFor(() => {
+         expect(projectsStore.getProjectsApiStatus).toBe(API_SUCCESS)
+      })
    })
-   
-   it('Should test projectsAPI failure status', async() => {
-        const mockError = 'Error'
+
+   it('Should test projectsAPI failure status', async () => {
+      const mockError = 'Error'
       const mockFailurePromise = new Promise((resolve, reject) => {
-           throw new Error(mockError)
+         throw new Error(mockError)
       })
       let mockprojectsAPI = jest.fn()
       mockprojectsAPI.mockReturnValue(mockFailurePromise)
       projectsService.projectsAPI = mockprojectsAPI
       projectsStore.getProjectsFromAPi()
-      await waitFor(()=>{
-          expect(projectsStore.getProjectsApiStatus).toBe(API_FAILED)
-          expect(projectsStore.getProjectsApiError).toBe(mockError)
+      await waitFor(() => {
+         expect(projectsStore.getProjectsApiStatus).toBe(API_FAILED)
+         expect(projectsStore.getProjectsApiError).toBe(mockError)
       })
    })
-   
-    it("Should test navigateToNextPage function",()=>{
-        const mockProjectsPerPage =3
-        projectsStore.activePageNumber =1
-        projectsStore.offset = 0;
-        projectsStore.projectsPerPage = mockProjectsPerPage
-        projectsStore.totalNoOfProjects = 5;
-        projectsStore.navigateToNextPage()
-        expect(projectsStore.activePageNumber).toBe(2)
-        expect(projectsStore.offset).toBe(mockProjectsPerPage)
-    })
-    
-    it("Should test navigateToPreviousPage function",()=>{
-        const mockProjectsPerPage =3
-        projectsStore.activePageNumber =2
-        projectsStore.offset = 3;
-        projectsStore.projectsPerPage = mockProjectsPerPage
-        projectsStore.totalNoOfProjects = 5;
-        projectsStore.navigateToPreviousPage()
-        expect(projectsStore.activePageNumber).toBe(1)
-        expect(projectsStore.offset).toBe(0)
-    })
-    
-     it("Should test onClickPageNumber function",()=>{
-        const mockProjectsPerPage =3
-        projectsStore.projectsPerPage = mockProjectsPerPage
-        projectsStore.onClickPageNumber(1)
-        expect(projectsStore.activePageNumber).toBe(1)
-        expect(projectsStore.offset).toBe(0)
-    })
+
+   it('Should test navigateToNextPage function', () => {
+      const mockProjectsPerPage = 3
+      projectsStore.activePageNumber = 1
+      projectsStore.offset = 0
+      projectsStore.projectsPerPage = mockProjectsPerPage
+      projectsStore.totalNoOfProjects = 5
+      projectsStore.navigateToNextPage()
+      expect(projectsStore.activePageNumber).toBe(2)
+      expect(projectsStore.offset).toBe(mockProjectsPerPage)
+   })
+
+   it('Should test navigateToPreviousPage function', () => {
+      const mockProjectsPerPage = 3
+      projectsStore.activePageNumber = 2
+      projectsStore.offset = 3
+      projectsStore.projectsPerPage = mockProjectsPerPage
+      projectsStore.totalNoOfProjects = 5
+      projectsStore.navigateToPreviousPage()
+      expect(projectsStore.activePageNumber).toBe(1)
+      expect(projectsStore.offset).toBe(0)
+   })
+
+   it('Should test onClickPageNumber function', () => {
+      const mockProjectsPerPage = 3
+      projectsStore.projectsPerPage = mockProjectsPerPage
+      projectsStore.onClickPageNumber(1)
+      expect(projectsStore.activePageNumber).toBe(1)
+      expect(projectsStore.offset).toBe(0)
+   })
 })

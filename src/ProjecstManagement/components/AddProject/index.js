@@ -1,3 +1,2 @@
-import {AddProject}from "./AddProject";
-export {AddProject};
-
+import { AddProject } from './AddProject'
+export { AddProject }

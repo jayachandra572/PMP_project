@@ -9,22 +9,22 @@ export const LogInFormContainer = styled.div`${tw`w-screen min-h-screen h-full f
 background-color:${Colors.iceBlue}`
 
 export const UserName = styled(InputField)`
-   margin-top:10px;
+   margin-top: 10px;
 `
 export const UserPassWord = styled(InputField)`
-   margin-top:10px;
-`;
-
-export const UserNameLabel = styled(InputLabel)`
-margin-top:20px;
+   margin-top: 10px;
 `
 
-export const UserPasswordLabel  =styled(InputLabel)`
-margin-top:20px`
+export const UserNameLabel = styled(InputLabel)`
+   margin-top: 20px;
+`
 
+export const UserPasswordLabel = styled(InputLabel)`
+   margin-top: 20px;
+`
 
 export const LogInButton = styled(Button)`
-margin-top:30px;
+   margin-top: 30px;
 `
 
 export const SignUp = styled.span`

@@ -1,13 +1,13 @@
 import React from 'react'
 
-import noDataFound from "../Asserts/NoData.gif"
+import noDataFound from '../Asserts/NoData.gif'
 import { NoDataViewContainer, NoDataViewImg } from './styledComponents'
 
 class NoDataView extends React.Component {
    render() {
       return (
          <NoDataViewContainer>
-            <NoDataViewImg src = {noDataFound} alt ="No data Found" />
+            <NoDataViewImg src={noDataFound} alt='No data Found' />
          </NoDataViewContainer>
       )
    }

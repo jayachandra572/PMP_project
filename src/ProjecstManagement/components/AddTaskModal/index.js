@@ -1,2 +1,2 @@
-import {AddTaskModal} from "./AddTaskModal"
-export default AddTaskModal;
+import { AddTaskModal } from './AddTaskModal'
+export default AddTaskModal

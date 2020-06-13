@@ -1,2 +1,2 @@
-import  ProjectTasks from "./ProjectTasks"
-export default ProjectTasks;
+import ProjectTasks from './ProjectTasks'
+export default ProjectTasks

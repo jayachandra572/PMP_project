@@ -1,8 +1,8 @@
-import { observable, action,toJS } from 'mobx'
+import { observable, action, toJS } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import {getUserDisplayableErrorMessage} from "../../utils/APIUtils"
-import {setUserDetails} from "../../utils/LocalStrorageUtils"
+import { getUserDisplayableErrorMessage } from '../../utils/APIUtils'
+import { setUserDetails } from '../../utils/LocalStrorageUtils'
 
 import {
    setAccessToken,
@@ -32,15 +32,15 @@ class AuthenticationStore {
 
    @action.bound
    setAuthApiError(error) {
-      this.getAuthApiError = getUserDisplayableErrorMessage(error);
+      this.getAuthApiError = getUserDisplayableErrorMessage(error)
    }
 
    @action.bound
    setAuthApiResponse(response) {
-      const accessToken = response.access_token;
-      setAccessToken(accessToken);
-      this.authApiToken = getAccessToken();
-      setUserDetails(response);
+      const accessToken = response.access_token
+      setAccessToken(accessToken)
+      this.authApiToken = getAccessToken()
+      setUserDetails(response)
    }
    @action.bound
    userSignIn(request, onFailure) {
@@ -49,8 +49,8 @@ class AuthenticationStore {
          setAuthApiResponse,
          setAuthApiError,
          setAuthApiStatus
-      } = this;
-      const signPromise = signInAPI(request);
+      } = this
+      const signPromise = signInAPI(request)
       return bindPromiseWithOnSuccess(signPromise)
          .to(setAuthApiStatus, setAuthApiResponse)
          .catch(error => {

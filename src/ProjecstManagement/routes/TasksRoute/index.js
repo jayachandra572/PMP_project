@@ -1,3 +1,3 @@
-import TasksRoute from "./TasksRoute"
+import TasksRoute from './TasksRoute'
 
-export {TasksRoute}
+export { TasksRoute }

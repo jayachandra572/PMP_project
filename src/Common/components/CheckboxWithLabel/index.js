@@ -1,2 +1,2 @@
-import CheckboxWithLabel from "./CheckboxWithLabel"
-export default CheckboxWithLabel;
+import CheckboxWithLabel from './CheckboxWithLabel'
+export default CheckboxWithLabel

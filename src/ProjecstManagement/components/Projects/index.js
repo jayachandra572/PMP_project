@@ -1,2 +1,2 @@
-import Projects from "./Projects"
-export {Projects}
+import Projects from './Projects'
+export { Projects }

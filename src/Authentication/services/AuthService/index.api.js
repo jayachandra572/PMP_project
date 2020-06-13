@@ -9,31 +9,34 @@ class AuthService {
    constructor() {
       this.api = create({
          baseURL: serviceConstants.baseURL
-      });
+      })
    }
-   
-   
 
    signInAPI = request => {
-      const {userName,userPassword} = request
-      console.log(userName,userPassword,serviceConstants)
+      const { userName, userPassword } = request
+      console.log(userName, userPassword, serviceConstants)
       const { api } = this
       return networkCallWithApisauce(
          api,
-       endPoints.signAPI,
+         endPoints.signAPI,
          {
-            username:userName,
-            password:userPassword
+            username: userName,
+            password: userPassword
          },
          apiMethods.post
       )
    }
-   
-   getUserDetails = () =>{
-      const {api} = this;
+
+   getUserDetails = () => {
+      const { api } = this
       console.log(apiMethods.get)
-      return networkCallWithApisauce(api,endPoints.userDetailsAPI,{},apiMethods.get);
-   } 
+      return networkCallWithApisauce(
+         api,
+         endPoints.userDetailsAPI,
+         {},
+         apiMethods.get
+      )
+   }
 }
 
 export default AuthService

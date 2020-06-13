@@ -43,6 +43,5 @@ export const ErrorMessage = styled.span`
    color: ${Colors.neonRed};
    margin: 0px;
    padding: 0px;
-   margin-top:3px;
-
+   margin-top: 3px;
 `

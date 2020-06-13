@@ -1,5 +1,5 @@
-import BackEndConstants from "../constants/BackEndConstants"
+import BackEndConstants from '../constants/BackEndConstants'
 
-export default function(text){
-    return BackEndConstants[text];
+export default function(text) {
+   return BackEndConstants[text]
 }

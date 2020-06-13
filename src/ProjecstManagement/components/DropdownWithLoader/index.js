@@ -1,2 +1,2 @@
-import {DropdownWithLoader} from "./DropdownWithLoader"
-export {DropdownWithLoader}
+import { DropdownWithLoader } from './DropdownWithLoader'
+export { DropdownWithLoader }

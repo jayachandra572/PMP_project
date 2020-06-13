@@ -1,3 +1,2 @@
-import AddProjectModal from "./AddProjectModal";
-export {AddProjectModal};
-
+import AddProjectModal from './AddProjectModal'
+export { AddProjectModal }

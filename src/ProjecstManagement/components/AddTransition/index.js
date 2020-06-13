@@ -1,2 +1,2 @@
-import {AddTransition} from "./AddTransition"
-export {AddTransition} 
+import { AddTransition } from './AddTransition'
+export { AddTransition }

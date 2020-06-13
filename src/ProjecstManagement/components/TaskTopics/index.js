@@ -1,2 +1,2 @@
-import {TaskTopics} from "./TaskTopics"
-export {TaskTopics}
+import { TaskTopics } from './TaskTopics'
+export { TaskTopics }

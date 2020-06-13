@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import { InputLabel } from '../Label'
 import {
    InputContainer,
    ErrorMessage,
@@ -13,8 +14,8 @@ class InputField extends Component {
    static defaultProps = {
       isError: false,
       errorMessage: '',
-      id:'',
-      textType:"text"
+      id: '',
+      textType: 'text'
    }
    render() {
       const {
@@ -25,7 +26,7 @@ class InputField extends Component {
          errorMessage,
          isError,
          className
-      } = this.props;
+      } = this.props
       return (
          <InputContainer>
             <ContentArea
@@ -38,7 +39,7 @@ class InputField extends Component {
                onChange={onChange}
             />
             {isError && <ErrorIcon size={16} color={Colors.neonRed} />}
-            {errorMessage!=="" && <ErrorMessage>{errorMessage}</ErrorMessage>}
+            {errorMessage !== '' && <ErrorMessage>{errorMessage}</ErrorMessage>}
          </InputContainer>
       )
    }

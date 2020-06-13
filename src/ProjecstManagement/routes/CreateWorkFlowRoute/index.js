@@ -1,3 +1,3 @@
-import {CreateWorkFlowRoute} from "./CreateWorkFlowRoute"
+import { CreateWorkFlowRoute } from './CreateWorkFlowRoute'
 
-export {CreateWorkFlowRoute}
+export { CreateWorkFlowRoute }

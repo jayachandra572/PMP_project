@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import tw from 'tailwind.macro';
+import tw from 'tailwind.macro'
 
 export const Label = styled.label`
    ${tw``}
@@ -17,5 +17,5 @@ export const Label = styled.label`
 `
 
 export const Star = styled.span`
-color:red;
+   color: red;
 `

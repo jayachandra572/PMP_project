@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { action, observable ,reaction,toJS} from 'mobx'
+import { action, observable, reaction, toJS } from 'mobx'
 import { Redirect } from 'react-router-dom'
-import {API_SUCCESS} from '@ib/api-constants'
-import {
-   getAccessToken
-} from '../../utils/StorageUtils'
+import { API_SUCCESS } from '@ib/api-constants'
 
 import { LogInForm } from '../../components/LogInForm'
 import strings from '../../i18n/strings.json'
@@ -29,46 +26,47 @@ class LogInRoute extends Component {
       }
       this.apiError = null
    }
-   
+
    @action.bound
-   onChangePassword (e) {
+   onChangePassword(e) {
       this.userPassword = e.target.value
       this.validateUserPassword()
    }
-   
+
    @action.bound
-   onChangeName (e) {
+   onChangeName(e) {
       this.userName = e.target.value
-      this.validateUserName();
+      this.validateUserName()
    }
 
    onLogInFailure = () => {
       const { getAuthApiError: apiError } = this.props.authenticationStore
       if (apiError !== null && apiError !== undefined) {
          console.log(apiError)
-         if(apiError==="Invalid username"){
-             this.errorMessage.userNameErrorMessage = apiError
-         }else if(apiError === "Invalid password"){
-           this.errorMessage.userPasswordErrorMessage = apiError
+         if (apiError === 'Invalid username') {
+            this.errorMessage.userNameErrorMessage = apiError
+         } else if (apiError === 'Invalid password') {
+            this.errorMessage.userPasswordErrorMessage = apiError
          }
       }
    }
-   
-   validateUserName = () =>{
-      const {userName} =this;
-    this.errorMessage.userNameErrorMessage = userName==="" ?strings.userNameErrorMessage:"";
-     
-   }
-   
-   validateUserPassword = () =>{
-      const {userPassword} = this;
-      this.errorMessage.userPasswordErrorMessage = userPassword==="" ? strings.userPasswordErrorMessage :""
+
+   validateUserName = () => {
+      const { userName } = this
+      this.errorMessage.userNameErrorMessage =
+         userName === '' ? strings.userNameErrorMessage : ''
    }
 
-   signUser = () =>{
-   const {userName,userPassword,onLogInFailure} = this;
-    const { userSignIn } = this.props.authenticationStore
-    if (userName !== '' && userPassword !== '') {
+   validateUserPassword = () => {
+      const { userPassword } = this
+      this.errorMessage.userPasswordErrorMessage =
+         userPassword === '' ? strings.userPasswordErrorMessage : ''
+   }
+
+   signUser = () => {
+      const { userName, userPassword, onLogInFailure } = this
+      const { userSignIn } = this.props.authenticationStore
+      if (userName !== '' && userPassword !== '') {
          this.errorMessage = {
             userPasswordErrorMessage: '',
             userNameErrorMessage: ''
@@ -78,25 +76,23 @@ class LogInRoute extends Component {
             userPassword: userPassword
          }
          userSignIn(requestObject, onLogInFailure)
-      }  
+      }
    }
    @action.bound
    onSubmitForm(e) {
       e.preventDefault()
-     const {validateUserName,validateUserPassword,signUser} = this
-     validateUserName();
-     validateUserPassword();
-     signUser();
+      const { validateUserName, validateUserPassword, signUser } = this
+      validateUserName()
+      validateUserPassword()
+      signUser()
    }
 
- 
    reDirectProjectsPage() {
-      return <Redirect to="/projects" />;
+      return <Redirect to='/projects' />
    }
-   
 
    render() {
-      let { getAuthApiStatus, authApiToken } = this.props.authenticationStore;
+      let { getAuthApiStatus, authApiToken } = this.props.authenticationStore
       const {
          onSubmitForm,
          username,
