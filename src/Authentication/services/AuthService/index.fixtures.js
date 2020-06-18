@@ -4,16 +4,14 @@ import userDetailsResponse from "../../fixtures/userDetailsResponse.json"
 class AuthService {
    signInAPI(request) {
       return new Promise((resolve, reject) => {
-         setTimeout(function() {
+         setTimeout(()=> {
             resolve(getUserSignInResponse)
          }, 1000)
       })
    }
    getUserDetails = () => {
-      return new Promise((resolve, reject) => {
-         setTimeout(function() {
-            resolve(userDetailsResponse)
-         }, 1000)
+     return new Promise((resolve, reject) => {
+         setTimeout(() => resolve(userDetailsResponse), 1000)
       })
    }
 }

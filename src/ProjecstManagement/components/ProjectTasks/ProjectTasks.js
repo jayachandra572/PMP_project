@@ -1,24 +1,22 @@
-import React, { Component } from 'react'
+import React, { Component,Fragment } from 'react'
 import { observer } from 'mobx-react'
-import { Header } from '../Header'
+import withPMPHeader from '../../hoc/withPmpHeader'
 import { Tasks } from '../Tasks'
 import strings from '../../i18n/strings.json'
-import { TasksContainer, BackButton } from './styledComponent'
+import {  BackButton } from './styledComponent'
 
 @observer
 class ProjectTasks extends Component {
    render() {
-      const { userLogOut, backToProjectsPage } = this.props
+      const { backToProjectsPage } = this.props;
       return (
-         <TasksContainer>
+         <Fragment>
             <BackButton onClick={backToProjectsPage}>
                {strings.backButtonText}
             </BackButton>
-            <Header userLogOut={userLogOut} />
-            <Tasks {...this.props} />)
-         </TasksContainer>
-      )
+            <Tasks {...this.props} />
+            </Fragment>);
    }
 }
 
-export default ProjectTasks
+export default withPMPHeader(ProjectTasks);

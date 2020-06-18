@@ -24,9 +24,9 @@ class Tasks extends Component {
       ))
    }
 
-   renderSuccessUI = () => {
+   renderSuccessUI = observer(() => {
       const { projectsPerPage, projectTasks } = this.props
-      if (projectTasks.length === 0) {
+      if (projectTasks.length === 0 ) {
          return <NoDataView />
       } else {
          return (
@@ -36,7 +36,7 @@ class Tasks extends Component {
             </TasksBox>
          )
       }
-   }
+   })
    render() {
       const {
          apiStatus,
@@ -46,11 +46,12 @@ class Tasks extends Component {
          totalNumberOfPages,
          navigateToNextPage,
          navigateToPreviousPage,
-         onClickPageNumber
+         onClickPageNumber,
+         is_admin
       } = this.props
       return (
          <TasksContainer>
-            <TasksHeader apiStatus={apiStatus} />
+            <TasksHeader apiStatus={apiStatus} doNetWorkCall = {doNetWorkCall} is_admin = {is_admin}/>
             <LoadingWrapperWithFailure
                apiError={apiError}
                apiStatus={apiStatus}

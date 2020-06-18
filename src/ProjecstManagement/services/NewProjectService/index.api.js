@@ -1,5 +1,5 @@
 import { create } from 'apisauce'
-import { networkCallWithApisauce } from '../../../Common/utils/APIUtils'
+import { networkCallWithApisauceWithAccessToken } from '../../../Common/utils/APIUtils'
 import { apiMethods } from '../../../Common/constants/APIConstants'
 
 import ServiceConstants from '../../constants/ServiceConstants'
@@ -26,7 +26,7 @@ class TasksService {
          project_type: projectType
       }
       const { api } = this
-      return networkCallWithApisauce(
+      return networkCallWithApisauceWithAccessToken(
          api,
          createProjectEndPoint,
          requestObj,
@@ -37,7 +37,7 @@ class TasksService {
    workFlowTypesAPI = () => {
       console.log(ServiceConstants)
       const { api } = this
-      return networkCallWithApisauce(
+      return networkCallWithApisauceWithAccessToken(
          api,
          getWorkFlowTypesEndPoint,
          {},

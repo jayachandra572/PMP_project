@@ -1,4 +1,7 @@
-class Project {
+import { observable } from 'mobx'
+
+class ProjectModel {
+   @observable taskStore
    constructor(project) {
       const {
          workflow_type,
@@ -17,4 +20,4 @@ class Project {
    }
 }
 
-export { Project }
+export default ProjectModel

@@ -7,9 +7,7 @@ import { AddProjectModal } from '../AddProjectModal'
 import { ProjectHeaderContainer, ProjectTitle } from './styleComponent'
 class ProjectHeader extends Component {
    render() {
-      const { userRole, doNetWorkCall, apiStatus } = this.props
-      const { is_admin } = getUserDetails()
-      console.log(getUserDetails())
+      const { userRole, doNetWorkCall, apiStatus,is_admin } = this.props
       return (
          <ProjectHeaderContainer>
             <ProjectTitle>{strings.ProjectTitle}</ProjectTitle>

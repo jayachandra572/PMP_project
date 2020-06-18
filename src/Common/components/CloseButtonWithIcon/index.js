@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-
+import strings from "../../i18n/strings.json"
 import { RiCloseLine } from 'react-icons/ri'
 
 class CloseButtonWithIcon extends Component {
@@ -7,10 +7,10 @@ class CloseButtonWithIcon extends Component {
       size: 24
    }
    render() {
-      const { onClick, size, clasName } = this.props
+      const { onClick, size, className } = this.props
       return (
          <Fragment>
-            <button clasName={clasName} onClick={onClick}>
+            <button data-testid = {strings.closeIconTestId} className={className} onClick={onClick}>
                <RiCloseLine size={size} />
             </button>
          </Fragment>

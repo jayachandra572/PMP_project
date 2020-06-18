@@ -1,5 +1,5 @@
 import { create } from 'apisauce'
-import { networkCallWithApisauce } from '../../utils/APIUtils'
+import { networkCallWithApisauce } from '../../../Common/utils/APIUtils'
 import { apiMethods } from '../../constants/APIConstants'
 
 import serviceConstants from '../../constants/ServiceConstants'
@@ -29,7 +29,6 @@ class AuthService {
 
    getUserDetails = () => {
       const { api } = this
-      console.log(apiMethods.get)
       return networkCallWithApisauce(
          api,
          endPoints.userDetailsAPI,

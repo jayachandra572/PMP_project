@@ -17,7 +17,7 @@ function EachProject(props) {
    } = props
    const isOdd = index % 2 === 1
    return (
-      <ProjectContainer id={id} isOdd={isOdd} onClick={() => onClick(id)}>
+      <ProjectContainer data-testid = {id} id={id} isOdd={isOdd} onClick={() => onClick(id)}>
          <ProjectName>{name}</ProjectName>
          <WorkFlow id={workFlowType.id}>{workFlowType.name}</WorkFlow>
          <CreatedBy userDetails={createdBy} />

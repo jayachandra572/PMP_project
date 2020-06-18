@@ -5,7 +5,6 @@ import { API_SUCCESS, API_INITIAL, API_FETCHING } from '@ib/api-constants'
 
 import strings from '../../i18n/strings.json'
 
-import { Header } from '../Header'
 import { TransitionNameInput } from './TransitionNameInput'
 import { FromStatusDropDownMenu } from './FromStatusDropDownMenu'
 import { DescriptionTextInput } from './DescriptionTextInput'

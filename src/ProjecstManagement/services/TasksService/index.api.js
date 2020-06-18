@@ -1,5 +1,5 @@
 import { create } from 'apisauce'
-import { networkCallWithApisauce } from '../../../Common/utils/APIUtils'
+import { networkCallWithApisauceWithAccessToken } from '../../../Common/utils/APIUtils'
 import { apiMethods } from '../../../Common/constants/APIConstants'
 
 import ServiceConstants from '../../constants/ServiceConstants'
@@ -16,10 +16,11 @@ class TasksService {
       })
    }
    getProjectTaskAPI = request => {
+      console.log("service")
       const { api } = this
       const { id, offset, limit } = request
       const getTasksEndPoint = `/user/${id}/tasks/v1/?offset=${offset}&limit=${limit}`
-      return networkCallWithApisauce(api, getTasksEndPoint, {}, apiMethods.get)
+      return networkCallWithApisauceWithAccessToken(api, getTasksEndPoint, {}, apiMethods.get)
    }
 
    postProjectTaskAPI = taskRequest => {
@@ -32,7 +33,7 @@ class TasksService {
          title: taskTitle,
          description
       }
-      return networkCallWithApisauce(
+      return networkCallWithApisauceWithAccessToken(
          api,
          createProjectTaskEndPoint,
          requestObj,
@@ -44,14 +45,14 @@ class TasksService {
       const { id, state } = request
       const { api } = this
       const endPoint = `/project/${id}/${state}/states/v1/`
-      return networkCallWithApisauce(api, endPoint, {}, apiMethods.get)
+      return networkCallWithApisauceWithAccessToken(api, endPoint, {}, apiMethods.get)
    }
 
    taskValidationFieldAPI = request => {
       const { fromStatus, toStatus, id } = request
       const { api } = this
       const endPoint = `/project/${id}/${fromStatus}/${toStatus}/checklist/v1/`
-      return networkCallWithApisauce(api, endPoint, request, apiMethods.get)
+      return networkCallWithApisauceWithAccessToken(api, endPoint, request, apiMethods.get)
    }
 
    postTaskTransitionValidationAPI = request => {
@@ -63,7 +64,7 @@ class TasksService {
       }
       const { api } = this
       const endPoint = `/project/${taskId}/state/update/v1/`
-      return networkCallWithApisauce(api, endPoint, requestObj, apiMethods.put)
+      return networkCallWithApisauceWithAccessToken(api, endPoint, requestObj, apiMethods.put)
    }
 }
 

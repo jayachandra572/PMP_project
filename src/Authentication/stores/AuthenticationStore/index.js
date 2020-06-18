@@ -1,14 +1,14 @@
-import { observable, action, toJS } from 'mobx'
+import { observable, action, computed} from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
-import { getUserDisplayableErrorMessage } from '../../utils/APIUtils'
+import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 import { setUserDetails } from '../../utils/LocalStrorageUtils'
 
 import {
    setAccessToken,
    getAccessToken,
    clearUserSession
-} from '../../utils/StorageUtils'
+} from '../../../Common/utils/StorageUtils'
 
 class AuthenticationStore {
    @observable getAuthApiStatus = API_INITIAL
@@ -62,6 +62,11 @@ class AuthenticationStore {
    userLogOut() {
       clearUserSession()
       this.init()
+   }
+   
+   @computed get isLogin(){
+      const {authApiToken} = this;
+      return !(authApiToken === undefined || authApiToken === ''  )
    }
 }
 

@@ -8,7 +8,7 @@ import strings from '../../i18n/strings.json'
 
 import { SIGN_IN_PATH, Member_Path } from '../../constants/RouteConstants'
 
-import AuthApiService from '../../services/AuthService/index.fixture'
+import AuthApiService from '../../services/AuthService/index.fixtures'
 import AuthStore from '../../stores/AuthenticationStore'
 import getUserSignInResponse from '../../fixtures/getUserSignInResponse.json'
 

@@ -1,59 +1,98 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router-dom'
+import {computed,reaction,toJS} from "mobx"
+import {
+   API_SUCCESS,
+} from '@ib/api-constants'
+import {getLoadingStatus} from "@ib/api-utils"
+import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import {goToSpecificProjectTasksScreen} from "../../utils/navigationUtils"
+import ProjectsView from '../../components/Projects'
 
-import ProjectsView from '../../components/ProjecstManagement'
-
-@inject('authenticationStore', 'projectsStore')
+@inject( 'projectsStore','userDetailsStore')
 @observer
 class ProjectsRoute extends Component {
+   
    componentDidMount() {
-      this.doNetWorkCall()
+      this.doNetWorkCall();
+   }
+   
+   componentWillUnmount () {
+      this.onChangePageNumberReaction()
    }
 
    onClickProject = projectId => {
-      const {history} = this.props
+      const {history} = this.props;
       goToSpecificProjectTasksScreen (history,projectId);
    }
    doNetWorkCall = () => {
-      const { getProjectsFromAPi } = this.props.projectsStore
-      getProjectsFromAPi()
+      const { getEntriesFromApi,pageLimit,offset } = this.props.projectsStore.pageNavigation;
+      const {getUserDetailsApiStatus,getUserDetailsApi} = this.props.userDetailsStore
+      if(getUserDetailsApiStatus!==API_SUCCESS){
+            getUserDetailsApi()
+      }
+      getEntriesFromApi({limit:pageLimit,offset});
    }
-
-   render() {
+   
+   onChangePageNumberReaction = reaction(
+      () => this.props.projectsStore.pageNavigation.currentPage,
+      pageNumber =>{
+         this.doNetWorkCall();
+      })
+   
+   renderSuccessUI = observer(()=>{
       const {
-         projects,
-         activePageNumber,
+         currentPageEntities,
          totalNumberOfPages,
-         navigateToPreviousPage,
+         currentPage,
          navigateToNextPage,
-         projectsPerPage,
+         navigateToPreviousPage,
          onClickPageNumber,
-         getProjectsApiStatus,
-         getProjectsApiError,
-         getProjectsFromAPi
-      } = this.props.projectsStore
-      const { userLogOut } = this.props.authenticationStore
+         pageLimit,
+         getApiStatus,
+         getApiError
+      } = this.props.projectsStore.pageNavigation;
       return (
          <ProjectsView
-            projectsPerPage={projectsPerPage}
-            userLogOut={userLogOut}
-            projects={projects}
-            activePageNumber={activePageNumber}
+            projectsPerPage={pageLimit}
+            projects={currentPageEntities}
+            activePageNumber={currentPage}
             totalNumberOfPages={totalNumberOfPages}
             navigateToNextPage={navigateToNextPage}
             navigateToPreviousPage={navigateToPreviousPage}
             onClickPageNumber={onClickPageNumber}
-            getProjectsApiError={getProjectsApiError}
-            getProjectsApiStatus={getProjectsApiStatus}
-            getProjectsFromAPi={getProjectsFromAPi}
+            apiError={getApiError}
+            apiStatus={getApiStatus}
             doNetWorkCall={this.doNetWorkCall}
-            userData={{}}
             onClickProject={this.onClickProject}
-         />
-      )
+         />);
+   })
+   
+   @computed get
+   getApiStatus (){
+      const {getUserDetailsApiStatus} = this.props.userDetailsStore;
+      const { getApiStatus } = this.props.projectsStore.pageNavigation;
+      if(getUserDetailsApiStatus===API_SUCCESS){
+            return getUserDetailsApiStatus;
+      }else{
+         return getLoadingStatus(getUserDetailsApiStatus,getApiStatus);
+      }
+
+   }
+
+   render() {
+     const {getUserDetailsApiError} = this.props.userDetailsStore;
+         return(
+         <LoadingWrapperWithFailure
+                  apiStatus = {this.getApiStatus}
+                  apiError = {getUserDetailsApiError}
+                  onRetryClick = {this.doNetWorkCall}
+                  renderSuccessUI = {this.renderSuccessUI}/>);
    }
 }
+// window.onbeforeunload = function() {
+//        return "Dude, are you sure you want to refresh? Think of the kittens!";
+// };
 
 export default withRouter(ProjectsRoute)

@@ -27,6 +27,7 @@
         "workflowTypePlaceHolder":"Select work flow type",
         "submitButton":"Submit"
     },
+    "closeIconTestId":"close-icon-button",
     "tasks":{
         "title":"TASKS",
         "createTaskButtonContent":"+ Add Task",

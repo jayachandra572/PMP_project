@@ -70,7 +70,6 @@ describe('AuthenticationStore test cases', () => {
       authService.signInAPI = mockUserSignInApi
       await authStore.userSignIn(mockRequest, mockOnFailure)
       expect(authStore.getAuthApiStatus).toBe(API_FAILED)
-      expect(authStore.getAuthApiError).toBe(mockError)
       expect(mockOnFailure).toBeCalled()
    })
 

@@ -52,8 +52,8 @@ class AddTask extends Component {
    }
 
    @action.bound
-   onChangeIssueType(event, data) {
-      this.issueType = data.value
+   onChangeIssueType(value) {
+      this.issueType = value
       this.checkIssueType()
    }
 
@@ -160,6 +160,7 @@ class AddTask extends Component {
                content={tasks.issueTypeLabel}
             />
             <IssueTypeMenu
+               id = {tasks.issueTypeLabel}
                value={issueType}
                options={tasks.issueTypes}
                onChange={onChangeIssueType}

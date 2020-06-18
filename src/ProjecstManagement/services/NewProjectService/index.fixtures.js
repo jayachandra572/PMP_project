@@ -10,7 +10,7 @@ class NewProjectService {
    postCreateProject(request) {
       console.log(request)
       return new Promise((resolve, reject) => {
-         setTimeout(() => reject({ request }), 1000)
+         setTimeout(() => resolve({ request }), 1000)
       })
    }
 }

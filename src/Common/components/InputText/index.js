@@ -34,7 +34,7 @@ class InputField extends Component {
                isError={isError}
                type={textType}
                id={id}
-               data-testid='inputText'
+               data-testid={id}
                value={value}
                onChange={onChange}
             />

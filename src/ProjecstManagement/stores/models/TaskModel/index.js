@@ -9,7 +9,7 @@ class TaskModel {
    @observable getApiError = null
    @observable response = []
    @observable state
-
+   @observable taskTrasitionState = {}
    constructor(task, changeTaskStatusAPI, postTaskTransitionValidationAPI) {
       this.taskTrasitionState = new ApiCallModel(
          postTaskTransitionValidationAPI
@@ -28,7 +28,7 @@ class TaskModel {
    }
 
    changeTaskStateReaction = reaction(
-      () => this.taskTrasitionState.getApiStatus,
+      () =>this.taskTrasitionState.getApiStatus,
       apiStatus => {
          if (apiStatus === API_SUCCESS) {
             this.state = this.toStatus
@@ -47,6 +47,7 @@ class TaskModel {
       }
       this.stateOptions = response
    }
+   
    setApiStatus = status => {
       this.getApiStatus = status
    }

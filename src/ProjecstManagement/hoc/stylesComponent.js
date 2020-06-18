@@ -37,7 +37,6 @@ export const LogOutButton = styled.button`
    color: ${Colors.white};
 `
 
-export const ProjectsContainer = styled.div`
-   ${tw` p-8 flex flex-col `}
-   flex-grow:1;
-`
+export const ProjectContainer = styled.div`${tw`relative min-h-screen flex flex-col relative`}
+background-color:${Colors.whiteTwo};
+flex-grow:1;`

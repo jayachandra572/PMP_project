@@ -1,14 +1,16 @@
 import React, { Component } from 'react'
+import {observer} from "mobx-react"
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
-
-import WithPMPHeader from '../../hoc/withPmpHeader'
+import NoDataView from '../../../Common/components/NoDataView'
+import withPMPHeader from '../../hoc/withPmpHeader'
 import { EachProject } from '../EachProject'
 import { ProjectTopics } from '../ProjectTopics'
 import ProjectHeader from '../ProjectHeader'
 import { PageNavigation } from '../PageNavigation'
-import NoDataView from '../../../Common/components/NoDataView'
+
 import { ProjectsContainer, ProjectsBox } from './styleComponent'
 
+@observer
 class Projects extends Component {
    renderProjects = () => {
       const { onClickProject, projects } = this.props
@@ -21,9 +23,9 @@ class Projects extends Component {
          />
       ))
    }
-   renderSuccessUI = () => {
+   renderSuccessUI = observer(() => {
       const { projectsPerPage, projects } = this.props
-      if (projects.length === 0) {
+      if ( projects.length === 0) {
          return <NoDataView />
       } else {
          return (
@@ -33,33 +35,35 @@ class Projects extends Component {
             </ProjectsBox>
          )
       }
-   }
+   })
 
    render() {
       const {
          doNetWorkCall,
-         getProjectsApiError,
-         getProjectsApiStatus,
+         apiStatus,
+         apiError,
          activePageNumber,
          totalNumberOfPages,
          navigateToNextPage,
          navigateToPreviousPage,
-         onClickPageNumber
-      } = this.props
+         onClickPageNumber,
+         is_admin
+      } = this.props;
       return (
          <ProjectsContainer>
             <ProjectHeader
+               is_admin = {is_admin}
                doNetWorkCall={doNetWorkCall}
-               apiStatus={getProjectsApiStatus}
+               apiStatus={apiStatus}
             />
             <LoadingWrapperWithFailure
-               apiError={getProjectsApiError}
-               apiStatus={getProjectsApiStatus}
+               apiError={apiError}
+               apiStatus={apiStatus}
                onRetryClick={doNetWorkCall}
                renderSuccessUI={this.renderSuccessUI}
             />
             <PageNavigation
-               apiStatus={getProjectsApiStatus}
+               apiStatus={apiStatus}
                activePageNumber={activePageNumber}
                totalNumberOfPages={totalNumberOfPages}
                navigateToNextPage={navigateToNextPage}
@@ -70,4 +74,4 @@ class Projects extends Component {
       )
    }
 }
-export default Projects
+export default withPMPHeader(Projects);

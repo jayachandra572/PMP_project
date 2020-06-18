@@ -48,7 +48,8 @@ class AddProject extends Component {
       workFlowType.apiCall({})
    }
    componentWillUnmount() {
-      // this.reaction1.dispose();
+      this.createProjectReaction()
+      
    }
 
    @action.bound
@@ -65,14 +66,14 @@ class AddProject extends Component {
    }
 
    @action.bound
-   onChangeWorkflowType(event, data) {
-      this.workFlowTypeId = data.value
+   onChangeWorkflowType(value) {
+      this.workFlowTypeId =value
       this.checkWorkFlowTypeIdError()
    }
 
    @action.bound
-   onChangeProjectType(event, data) {
-      this.projectType = data.value
+   onChangeProjectType(value) {
+      this.projectType = value
       this.checkProjectTypeError()
    }
 
@@ -144,7 +145,7 @@ class AddProject extends Component {
       apiStatus => {
          if (apiStatus === API_SUCCESS) {
             this.props.handleClose()
-            console.log(this.props.doNetWorkCall)
+            toaster('success',"Successfully created project")
             this.props.doNetWorkCall()
          } else if (apiStatus === API_FAILED) {
             const {

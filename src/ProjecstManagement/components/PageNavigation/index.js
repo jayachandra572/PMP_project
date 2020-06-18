@@ -49,7 +49,6 @@ class PageNavigation extends Component {
       const isPreviousButtonDisabled = 1 === activePageNumber
       const isNextButtonDisabled = activePageNumber === totalNumberOfPages
       if (
-         apiStatus !== API_SUCCESS ||
          totalNumberOfPages === 0 ||
          totalNumberOfPages == 1
       ) {

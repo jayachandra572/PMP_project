@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 
-import LoadingWrapperWithFailure from '../../Common/components/LoadingWrapperWithFailure'
 import { IbHubsLogo } from '../../Common/components/Logos/IbHubsLogo'
-import { getUserDetails } from '../../Authentication/utils/LocalStrorageUtils'
 import strings from '../i18n/strings.json'
 import { ProfileLogo } from '../components/ProfileLogo'
 import {
@@ -13,30 +11,20 @@ import {
    ProjectTitle,
    UserName,
    LogOutButton,
-   ProjectsContainer
-} from './stylesComponent'
+   ProjectContainer
+} from './stylesComponent';
 
-const withPmpHeader =observer((Wrapped) => {
-   return observer(
-      inject(
+const withPmpHeader =((WrappedComponent) => {
+         @inject(
          'authenticationStore',
-         'userDetailsStore'
-      )(
-         class extends Component {
-            componentDidMount() {
-               this.doNetWorkCall()
-            }
-
-            doNetWorkCall() {
-               this.props.userDetailsStore.getUserDetailsApi()
-            }
-
-            renderSuccessUI = () => {
+         'userDetailsStore')
+         @observer
+         class RenderComponent extends Component {
+            render() {
                const { userLogOut } = this.props.authenticationStore
-               const { name } = getUserDetails()
-               return (
-                  <ProjectsContainer>
-                     <HeaderContainer>
+               const { name ,is_admin} = this.props.userDetailsStore.userDetails
+               return (<ProjectContainer>
+                  <HeaderContainer>
                         <ProjectTitleAndLogo>
                            <IbHubsLogo />
                            <ProjectTitle>
@@ -51,25 +39,11 @@ const withPmpHeader =observer((Wrapped) => {
                            <ProfileLogo />
                         </UserNameAndLogo>
                      </HeaderContainer>
-                  </ProjectsContainer>
-               )
-            }
-            render() {
-               const {
-                  getUserDetailsApiStatus,
-                  getUserDetailsApiError,
-                  userDetails
-               } = this.props.userDetailsStore
-              alert(getUserDetailsApiStatus)
-               return <LoadingWrapperWithFailure
-                  apiStatus = {getUserDetailsApiStatus}
-                  apiError = {getUserDetailsApiError}
-                  onRetryClick = {this.doNetWorkCall}
-                  renderSuccessUI = {this.renderSuccessUI}/>
+                     <WrappedComponent is_admin = {is_admin} {...this.props}/>
+               </ProjectContainer>)
             }
          }
-      )
-   )
+         return RenderComponent;
 })
 
 export default withPmpHeader

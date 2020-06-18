@@ -11,10 +11,10 @@ describe('Test cases InputText', () => {
             textType='text'
             value='UserName'
             onChange={mockOnChange}
-            id={strings.userNameLable}
+            id={'user-name'}
          />
       )
-      getByTestId('inputText')
+      getByTestId('user-name')
    })
    it('Should test render errorMessage', () => {
       const mockOnChange = jest.fn()
@@ -23,7 +23,7 @@ describe('Test cases InputText', () => {
             textType='text'
             value='UserName'
             onChange={mockOnChange}
-            id={strings.userNameLable}
+            id={'user-name'}
             errorMessage={strings.userNameErrorMessage}
             isError={true}
          />
@@ -39,11 +39,11 @@ describe('Test cases InputText', () => {
             textType='text'
             value='UserName'
             onChange={mockOnChange}
-            id={strings.userNameLable}
+            id={'user-name'}
             errorMessage={strings.userNameErrorMessage}
          />
       )
-      const inputText = getByTestId('inputText')
+      const inputText = getByTestId('user-name')
       fireEvent.change(inputText, { target: { value: changeInputValue } })
    })
 })

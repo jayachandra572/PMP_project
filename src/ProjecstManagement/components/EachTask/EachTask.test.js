@@ -21,6 +21,5 @@ describe('Test Cases for EachTask component', () => {
       getByText(description)
       getByText(createdAt)
       getByText(title)
-      getByText(issueType)
    })
 })

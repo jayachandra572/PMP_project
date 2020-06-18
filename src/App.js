@@ -17,10 +17,9 @@ const App = () => {
       <Provider {...store}>
          <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-               {createWorkFlowRoute}
-
                {tasksRoute}
                {projectsRoute}
+               {createWorkFlowRoute}
 
                {logRoute}
             </Switch>
