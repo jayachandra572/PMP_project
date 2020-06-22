@@ -9,11 +9,9 @@ import { InputField } from '../../../Common/components/InputText'
 import {
    Header,
    Label,
-   Required,
-   CloseButton,
    Container
 } from '../../styleComponent/FormStyles'
-export { Header, CloseButton }
+export { Header }
 
 export const TransitionContainer = styled(Container)`
    ${tw`p-0`}

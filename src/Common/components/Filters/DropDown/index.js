@@ -14,8 +14,8 @@ class DropDown extends React.Component {
       error: false,
       onClick: () => {}
    }
-   
-   onChangeDropdownSelect = (event,data) =>{
+
+   onChangeDropdownSelect = (event, data) => {
       this.props.onChange(data.value)
    }
    render() {
@@ -41,7 +41,7 @@ class DropDown extends React.Component {
             : []
       return (
          <Dropdown
-            data-testid = {id}
+            data-testid={id}
             value={value}
             placeholder={placeholder}
             fluid

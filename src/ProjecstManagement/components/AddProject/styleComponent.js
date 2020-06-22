@@ -1,5 +1,6 @@
 import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
+import { css } from '@emotion/core'
 import Colors from '../../themes/Colors'
 import Button from '../../../Common/components/Button'
 import DropDown from '../../../Common/components/Filters/DropDown'
@@ -10,10 +11,9 @@ import {
    Header,
    Label,
    Required,
-   CloseButton,
    Container
 } from '../../styleComponent/FormStyles'
-export { Header, Required, CloseButton }
+export { Header, Required}
 
 export const ProjectName = styled(InputField)`
    ${tw``}
@@ -42,3 +42,4 @@ export const SubmitButton = styled(Button)`
    ${tw`mt-8`}
    width:400px;
 `
+

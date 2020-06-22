@@ -1,10 +1,14 @@
 import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
+import {css} from "@emotion/core"
+import Colors from '../../themes/Colors'
 
-import { Header, CloseButton } from '../../styleComponent/FormStyles'
 import { Typo12SteelHKGroteskSemiBold } from '../../../styleGuide/Typos'
+import CloseButtonWithIcon from "../../../Common/components/CloseButtonWithIcon"
 
 import { CommonStyle, Container } from '../../styleComponent/ListItemStyles'
+import { Header } from '../../styleComponent/FormStyles'
+
 
 export const IssueType = styled(CommonStyle)``
 export const Title = styled(CommonStyle)``
@@ -37,7 +41,14 @@ export const CaptionValue = styled.p`
    word-wrap: break-word;
    max-width: 250px;
 `
-export const CloseIconButton = styled(CloseButton)`
+export const CloseIconButton = styled(CloseButtonWithIcon)`
    top: 20px;
    right: 20px;
 `
+
+export const dropDownCss = css`
+      min-width: '90px',
+      max-width: '130px',
+      border: 'none',
+      background-color: 'transparent',
+      color: ${Colors.steel}`

@@ -1,2 +1,2 @@
-import PageNavigationStore from "./PageNavigationStore"
+import PageNavigationStore from './PageNavigationStore'
 export default PageNavigationStore

@@ -6,7 +6,7 @@ class TasksService {
    getProjectTaskAPI(request) {
       const { limit, offset } = request
       const Tasks = taskResponseData.Tasks.slice().splice(offset, limit)
-      return new Promise(resolve=>resolve({ ...taskResponseData, Tasks }))
+      return new Promise(resolve => resolve({ ...taskResponseData, Tasks }))
    }
 
    postProjectTaskAPI(request) {

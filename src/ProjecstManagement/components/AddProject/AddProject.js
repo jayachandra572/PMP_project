@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { observer, inject } from 'mobx-react'
 import { observable, reaction, action } from 'mobx'
-import { RiCloseLine } from 'react-icons/ri'
 import {
    API_SUCCESS,
    API_INITIAL,
@@ -10,6 +9,8 @@ import {
 } from '@ib/api-constants'
 
 import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
+import CloseButtonWithIcon from "../../../Common/components/CloseButtonWithIcon"
+
 import toaster from '../../utils/Toaster'
 import Colors from '../../themes/Colors'
 import strings from '../../i18n/strings.json'
@@ -27,7 +28,6 @@ import {
    DescriptionTextArea,
    Header,
    Required,
-   CloseButton
 } from './styleComponent'
 
 @inject('newProjectStore')
@@ -49,7 +49,6 @@ class AddProject extends Component {
    }
    componentWillUnmount() {
       this.createProjectReaction()
-      
    }
 
    @action.bound
@@ -67,7 +66,7 @@ class AddProject extends Component {
 
    @action.bound
    onChangeWorkflowType(value) {
-      this.workFlowTypeId =value
+      this.workFlowTypeId = value
       this.checkWorkFlowTypeIdError()
    }
 
@@ -139,13 +138,19 @@ class AddProject extends Component {
          })
       }
    }
+   
+   renderRequiredMessage (shouldRender){
+      if(shouldRender){
+         return <Required>{strings.required}</Required>  
+      }
+   }
 
    createProjectReaction = reaction(
       () => this.props.newProjectStore.newProject.getApiStatus,
       apiStatus => {
          if (apiStatus === API_SUCCESS) {
             this.props.handleClose()
-            toaster('success',"Successfully created project")
+            toaster('success', 'Successfully created project')
             this.props.doNetWorkCall()
          } else if (apiStatus === API_FAILED) {
             const {
@@ -157,7 +162,7 @@ class AddProject extends Component {
    )
 
    ProjectNameInput = observer(() => {
-      const { onChangeProjectName, projectName } = this
+      const { onChangeProjectName, projectName, renderRequiredMessage} = this
       const { projectNameEmpty } = this.errorMessage
       const { addProject } = strings
       return (
@@ -173,13 +178,13 @@ class AddProject extends Component {
                value={projectName}
                onChange={onChangeProjectName}
             />
-            {projectNameEmpty && <Required>{strings.required}</Required>}
+            {renderRequiredMessage(projectNameEmpty)}
          </Fragment>
       )
    })
 
    ProjectTypeMenu = observer(() => {
-      const { onChangeProjectType } = this
+      const { onChangeProjectType, renderRequiredMessage } = this
       const { projectTypeError } = this.errorMessage
       const { addProject } = strings
       return (
@@ -203,7 +208,7 @@ class AddProject extends Component {
                   height: '40px'
                }}
             />
-            {projectTypeError && <Required>{strings.required}</Required>}
+            {renderRequiredMessage(projectTypeError)}
          </Fragment>
       )
    })
@@ -215,7 +220,8 @@ class AddProject extends Component {
       const { addProject } = strings
       const {
          errorMessage: { projectWorkFlowError },
-         onChangeWorkflowType
+         onChangeWorkflowType,
+         renderRequiredMessage
       } = this
       return (
          <Fragment>
@@ -232,15 +238,10 @@ class AddProject extends Component {
                loading={getApiStatus === API_FETCHING}
                error={getApiStatus === API_FAILED}
                styles={{
-                  color: Colors.steel,
-                  width: '400px',
-                  border: `1px solid ${
-                     projectWorkFlowError ? 'red' : Colors.lightBlueGrey
-                  }`,
-                  height: '40px'
+                  
                }}
             />
-            {projectWorkFlowError && <Required>{strings.required}</Required>}
+            {renderRequiredMessage(projectWorkFlowError)}
             {getApiStatus === API_FAILED && (
                <Required>
                   {getUserDisplayableErrorMessage(getApiError)}
@@ -253,7 +254,7 @@ class AddProject extends Component {
    DescriptionTextInput = observer(() => {
       const { addProject } = strings
       const { projectDescriptionError } = this.errorMessage
-      const { projectDescription, onChangeDescription } = this
+      const { projectDescription, onChangeDescription, renderRequiredMessage } = this
       return (
          <Fragment>
             <DescriptionLabel
@@ -267,7 +268,7 @@ class AddProject extends Component {
                value={projectDescription}
                onChange={onChangeDescription}
             />
-            {projectDescriptionError && <Required>{strings.required}</Required>}
+            {renderRequiredMessage(projectDescriptionError)}
          </Fragment>
       )
    })
@@ -283,9 +284,7 @@ class AddProject extends Component {
       return (
          <AddProjectContainer>
             <Header>{strings.addProject.title}</Header>
-            <CloseButton onClick={this.props.handleClose}>
-               <RiCloseLine size={24} />
-            </CloseButton>
+            <CloseButtonWithIcon onClick={this.props.handleClose}/>
             <ProjectNameInput />
             <ProjectTypeMenu />
             <WorkFlowTypeMenu />

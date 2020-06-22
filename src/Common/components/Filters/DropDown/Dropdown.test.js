@@ -18,22 +18,17 @@ describe('Test cases for Dropdown Component', () => {
             { id: '3', name: 'hardware', onClick: onChangeMockFn }
          ],
          value: '1',
-         onClick:onChangeMockFn
+         onClick: onChangeMockFn
       }
-      const { debug, getByRole } = render(
-         <DropDown {...props} />
-      )
+      const { debug, getByRole } = render(<DropDown {...props} />)
       const dropdown = getByRole('listbox')
       fireEvent.click(dropdown)
-      fireEvent.change(dropdown,{data:{value:"2"}})
+      fireEvent.change(dropdown, { data: { value: '2' } })
       expect(onChangeMockFn).toBeCalled()
    })
-   
-   it('should test render dropdown without raising error',()=>{
-      const { debug, getByRole } = render(
-         <DropDown />
-      )
+
+   it('should test render dropdown without raising error', () => {
+      const { debug, getByRole } = render(<DropDown />)
       getByRole('listbox')
-   }
-   )
+   })
 })

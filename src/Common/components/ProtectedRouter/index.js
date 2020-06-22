@@ -5,7 +5,7 @@ import { SIGN_IN_PATH } from '../../../Authentication/constants/RouteConstants'
 
 const ProtectedRouter = inject('authenticationStore')(
    observer(({ component: Component, path, authenticationStore, ...rest }) => {
-      const {isLogin} = authenticationStore
+      const { isLogin } = authenticationStore
       return (
          <Route
             {...rest}

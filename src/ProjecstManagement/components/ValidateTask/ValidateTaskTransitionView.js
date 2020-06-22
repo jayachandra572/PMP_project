@@ -5,7 +5,9 @@ import { API_SUCCESS, API_FETCHING, API_FAILED } from '@ib/api-constants'
 import { RiCloseLine } from 'react-icons/ri'
 
 import CheckboxWithLabel from '../../../Common/components/CheckboxWithLabel'
-import { Header, Required, CloseButton } from '../../styleComponent/FormStyles'
+import CloseButtonWithIcon from "../../../Common/components/CloseButtonWithIcon"
+
+import { Header, Required } from '../../styleComponent/FormStyles'
 import Toaster from '../../utils/Toaster'
 
 import FailureView from './FailureView'
@@ -120,9 +122,7 @@ class ValidateTaskTransitionView extends Component {
       } = this
       return (
          <TaskTransitionValidateContainer>
-            <CloseButton onClick={this.props.handleClose}>
-               <RiCloseLine size={24} />
-            </CloseButton>
+            <CloseButtonWithIcon onClick={this.props.handleClose}/>
             <Header>{title.toUpperCase()}</Header>
             <FromAndToStatus>
                <FromStatus>

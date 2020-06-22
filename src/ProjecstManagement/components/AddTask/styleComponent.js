@@ -10,10 +10,9 @@ import {
    Header,
    Label,
    Required,
-   CloseButton,
    Container
 } from '../../styleComponent/FormStyles'
-export { Header, Required, CloseButton }
+export { Header, Required }
 
 import Colors from '../../themes/Colors'
 

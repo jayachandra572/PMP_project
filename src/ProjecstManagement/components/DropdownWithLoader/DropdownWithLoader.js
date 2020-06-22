@@ -51,7 +51,7 @@ class DropdownWithLoader extends React.Component {
             options={options}
             onChange={this.onChangeState}
             onClick={onClick}
-            style={styles}
+            style = {styles}
             onBlur={closeDropdownMenu}
          />
       )

@@ -1,1 +1,1 @@
-import {} from "../constants/RouteConstants"
+import {} from '../constants/RouteConstants'

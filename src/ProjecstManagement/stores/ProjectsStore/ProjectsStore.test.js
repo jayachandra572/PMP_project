@@ -8,7 +8,7 @@ import {
 import { waitFor } from '@testing-library/react'
 
 import ProjectsService from '../../services/ProjectsService/index.fixtures'
-import PageNavigationStore from "../PageNavigationStore"
+import PageNavigationStore from '../PageNavigationStore'
 import ProjectsStore from '.'
 
 describe('ProjectsStore test cases', () => {
@@ -17,7 +17,7 @@ describe('ProjectsStore test cases', () => {
 
    beforeEach(() => {
       projectsService = new ProjectsService()
-      projectsStore = new ProjectsStore(projectsService,PageNavigationStore)
+      projectsStore = new ProjectsStore(projectsService, PageNavigationStore)
    })
 
    it('should test intialisation', () => {
@@ -25,5 +25,4 @@ describe('ProjectsStore test cases', () => {
       expect(projectsStore.pageNavigation.getApiStatus).toBe(API_INITIAL)
       expect(projectsStore.pageNavigation.getApiError).toBe(null)
    })
-
 })

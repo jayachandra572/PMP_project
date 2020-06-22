@@ -12,12 +12,14 @@ import { TasksRoute } from './TasksRoute'
 
 import { CreateWorkFlowRoute } from './CreateWorkFlowRoute'
 
-export const projectsRoute = <ProtectedRouter exact path={PROJECT_ROUTE} component={ProjectsRoute} />
+export const projectsRoute = (
+   <ProtectedRouter exact path={PROJECT_ROUTE} component={ProjectsRoute} />
+)
 
-export const tasksRoute =  <ProtectedRouter  exact path={TASK_ROUTE} component={TasksRoute} />
+export const tasksRoute = (
+   <ProtectedRouter exact path={TASK_ROUTE} component={TasksRoute} />
+)
 
-export const createWorkFlowRoute = <Route exact path = {CREATE_WORK_FLOW_ROUTE} component={CreateWorkFlowRoute} />
-
-
-
- 
+export const createWorkFlowRoute = (
+   <Route exact path={CREATE_WORK_FLOW_ROUTE} component={CreateWorkFlowRoute} />
+)

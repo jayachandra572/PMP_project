@@ -1,4 +1,4 @@
-import { observable, action, computed} from 'mobx'
+import { observable, action, computed } from 'mobx'
 import { API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
@@ -63,10 +63,10 @@ class AuthenticationStore {
       clearUserSession()
       this.init()
    }
-   
-   @computed get isLogin(){
-      const {authApiToken} = this;
-      return !(authApiToken === undefined || authApiToken === ''  )
+
+   @computed get isLogin() {
+      const { authApiToken } = this
+      return !(authApiToken === undefined || authApiToken === '')
    }
 }
 

@@ -33,12 +33,6 @@ export const Required = styled.span`
    margin-top: 4px;
 `
 
-export const CloseButton = styled.button`
-   ${tw`absolute`}
-   top:0;
-   right: 0;
-`
-
 export const Container = styled.div`
    ${tw`flex flex-col  w-full relative`}
    min-height:550px;

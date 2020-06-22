@@ -12,7 +12,7 @@ import userDetailsResponse from '../../../Authentication/fixtures/userDetailsRes
 
 import ProjectsStore from '../../stores/ProjectsStore'
 import ProjectsService from '../../services/ProjectsService/index.api'
-import PageNavigationStore from "../../stores/PageNavigationStore"
+import PageNavigationStore from '../../stores/PageNavigationStore'
 
 import projectResponseData from '../../fixtures/projectResponseData.json'
 import strings from '../../i18n/strings.json'
@@ -24,11 +24,11 @@ let authService
 let projectsService
 let projectsStore
 let userDetailsStore
-const history  = createMemoryHistory()
+const history = createMemoryHistory()
 
 const getScreen = () => {
    return render(
-      <Provider {...{ authenticationStore, projectsStore,userDetailsStore }}>
+      <Provider {...{ authenticationStore, projectsStore, userDetailsStore }}>
          <Router history={history}>
             <ProjectsRoute />
          </Router>
@@ -51,7 +51,7 @@ describe('ProductsDashBoard tests', () => {
       authenticationStore = new AuthenticationStore(authService)
       userDetailsStore = new UserDetailsStore(authService)
       projectsService = new ProjectsService()
-      projectsStore = new ProjectsStore(projectsService,PageNavigationStore)
+      projectsStore = new ProjectsStore(projectsService, PageNavigationStore)
    })
 
    it('Should test render loading view', () => {
@@ -63,11 +63,13 @@ describe('ProductsDashBoard tests', () => {
       getByLabelText('audio-loading')
    })
 
-   
-
    it('Should test render  success UI', async () => {
-      const mockFetchingProjectPromise = new Promise((resolve, reject) => 
-      resolve({...projectResponseData,projects:[projectResponseData.projects[0]]}))
+      const mockFetchingProjectPromise = new Promise((resolve, reject) =>
+         resolve({
+            ...projectResponseData,
+            projects: [projectResponseData.projects[0]]
+         })
+      )
       const mockprojectsAPI = jest.fn()
       mockprojectsAPI.mockReturnValue(mockFetchingProjectPromise)
       projectsStore.pageNavigation.entitiesApiServiceFunction = mockprojectsAPI
@@ -84,69 +86,75 @@ describe('ProductsDashBoard tests', () => {
          getByTestId(strings.previousButtonDataTestId)
       })
    })
-   
-   it('Should test render network error', async () => {
 
-      projectsStore.pageNavigation.entitiesApiServiceFunction = ()=>new Promise((_,reject)=>reject(new Error('error')))
-      const { getByRole,getByAltText,debug } = getScreen()
+   it('Should test render network error', async () => {
+      projectsStore.pageNavigation.entitiesApiServiceFunction = () =>
+         new Promise((_, reject) => reject(new Error('error')))
+      const { getByRole, getByAltText, debug } = getScreen()
       await waitFor(() => {
-          getByAltText(/page not found/i)
+         getByAltText(/page not found/i)
          getByRole('button', { name: 'Retry' })
       })
    })
-   
-   it('Should test render no data view',async ()=>{
-      const mockFetchingProjectPromise = new Promise((resolve, reject) => 
-      resolve({...projectResponseData,projects:[]}))
-      const mockprojectsAPI = jest.fn()
-      mockprojectsAPI.mockReturnValue(mockFetchingProjectPromise)
-     projectsStore.pageNavigation.entitiesApiServiceFunction = mockprojectsAPI
-      authService.getUserDetails = () => {
-       return new Promise((resolve)=>resolve(userDetailsResponse))
-      }
-      const { getByAltText } = getScreen()
-      await waitFor(()=>{
-         getByAltText("No data Found")
-      })
-   })
-   
-   it('Should test render page navigation',async ()=>{
-      const mockFetchingProjectPromise = new Promise((resolve, reject) => 
-      resolve({...projectResponseData}))
-      const mockprojectsAPI = jest.fn()
-      mockprojectsAPI.mockReturnValue(mockFetchingProjectPromise)
-     projectsStore.pageNavigation.entitiesApiServiceFunction = mockprojectsAPI
-      authService.getUserDetails = () => {
-       return new Promise((resolve)=>resolve(userDetailsResponse))
-      }
-       const { getByRole, getByTestId } = getScreen()
-      expect(mockprojectsAPI).toHaveBeenCalledTimes(1)
-      await waitFor(()=>{})
-       const backButton = getByTestId(strings.previousButtonDataTestId)
-      const nextButton = getByTestId(strings.nextButtonDataTestId)
-      expect(backButton.disabled).toBe(true)
-      fireEvent.click(nextButton)
-      expect(backButton.disabled).toBe(false)
-      const lastButton = getByRole('button',{name:`${projectsStore.pageNavigation.totalNumberOfPages}`})
-      fireEvent.click(lastButton)
-      expect(nextButton.disabled).toBe(true)
-   })
-   
-   it("Should test onClick project navigate tasks route",async ()=>{
-      const {projects} = projectResponseData
-      const mockFetchingProjectPromise = new Promise((resolve, reject) => 
-      resolve({...projectResponseData}))
+
+   it('Should test render no data view', async () => {
+      const mockFetchingProjectPromise = new Promise((resolve, reject) =>
+         resolve({ ...projectResponseData, projects: [] })
+      )
       const mockprojectsAPI = jest.fn()
       mockprojectsAPI.mockReturnValue(mockFetchingProjectPromise)
       projectsStore.pageNavigation.entitiesApiServiceFunction = mockprojectsAPI
       authService.getUserDetails = () => {
-      return new Promise((resolve)=>resolve(userDetailsResponse))
+         return new Promise(resolve => resolve(userDetailsResponse))
+      }
+      const { getByAltText } = getScreen()
+      await waitFor(() => {
+         getByAltText('No data Found')
+      })
+   })
+
+   it('Should test render page navigation', async () => {
+      const mockFetchingProjectPromise = new Promise((resolve, reject) =>
+         resolve({ ...projectResponseData })
+      )
+      const mockprojectsAPI = jest.fn()
+      mockprojectsAPI.mockReturnValue(mockFetchingProjectPromise)
+      projectsStore.pageNavigation.entitiesApiServiceFunction = mockprojectsAPI
+      authService.getUserDetails = () => {
+         return new Promise(resolve => resolve(userDetailsResponse))
       }
       const { getByRole, getByTestId } = getScreen()
-      await waitFor(()=>{})
+      expect(mockprojectsAPI).toHaveBeenCalledTimes(1)
+      await waitFor(() => {})
+      const backButton = getByTestId(strings.previousButtonDataTestId)
+      const nextButton = getByTestId(strings.nextButtonDataTestId)
+      expect(backButton.disabled).toBe(true)
+      fireEvent.click(nextButton)
+      expect(backButton.disabled).toBe(false)
+      const lastButton = getByRole('button', {
+         name: `${projectsStore.pageNavigation.totalNumberOfPages}`
+      })
+      fireEvent.click(lastButton)
+      expect(nextButton.disabled).toBe(true)
+   })
+
+   it('Should test onClick project navigate tasks route', async () => {
+      const { projects } = projectResponseData
+      const mockFetchingProjectPromise = new Promise((resolve, reject) =>
+         resolve({ ...projectResponseData })
+      )
+      const mockprojectsAPI = jest.fn()
+      mockprojectsAPI.mockReturnValue(mockFetchingProjectPromise)
+      projectsStore.pageNavigation.entitiesApiServiceFunction = mockprojectsAPI
+      authService.getUserDetails = () => {
+         return new Promise(resolve => resolve(userDetailsResponse))
+      }
+      const { getByRole, getByTestId } = getScreen()
+      await waitFor(() => {})
       const project = getByTestId(projects[0].id)
       fireEvent.click(project)
-      expect(history.location.pathname).toBe(`/projects/${projects[0].id}/tasks`)
+      expect(history.location.pathname).toBe(
+         `/projects/${projects[0].id}/tasks`
+      )
    })
-   
 })

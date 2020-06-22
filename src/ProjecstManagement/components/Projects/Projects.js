@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {observer} from "mobx-react"
+import { observer } from 'mobx-react'
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import NoDataView from '../../../Common/components/NoDataView'
 import withPMPHeader from '../../hoc/withPmpHeader'
@@ -25,7 +25,7 @@ class Projects extends Component {
    }
    renderSuccessUI = observer(() => {
       const { projectsPerPage, projects } = this.props
-      if ( projects.length === 0) {
+      if (projects.length === 0) {
          return <NoDataView />
       } else {
          return (
@@ -48,11 +48,11 @@ class Projects extends Component {
          navigateToPreviousPage,
          onClickPageNumber,
          is_admin
-      } = this.props;
+      } = this.props
       return (
          <ProjectsContainer>
             <ProjectHeader
-               is_admin = {is_admin}
+               is_admin={is_admin}
                doNetWorkCall={doNetWorkCall}
                apiStatus={apiStatus}
             />
@@ -74,4 +74,4 @@ class Projects extends Component {
       )
    }
 }
-export default withPMPHeader(Projects);
+export default withPMPHeader(Projects)

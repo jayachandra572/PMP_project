@@ -3,7 +3,7 @@ import { observer } from 'mobx-react'
 
 import { IbHubsLogo } from '../../../Common/components/Logos/IbHubsLogo'
 import strings from '../../i18n/strings.json'
- 
+
 import {
    LogInFormContainer,
    Header,
@@ -26,9 +26,6 @@ class LogInForm extends Component {
       }
    }
 
-
-
-
    UserNameInput = observer(() => {
       const { userName, onChangeName, errorMessage } = this.props
       return (
@@ -45,11 +42,11 @@ class LogInForm extends Component {
                isError={errorMessage.userNameErrorMessage !== ''}
             />
          </Fragment>
-      );
+      )
    })
 
    UserPasswordInput = observer(() => {
-      const { userPassword, onChangePassword, errorMessage } = this.props;
+      const { userPassword, onChangePassword, errorMessage } = this.props
       return (
          <Fragment>
             <UserPasswordLabel
@@ -65,22 +62,22 @@ class LogInForm extends Component {
                isError={errorMessage.userPasswordErrorMessage !== ''}
             />
          </Fragment>
-      );
+      )
    })
 
    SignButton = observer(() => {
-      const { onSubmitForm, getAuthApiStatus } = this.props;
+      const { onSubmitForm, getAuthApiStatus } = this.props
       return (
          <LogInButton
             content={strings.loginButton}
             onClick={onSubmitForm}
             apiStatus={getAuthApiStatus}
          />
-      );
+      )
    })
 
    render() {
-      const { UserNameInput, UserPasswordInput, SignButton } = this;
+      const { UserNameInput, UserPasswordInput, SignButton } = this
       return (
          <LogInFormContainer>
             <LogInPage>
@@ -94,8 +91,8 @@ class LogInForm extends Component {
                </Footer>
             </LogInPage>
          </LogInFormContainer>
-      );
+      )
    }
 }
 
-export default LogInForm;
+export default LogInForm

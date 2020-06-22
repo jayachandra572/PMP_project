@@ -9,15 +9,17 @@ class ApiCallModel {
    constructor(apiCallFunction) {
       this.apiCallFunction = apiCallFunction
    }
-   setApiError = error => {
-      this.getApiError = error
+   
+   setApiStatus = status => {
+      this.getApiStatus = status
    }
-
+   
    setApiResponse = response => {
       this.response = response
    }
-   setApiStatus = status => {
-      this.getApiStatus = status
+   
+   setApiError = error => {
+      this.getApiError = error
    }
 
    apiCall = requestObject => {

@@ -10,7 +10,7 @@ class TextArea extends Component {
       return (
          <textarea
             id={id}
-            data-testid = {id}
+            data-testid={id}
             value={value}
             className={className}
             onChange={onChange}

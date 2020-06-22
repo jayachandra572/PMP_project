@@ -14,12 +14,12 @@ describe('UserDetailsStore test cases', () => {
       authService = new AuthService()
       userDetailsStore = new UserDetailsStore(authService)
    })
-   
+
    it('should test intialisation of UserDetailsStore', () => {
       expect(userDetailsStore.getUserDetailsApiStatus).toBe(API_INITIAL)
       expect(userDetailsStore.getUserDetailsApiError).toBe(null)
    })
-   
+
    it('Should test userDetails fecting status', () => {
       const mockFetchingPromise = new Promise(() => {})
       let mockGetUserDetails = jest.fn()
@@ -28,18 +28,22 @@ describe('UserDetailsStore test cases', () => {
       userDetailsStore.getUserDetailsApi()
       expect(userDetailsStore.getUserDetailsApiStatus).toBe(API_FETCHING)
    })
-   
+
    it('Should test userDetails Failure status', async () => {
-      const mockFailurePromise = new Promise((_, reject) => {reject(new Error('Error'))})
+      const mockFailurePromise = new Promise((_, reject) => {
+         reject(new Error('Error'))
+      })
       let mockGetUserDetails = jest.fn()
       mockGetUserDetails.mockReturnValue(mockFailurePromise)
       authService.getUserDetails = mockGetUserDetails
       await userDetailsStore.getUserDetailsApi()
       expect(userDetailsStore.getUserDetailsApiStatus).toBe(API_FAILED)
    })
-   
+
    it('Should test userDetails Success status', async () => {
-      const mockSuccessPromise = new Promise((resolve) => {resolve({})})
+      const mockSuccessPromise = new Promise(resolve => {
+         resolve({})
+      })
       let mockGetUserDetails = jest.fn()
       mockGetUserDetails.mockReturnValue(mockSuccessPromise)
       authService.getUserDetails = mockGetUserDetails

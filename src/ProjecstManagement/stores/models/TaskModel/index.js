@@ -10,9 +10,9 @@ class TaskModel {
    @observable response = []
    @observable state
    @observable taskTrasitionState = {}
-   constructor(task, changeTaskStatusAPI, postTaskTransitionValidationAPI) {
+   constructor(task, services) {
       this.taskTrasitionState = new ApiCallModel(
-         postTaskTransitionValidationAPI
+         services.postTaskTransitionValidationAPI
       )
       this.id = task.id
       this.projectName = task.project
@@ -23,12 +23,12 @@ class TaskModel {
       this.createdAt = task.created_at
       this.state = task.state
       this.stateOptions = [{ id: task.state, name: task.state }]
-      this.changeTaskStatusAPI = changeTaskStatusAPI
+      this.changeTaskStatusAPI = services.changeTaskStatusAPI
       this.toStatus = null
    }
 
    changeTaskStateReaction = reaction(
-      () =>this.taskTrasitionState.getApiStatus,
+      () => this.taskTrasitionState.getApiStatus,
       apiStatus => {
          if (apiStatus === API_SUCCESS) {
             this.state = this.toStatus
@@ -36,11 +36,11 @@ class TaskModel {
       }
    )
 
-   setApiError = error => {
-      this.getApiError = error
+   setApiStatus = status => {
+      this.getApiStatus = status
    }
-
-   @action.bound
+   
+    @action.bound
    setApiResponse(response) {
       if (response.findIndex(option => option.name === this.state) === -1) {
          response.unshift({ id: this.state, name: this.state })
@@ -48,8 +48,8 @@ class TaskModel {
       this.stateOptions = response
    }
    
-   setApiStatus = status => {
-      this.getApiStatus = status
+   setApiError = error => {
+      this.getApiError = error
    }
 
    getStatusTransitionOptions = () => {

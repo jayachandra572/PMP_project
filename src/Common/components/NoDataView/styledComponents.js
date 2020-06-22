@@ -8,5 +8,5 @@ export const NoDataViewContainer = styled.div`
 
 export const NoDataViewImg = styled.img`
    ${tw``};
-   height:350px;
+   height: 350px;
 `

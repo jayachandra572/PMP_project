@@ -11,12 +11,17 @@ class ProjectsService {
          baseURL: ServiceConstants.baseURL
       })
    }
-   projectsAPI = (request) => {
+   projectsAPI = request => {
       const { api } = this
-      const {limit,offset} = request
+      const { limit, offset } = request
       const params = `?offset=${offset}&limit=${limit}`
       const endPoint = '/projects/v1/' + params
-      return networkCallWithApisauceWithAccessToken(api, endPoint, {}, apiMethods.get)
+      return networkCallWithApisauceWithAccessToken(
+         api,
+         endPoint,
+         {},
+         apiMethods.get
+      )
    }
 }
 

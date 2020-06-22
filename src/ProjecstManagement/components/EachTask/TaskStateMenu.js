@@ -13,7 +13,7 @@ import strings from '../../i18n/strings.json'
 import Colors from '../../themes/Colors'
 import { DropdownWithLoader } from '../DropdownWithLoader'
 import ValidateTask from '../ValidateTask'
-import { State } from './styleComponent'
+import { State,dropDownCss } from './styleComponent'
 
 @observer
 class TaskStateMenu extends React.Component {
@@ -73,13 +73,7 @@ class TaskStateMenu extends React.Component {
                loading={getApiStatus === API_FETCHING}
                open={this.isDropdownMenuOpen}
                closeDropdownMenu={this.closeDropdownMenu}
-               styles={{
-                  minWidth: '90px',
-                  maxWidth: '130px',
-                  border: 'none',
-                  backgroundColor: 'transparent',
-                  color: `${Colors.steel}`
-               }}
+               styles={dropDownCss}
             />
             <ValidateTask
                taskTrasitionState={taskTrasitionState}
