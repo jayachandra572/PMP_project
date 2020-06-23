@@ -5,14 +5,20 @@ import {
    API_INITIAL
 } from '@ib/api-constants'
 
-import projectResponseData from '../../fixtures/projectResponseData'
+import projectResponseData from '../../fixtures/projectResponseData.json'
 import ProjectModel from '../models/ProjectModel'
 import PageNavigationStore from '.'
 
-let pageNavigationStore
-let pageLimit = 3
-let config = { entities: 'projects', totalEntities: 'total_no_of_projects' }
-const serviceFunction = () => {}
+type accessableKeys = {
+   entities:string
+   totalEntities:string
+}
+
+let pageNavigationStore:PageNavigationStore
+let pageLimit:number = 3
+let config:accessableKeys = { entities: 'projects', totalEntities: 'total_no_of_projects' }
+const serviceFunction:Function = () => {}
+const requestObject:object = {}
 
 describe('PageNavigationStore Test cases', () => {
    beforeEach(() => {
@@ -20,7 +26,8 @@ describe('PageNavigationStore Test cases', () => {
          serviceFunction,
          ProjectModel,
          pageLimit,
-         config
+         config,
+         {}
       )
    })
 
@@ -42,20 +49,20 @@ describe('PageNavigationStore Test cases', () => {
    })
 
    it('should test fetching entities from network call', () => {
-      pageNavigationStore.entitiesApiServiceFunction = () =>
+      pageNavigationStore.entitiesApiServiceFunction = ():Promise<null> =>
          new Promise(() => {})
-      pageNavigationStore.getEntriesFromApi()
+      pageNavigationStore.getEntriesFromApi(requestObject)
       const { getApiStatus, currentPageEntities } = pageNavigationStore
       expect(getApiStatus).toBe(API_FETCHING)
       expect(currentPageEntities).toBe(undefined)
    })
 
    it('should test success entities from network call', async () => {
-      pageNavigationStore.entitiesApiServiceFunction = () =>
+      pageNavigationStore.entitiesApiServiceFunction = ():Promise<object> =>
          new Promise(resolve => {
             resolve(projectResponseData)
          })
-      await pageNavigationStore.getEntriesFromApi()
+      await pageNavigationStore.getEntriesFromApi(requestObject)
       const { getApiStatus, entities, currentPage } = pageNavigationStore
       expect(getApiStatus).toBe(API_SUCCESS)
       expect(entities.has(currentPage)).toBe(true)
@@ -63,11 +70,11 @@ describe('PageNavigationStore Test cases', () => {
 
    it('should test failure response of entities  network call', async () => {
       const errorMessage = 'Error'
-      pageNavigationStore.entitiesApiServiceFunction = () =>
+      pageNavigationStore.entitiesApiServiceFunction = ():Promise<object> =>
          new Promise((_, reject) => {
             reject(new Error(errorMessage))
          })
-      await pageNavigationStore.getEntriesFromApi()
+      await pageNavigationStore.getEntriesFromApi(requestObject)
       const { getApiStatus, getApiError } = pageNavigationStore
       expect(getApiStatus).toBe(API_FAILED)
       expect(getApiError).toBe(errorMessage)

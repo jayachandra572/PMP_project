@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
-import { observable, action } from 'mobx'
+import { observable } from 'mobx'
 import { API_SUCCESS, API_INITIAL, API_FETCHING } from '@ib/api-constants'
 
 
@@ -13,6 +13,7 @@ import { ToStatusDropDownMenu } from './ToStatusDropDownMenu'
 
 import { TransitionContainer, AddTransitionButton } from './styleComponent'
 
+@observer
 class AddTransition extends Component {
    @observable transitionName
    @observable transitionToStatus
@@ -59,7 +60,6 @@ class AddTransition extends Component {
       const { AddTransition } = strings
       return (
          <TransitionContainer>
-            <Header />
             <FromStatusDropDownMenu
                transitionFromStatus={transitionFromStatus}
                onChangeTransitionFromStatus={onChangeTransitionFromStatus}

@@ -5,7 +5,7 @@ import Button from '../../../Common/components/Button'
 import { InputField } from '../../../Common/components/InputText'
 import { InputLabel } from '../../../Common/components/Label'
 
-export const LogInFormContainer = styled.div`${tw`w-screen min-h-screen h-full flex justify-center items-center `}
+export const LogInFormContainer = styled.form`${tw`w-screen min-h-screen h-full flex justify-center items-center `}
 background-color:${Colors.iceBlue}`
 
 export const UserName = styled(InputField)`

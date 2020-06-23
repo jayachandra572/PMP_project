@@ -7,13 +7,13 @@ import {
 
 import { waitFor } from '@testing-library/react'
 
-import ProjectsService from '../../services/ProjectsService/index.fixtures'
+import ProjectsService from '../../services/ProjectsService/index.api'
 import PageNavigationStore from '../PageNavigationStore'
 import ProjectsStore from '.'
 
 describe('ProjectsStore test cases', () => {
-   let projectsStore
-   let projectsService
+   let projectsStore:ProjectsStore
+   let projectsService:ProjectsService
 
    beforeEach(() => {
       projectsService = new ProjectsService()

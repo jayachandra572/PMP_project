@@ -8,7 +8,9 @@ import {
 import { waitFor } from '@testing-library/react'
 
 import ApiCallModel from '.'
-let apiCallModel
+
+let apiCallModel:ApiCallModel
+const requestObject = {}
 
 describe('ApiCallModel test cases', () => {
    beforeEach(() => {
@@ -22,11 +24,11 @@ describe('ApiCallModel test cases', () => {
    })
 
    it('Should test ApiCall fecting status', () => {
-      const mockFetchingPromise = new Promise((resolve, reject) => {})
+      const mockFetchingPromise:Promise<any> = new Promise((resolve, reject) => {})
       let mockApiCallFunction = jest.fn()
       mockApiCallFunction.mockReturnValue(mockFetchingPromise)
       apiCallModel.apiCallFunction = mockApiCallFunction
-      apiCallModel.apiCall()
+      apiCallModel.apiCall(requestObject)
       expect(apiCallModel.getApiStatus).toBe(API_FETCHING)
    })
    it('Should test ApiCall Success status', async () => {
@@ -34,13 +36,13 @@ describe('ApiCallModel test cases', () => {
          { id: '1', name: 'management' },
          { id: 2, name: 'software' }
       ]
-      const mockFetchingPromise = new Promise((resolve, reject) => {
+      const mockFetchingPromise:Promise<Array<object>> = new Promise((resolve):void => {
          resolve(responseData)
       })
       let mockApiCallFunction = jest.fn()
       mockApiCallFunction.mockReturnValue(mockFetchingPromise)
       apiCallModel.apiCallFunction = mockApiCallFunction
-      apiCallModel.apiCall()
+      apiCallModel.apiCall(requestObject)
       await waitFor(() => {
          expect(apiCallModel.getApiStatus).toBe(API_SUCCESS)
          expect(apiCallModel.response).toEqual(responseData)
@@ -49,13 +51,13 @@ describe('ApiCallModel test cases', () => {
 
    it('Should test ApiCall Success status', async () => {
       const mockError = 'Error'
-      const mockFailurePromise = new Promise((resolve, reject) => {
-         throw new Error(mockError)
+      const mockFailurePromise:Promise<object> = new Promise((_, reject) => {
+         reject (new Error(mockError))
       })
       let mockApiCallFunction = jest.fn()
       mockApiCallFunction.mockReturnValue(mockFailurePromise)
       apiCallModel.apiCallFunction = mockApiCallFunction
-      apiCallModel.apiCall()
+      apiCallModel.apiCall(requestObject)
       await waitFor(() => {
          expect(apiCallModel.getApiStatus).toBe(API_FAILED)
          expect(apiCallModel.getApiError).toEqual(mockError)

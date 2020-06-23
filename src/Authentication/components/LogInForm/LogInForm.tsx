@@ -17,8 +17,24 @@ import {
    UserPasswordLabel
 } from './stylesComponent'
 
+type errorMessageType = {
+   userNameErrorMessage:string
+   userPasswordErrorMessage:string
+}
+
+type LogInFormProps = {
+   userName:string
+   userPassword:string
+   onChangeName:Function
+   onChangePassword:Function
+   onSubmitForm:Function
+   errorMessage:errorMessageType
+   getAuthApiStatus:number
+
+}
+
 @observer
-class LogInForm extends Component {
+class LogInForm extends Component<LogInFormProps> {
    static defaultProps = {
       errorMessage: {
          userPasswordErrorMessage: '',
@@ -29,7 +45,7 @@ class LogInForm extends Component {
    UserNameInput = observer(() => {
       const { userName, onChangeName, errorMessage } = this.props
       return (
-         <Fragment>
+         <>
             <UserNameLabel
                lableFor={strings.userNameLable}
                content={strings.userNameLable}
@@ -41,7 +57,7 @@ class LogInForm extends Component {
                errorMessage={errorMessage.userNameErrorMessage}
                isError={errorMessage.userNameErrorMessage !== ''}
             />
-         </Fragment>
+         </>
       )
    })
 
@@ -65,7 +81,7 @@ class LogInForm extends Component {
       )
    })
 
-   SignButton = observer(() => {
+   SignButton = observer(():any=> {
       const { onSubmitForm, getAuthApiStatus } = this.props
       return (
          <LogInButton

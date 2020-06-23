@@ -10,6 +10,7 @@ import {
 } from '../EndPoints'
 
 class TasksService {
+   api:object
    constructor() {
       this.api = create({
          baseURL: ServiceConstants.baseURL

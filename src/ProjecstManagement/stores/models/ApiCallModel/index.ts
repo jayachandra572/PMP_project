@@ -3,28 +3,29 @@ import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import { API_INITIAL } from '@ib/api-constants'
 
 class ApiCallModel {
-   @observable getApiStatus = API_INITIAL
-   @observable getApiError = null
-   @observable response = []
-   constructor(apiCallFunction) {
+   @observable getApiStatus:number = API_INITIAL
+   @observable getApiError:null|object = null
+   @observable response:null|object = []
+   apiCallFunction:Function
+   constructor(apiCallFunction:Function) {
       this.apiCallFunction = apiCallFunction
    }
    
-   setApiStatus = status => {
+   setApiStatus = (status:number) => {
       this.getApiStatus = status
    }
    
-   setApiResponse = response => {
+   setApiResponse = (response:object) => {
       this.response = response
    }
    
-   setApiError = error => {
+   setApiError = (error:object) => {
       this.getApiError = error
    }
 
-   apiCall = requestObject => {
+   apiCall = (requestObject:object):Promise<any> => {
       const { setApiError, setApiStatus, setApiResponse } = this
-      const response = this.apiCallFunction(requestObject)
+      const response:Promise<any> = this.apiCallFunction(requestObject)
       return bindPromiseWithOnSuccess(response)
          .to(setApiStatus, setApiResponse)
          .catch(setApiError)

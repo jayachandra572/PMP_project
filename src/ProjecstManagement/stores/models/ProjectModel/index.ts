@@ -1,8 +1,22 @@
 import { observable } from 'mobx'
 
+type projectObject = {
+   workflow_type:string
+   created_by:object
+   description:string
+   created_at:string
+   name:string
+   id:string
+}
+
 class ProjectModel {
-   @observable taskStore
-   constructor(project) {
+   id:string
+   name:string
+   workFlowType:string
+   createdBy:object
+   description:string
+   createdAt:string
+   constructor(project:projectObject) {
       const {
          workflow_type,
          created_by,

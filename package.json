@@ -42,10 +42,10 @@
       "test": "react-app-rewired test --env=jest-environment-jsdom-sixteen",
       "eject": "react-app-rewired eject",
       "coverage": "react-app-rewired test --env=jest-environment-jsdom-sixteen --coverage --watchAll=false",
-      "js:start": "npm run watch:css & react-scripts start",
-      "js:build": "npm run build:css & react-scripts build",
-      "js:test": "react-scripts test --env=jest-environment-jsdom-sixteen",
-      "js:eject": "react-scripts eject",
+      "ts:start": "npm run watch:css & react-scripts start",
+      "ts:build": "npm run build:css & react-scripts build",
+      "ts:test": "react-scripts test --env=jest-environment-jsdom-sixteen",
+      "ts:eject": "react-scripts eject",
       "deploy": "export PUBLIC_URL=/2019/$C9_USER/react && npm run build && ./deploy.sh",
       "storybook": "start-storybook -p 8080 -s public",
       "build-storybook": "build-storybook -s public",
@@ -104,7 +104,6 @@
       "testEnvironment": "node",
       "collectCoverageFrom": [
          "src/Common/**/*.{ts,tsx,js,jsx}",
-         
          "!src/*.{ts,tsx,js,jsx}",
          "!src/components/**/*.{ts,tsx,js,jsx}",
          "!src/stores/**/*.{ts,tsx,js,jsx}",
@@ -113,7 +112,6 @@
          "!src/ProjecstManagement/components/CreateWorkFlow/*.{ts,tsx,js,jsx}",
          "!src/ProjecstManagement/routes/CreateWorkFlowRoute/*.{ts,tsx,js,jsx}",
          "!src/ProjecstManagement/services/**/*.{ts,js,tsx}"
-         
       ]
    }
 }

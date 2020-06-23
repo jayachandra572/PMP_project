@@ -6,6 +6,7 @@ import serviceConstants from '../../constants/ServiceConstants'
 import endPoints from '../endPoints'
 
 class AuthService {
+   api:any
    constructor() {
       this.api = create({
          baseURL: serviceConstants.baseURL

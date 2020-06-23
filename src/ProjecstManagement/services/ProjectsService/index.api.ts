@@ -1,11 +1,13 @@
 import { create } from 'apisauce'
+
 import { networkCallWithApisauceWithAccessToken } from '../../../Common/utils/APIUtils'
 import { apiMethods } from '../../../Common/constants/APIConstants'
 
 import ServiceConstants from '../../constants/ServiceConstants'
-import { projects } from '../EndPoints'
+
 
 class ProjectsService {
+   api:object
    constructor() {
       this.api = create({
          baseURL: ServiceConstants.baseURL

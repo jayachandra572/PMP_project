@@ -6,7 +6,7 @@ import {
 } from '@ib/api-constants'
 import Cookie from 'js-cookie'
 import AuthService from '../../services/AuthService/index.api'
-import AuthServiceApiResponse from '../../fixtures/getUserSignInResponse'
+import AuthServiceApiResponse from '../../fixtures/getUserSignInResponse.json'
 import AuthStore from '.'
 
 let mockSetCookie = jest.fn()
@@ -17,8 +17,8 @@ Cookie.get = mockGetCookie
 Cookie.remove = mockRemoveCookie
 
 describe('AuthenticationStore test cases', () => {
-   let authStore
-   let authService
+   let authStore:AuthStore
+   let authService:AuthService
    let mockOnFailure = jest.fn()
    let mockOnSuccess = jest.fn()
    let mockRequest = {
@@ -41,9 +41,8 @@ describe('AuthenticationStore test cases', () => {
       let mockUserSignInApi = jest.fn()
       mockUserSignInApi.mockReturnValue(mockFetchingPromise)
       authService.signInAPI = mockUserSignInApi
-      authStore.userSignIn(mockRequest, mockOnSuccess, mockOnFailure)
+      authStore.userSignIn(mockRequest,  mockOnFailure)
       expect(authStore.getAuthApiStatus).toBe(API_FETCHING)
-      expect(mockOnSuccess).not.toBeCalled()
       expect(mockOnFailure).not.toBeCalled()
    })
 
@@ -54,7 +53,7 @@ describe('AuthenticationStore test cases', () => {
       const mockUserSignInApi = jest.fn()
       mockUserSignInApi.mockReturnValue(mockSuccessPromise)
       authService.signInAPI = mockUserSignInApi
-      await authStore.userSignIn(mockRequest, mockOnSuccess, mockOnFailure)
+      await authStore.userSignIn(mockRequest, mockOnFailure)
       expect(authStore.getAuthApiStatus).toBe(API_SUCCESS)
       expect(mockSetCookie).toBeCalled()
       expect(mockGetCookie).toBeCalled()

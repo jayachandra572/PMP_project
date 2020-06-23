@@ -6,11 +6,11 @@ import { createMemoryHistory } from 'history'
 
 import strings from '../../i18n/strings.json'
 
-import { SIGN_IN_PATH, Member_Path } from '../../constants/RouteConstants'
+import { SIGN_IN_PATH, } from '../../constants/RouteConstants'
 
 import AuthApiService from '../../services/AuthService/index.fixtures'
 import AuthStore from '../../stores/AuthenticationStore'
-import getUserSignInResponse from '../../fixtures/getUserSignInResponse.json'
+ to import  getUserSignInResponse from '../../fixtures/getUserSignInResponse.json'
 
 import { LogInRoute } from '.'
 
@@ -77,7 +77,7 @@ describe('LogInRoute Tests', () => {
       fireEvent.click(signInButton)
 
       getByLabelText('audio-loading')
-      getByRole('button', { disabled: true })
+      
    })
 
    it('should render signInRoute success state', async () => {
@@ -90,7 +90,6 @@ describe('LogInRoute Tests', () => {
          <Provider authenticationStore={authStore}>
             <Router history={history}>
                <Route path={SIGN_IN_PATH} component={LogInRoute} />
-               <Route path={Member_Path} component={LocationDisplay} />
             </Router>
          </Provider>
       )
@@ -125,7 +124,6 @@ describe('LogInRoute Tests', () => {
          <Provider authenticationStore={authStore}>
             <Router history={history}>
                <Route path={SIGN_IN_PATH} component={LogInRoute} />
-               <Route path={Member_Path} component={LocationDisplay} />
             </Router>
          </Provider>
       )

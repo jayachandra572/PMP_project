@@ -13,6 +13,7 @@ import NewProjectService from '../ProjecstManagement/services/NewProjectService/
 import TasksStore from '../ProjecstManagement/stores/TasksStore'
 import TasksService from '../ProjecstManagement/services/TasksService/index.fixtures'
 
+
 const authService = new AuthService()
 const authenticationStore = new AuthenticationStore(authService)
 

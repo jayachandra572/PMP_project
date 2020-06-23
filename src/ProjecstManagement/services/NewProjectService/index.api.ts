@@ -5,14 +5,21 @@ import { apiMethods } from '../../../Common/constants/APIConstants'
 import ServiceConstants from '../../constants/ServiceConstants'
 import { getWorkFlowTypesEndPoint, createProjectEndPoint } from '../EndPoints'
 
+type requestObject={
+   projectName:string
+   workFlowTypeId:string
+   projectType:string
+   projectDescription:string
+}
+
 class TasksService {
+   api:object
    constructor() {
       this.api = create({
          baseURL: ServiceConstants.baseURL
-         // baseURL:"https://995e9c4b815f.ngrok.io/api/project_management_portal"
       })
    }
-   postCreateProject = projectObject => {
+   postCreateProject = (projectObject:requestObject):Promise<any> => {
       const {
          projectName,
          workFlowTypeId,
@@ -34,8 +41,7 @@ class TasksService {
       )
    }
 
-   workFlowTypesAPI = () => {
-      console.log(ServiceConstants)
+   workFlowTypesAPI = () :Promise<any> => {
       const { api } = this
       return networkCallWithApisauceWithAccessToken(
          api,

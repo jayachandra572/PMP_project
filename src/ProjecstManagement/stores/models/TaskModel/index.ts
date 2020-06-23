@@ -3,14 +3,55 @@ import { API_SUCCESS, API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import ApiCallModel from '../ApiCallModel'
 
-class TaskModel {
-   @observable stateOptions
-   @observable getApiStatus = API_INITIAL
-   @observable getApiError = null
-   @observable response = []
-   @observable state
+type stateOptionsType = {
+   id:string
+   name:string
+}
+
+type taskCommonType = {
+   id:string
+   title:string
+   description:string
+   state:string
+}
+
+interface taskObjectType extends taskCommonType {
+   issue_type:string
+   created_by:object
+   project:string
+   created_at:string
+}
+
+interface taskModelInstancesType extends taskCommonType{
+   issueType:string
+   createdBy:object
+   projectName:string
+   createdAt:string
+   stateOptions :Array<stateOptionsType>
+   changeTaskStatusAPI:Function
+   toStatus:null|string
+
+}
+
+
+
+class TaskModel{
+   @observable stateOptions:Array<stateOptionsType>
+   @observable getApiStatus:number = API_INITIAL
+   @observable getApiError:object|null = null
+   @observable response:Array<any> = []
+   @observable state:string
    @observable taskTrasitionState = {}
-   constructor(task, services) {
+   id
+   projectName
+   issueType
+   title
+   description
+   createdBy
+   createdAt
+   changeTaskStatusAPI
+   toStatus
+   constructor(task:taskObjectType, services:any) {
       this.taskTrasitionState = new ApiCallModel(
          services.postTaskTransitionValidationAPI
       )

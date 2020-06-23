@@ -2,20 +2,30 @@ import { observable, action, computed } from 'mobx'
 import { API_INITIAL, API_SUCCESS } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
+
+type accessableKeys = {
+   entities:string
+   totalEntities:string
+}
 class PageNavigationStore {
-   @observable currentPage
-   @observable entities = new Map()
-   @observable offset
-   @observable getApiError = null
-   @observable getApiStatus = API_INITIAL
-   response = {}
-   constructor(serviceFunction, model, pageLimit, config,services) {
+   @observable currentPage!:number
+   @observable entities:Map<any,any> = new Map()
+   @observable offset!:number
+   @observable getApiError:object|null = null
+   @observable getApiStatus:number = API_INITIAL
+   responseAccessableKeys:accessableKeys
+   entitiesApiServiceFunction:Function
+   model:any
+   pageLimit:number
+   services:object|null
+   totalNumberOfPages!:number
+   response:object|null = {}
+   constructor(serviceFunction:Function, model:any, pageLimit:number, config:accessableKeys,services:object) {
       this.responseAccessableKeys = config
       this.pageLimit = pageLimit
       this.model = model
       this.entitiesApiServiceFunction = serviceFunction
       this.services = services?services:null;
-      this.init()
    }
 
    @action.bound
@@ -25,13 +35,13 @@ class PageNavigationStore {
       this.offset = 0
    }
    
-   @computed get currentPageEntities() {
+   @computed get currentPageEntities():Array<any> {
       const { currentPage, entities } = this
       return entities.get(currentPage)
    }
    
    @action.bound
-   updateCurrentPage(number) {
+   updateCurrentPage(number:number) {
       const { pageLimit } = this
       this.currentPage = number
       this.offset = (number - 1) * pageLimit
@@ -50,30 +60,30 @@ class PageNavigationStore {
    }
 
    @action.bound
-   onClickPageNumber(number) {
+   onClickPageNumber(number:number) {
       const { updateCurrentPage } = this
       updateCurrentPage(number)
    }
    
-   shouldHaveCurrentPageData = () =>{
+   shouldHaveCurrentPageData = ():boolean =>{
       const {entities, currentPage} = this
       return !entities.has(currentPage)
    }
    
    @action.bound
-   setResponseInEntities (data) {
+   setResponseInEntities (data:Array<object>) {
       const { model: Model, currentPage,services } = this
-      const pageData = data.map(obj => new Model(obj,services))
+      const pageData = data.map((obj:Object) => new Model(obj,services))
       this.entities.set(currentPage, pageData)
    }
 
-   calculateTotalPages = totalEntities => {
+   calculateTotalPages = (totalEntities:number) => {
       const { pageLimit } = this
       this.totalNumberOfPages = Math.ceil(totalEntities / pageLimit)
    }
    
    @action.bound
-   setApiStatus(status) {
+   setApiStatus(status:number) {
       const {onApiSuccessSetResponse} = this
       this.getApiStatus = status
       if (status === API_SUCCESS) {
@@ -89,21 +99,25 @@ class PageNavigationStore {
             responseAccessableKeys: { entities, totalEntities },
             response
          } = this
-         calculateTotalPages(response[totalEntities])
-         setResponseInEntities(response[entities])
+         if(response!==null){
+            calculateTotalPages(response[totalEntities])
+            setResponseInEntities(response[entities])
+         }else{
+            setResponseInEntities([])
+         }
    }
 
    @action.bound
-   setApiResponse(response) {
+   setApiResponse(response:object|null) {
       this.response = response
    }
    
    @action.bound
-   setApiError ( error)  {
+   setApiError ( error:object)  {
       this.getApiError = error
    }
 
-   getEntriesFromApi = request => {
+   getEntriesFromApi = (request:object):Promise<any>|undefined => {
       const {
          setApiStatus,
          setApiError,
@@ -112,7 +126,7 @@ class PageNavigationStore {
          shouldHaveCurrentPageData
       } = this
       if (shouldHaveCurrentPageData()) {
-         const entriesPromise = entitiesApiServiceFunction(request)
+         const entriesPromise:Promise<object> = entitiesApiServiceFunction(request)
          return bindPromiseWithOnSuccess(entriesPromise)
             .to(setApiStatus, setApiResponse)
             .catch(setApiError)
