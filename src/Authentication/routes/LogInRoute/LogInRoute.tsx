@@ -10,31 +10,30 @@ import { LogInForm } from '../../components/LogInForm'
 import strings from '../../i18n/strings.json'
 
 import AuthenticationStore from "../../stores/AuthenticationStore"
+import { getUserDisplayableErrorMessage } from "../../../Common/utils/APIUtils"
 
-type LogInRouteProps = {
-   authenticationStore:AuthenticationStore
+interface LogInRouteProps  {
+  
    history:any
    location:any
 }
+interface InjectedProps extends LogInRouteProps {
+   authenticationStore:AuthenticationStore
+}
 
-type errorMessageType = {
+type ErrorMessageType = {
    userNameErrorMessage:string
    userPasswordErrorMessage:string
 }
+type EventType = React.FormEvent<HTMLInputElement>
 
-type requestObjectType = {
-   userName:string
-   userPassword:string
-}
-
-type eventType = React.FormEvent<HTMLInputElement>
 
 @inject('authenticationStore')
 @observer
 class LogInRoute extends Component<LogInRouteProps>{
    @observable userName!:string
    @observable userPassword!:string
-   @observable errorMessage!:errorMessageType
+   @observable errorMessage!:ErrorMessageType
    constructor(props) {
       super(props)
       this.init()
@@ -47,48 +46,50 @@ class LogInRoute extends Component<LogInRouteProps>{
          userPasswordErrorMessage:""
       }
    }
+   getInjectedProps = () => this.props as InjectedProps
 
    @action.bound
-   onChangePassword(event:eventType) {
+   onChangePassword(event:EventType) {
       this.userPassword = event.currentTarget.value
       this.validateUserPassword()
    }
 
    @action.bound
-   onChangeName(e:eventType) {
+   onChangeName(e:EventType) {
       this.userName = e.currentTarget.value
       this.validateUserName()
    }
 
-   onLogInFailure = ():void => {
-      const { getAuthApiError: apiError } = this.props.authenticationStore
+   onLogInFailure = () => {
+      let { getAuthApiError: apiError } = this.getInjectedProps().authenticationStore
       if (apiError !== null && apiError !== undefined) {
-         if (apiError === 'Invalid username') {
-            this.errorMessage.userNameErrorMessage = apiError
-         } else if (apiError === 'Invalid password') {
-            this.errorMessage.userPasswordErrorMessage = apiError
+         const errorMessage = getUserDisplayableErrorMessage(apiError)
+         if (errorMessage=== 'Invalid username') {
+            this.errorMessage.userNameErrorMessage = errorMessage
+         } else if (errorMessage === 'Invalid password') {
+            this.errorMessage.userPasswordErrorMessage = errorMessage
          }
       }
    }
 
-   validateUserName = ():void => {
+   validateUserName = () => {
       const { userName } = this
       this.errorMessage.userNameErrorMessage =
          userName === '' ? strings.userNameErrorMessage : ''
    }
 
-   validateUserPassword = ():void => {
+   validateUserPassword = () => {
       const { userPassword } = this
       this.errorMessage.userPasswordErrorMessage =
          userPassword === '' ? strings.userPasswordErrorMessage : ''
    }
 
-   signUser = ():void => {
+   signUser = () => {
       const { userName, userPassword, onLogInFailure ,toEmptyErrorMessage} = this
-      const { userSignIn } = this.props.authenticationStore
+      const { userSignIn } = this.getInjectedProps().authenticationStore
       if (userName !== '' && userPassword !== '') {
          toEmptyErrorMessage()
-         const requestObject:requestObjectType = {
+         const requestObject = {
             userName,
             userPassword
          }
@@ -97,7 +98,7 @@ class LogInRoute extends Component<LogInRouteProps>{
    }
 
    @action.bound
-   toEmptyErrorMessage ():void{
+   toEmptyErrorMessage (){
       this.errorMessage = {
          userPasswordErrorMessage: '',
          userNameErrorMessage: ''
@@ -112,13 +113,13 @@ class LogInRoute extends Component<LogInRouteProps>{
       signUser()
    }
 
-   reDirectProjectsPage() {
+   reDirectProjectsPage =() => {
       let { from } = this.props.location.state || { from: { pathname: "/projects" } };
       return (<Redirect to = {from} />)
    }
 
    render() {
-      let { getAuthApiStatus, authApiToken } = this.props.authenticationStore
+      let { getAuthApiStatus, authApiToken } = this.getInjectedProps().authenticationStore
       const {
          onSubmitForm,
          userName,

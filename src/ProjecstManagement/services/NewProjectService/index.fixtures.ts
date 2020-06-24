@@ -1,18 +1,17 @@
+import { resolveWithTimeout } from "../../../Common/utils/TestUtils"
+
 import workFlowTypesResponse from '../../fixtures/workFlowTypesAPI.json'
 
-class NewProjectService {
+import NewProjectService from "."
+
+class NewProjectFixturesService implements NewProjectService {
    workFlowTypesAPI() {
-      return new Promise((resolve, reject) => {
-         setTimeout(() => resolve(workFlowTypesResponse), 1000)
-      })
+      return resolveWithTimeout(workFlowTypesResponse)
    }
 
-   postCreateProject(request) {
-      console.log(request)
-      return new Promise((resolve, reject) => {
-         setTimeout(() => resolve({ request }), 1000)
-      })
+   postCreateProject() {
+      return resolveWithTimeout("ok")
    }
 }
 
-export default NewProjectService
+export default NewProjectFixturesService

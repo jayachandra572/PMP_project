@@ -10,8 +10,23 @@ import { PageNavigation } from '../PageNavigation'
 
 import { ProjectsContainer, ProjectsBox } from './styleComponent'
 
+type projectsPropsType = {
+   projectsPerPage:number
+   projects:any[]
+   activePageNumber:number
+   totalNumberOfPages:number
+   navigateToNextPage:()=>{}
+   navigateToPreviousPage:()=>{}
+   onClickPageNumber:(number:number)=>{}
+   apiStatus:number
+   apiError:object
+   doNetWorkCall:()=>{}
+   onClickProject:(id:string)=>{}
+   is_admin:boolean
+}
+
 @observer
-class Projects extends Component {
+class Projects extends Component<projectsPropsType> {
    renderProjects = () => {
       const { onClickProject, projects } = this.props
       return projects.map((project, index) => (

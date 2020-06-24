@@ -1,11 +1,11 @@
 import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
-import Colors from '../themes/Colors'
+import Colors from '../../themes/Colors'
 
 import {
    Typo24DarkBlueGreyHKGroteskMedium,
    Typo18DarkBlueGreyHKGroteskMedium
-} from '../../styleGuide/Typos'
+} from '../../../styleGuide/Typos'
 
 export const UserNameAndLogo = styled.div`
    ${tw` flex items-center mr-3`}

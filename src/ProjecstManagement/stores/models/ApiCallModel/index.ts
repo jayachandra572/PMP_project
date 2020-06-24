@@ -4,8 +4,8 @@ import { API_INITIAL } from '@ib/api-constants'
 
 class ApiCallModel {
    @observable getApiStatus:number = API_INITIAL
-   @observable getApiError:null|object = null
-   @observable response:null|object = []
+   @observable getApiError:null|Error = null
+   @observable response:null|Array<any> = []
    apiCallFunction:Function
    constructor(apiCallFunction:Function) {
       this.apiCallFunction = apiCallFunction
@@ -15,11 +15,11 @@ class ApiCallModel {
       this.getApiStatus = status
    }
    
-   setApiResponse = (response:object) => {
+   setApiResponse = (response:Array<any>) => {
       this.response = response
    }
    
-   setApiError = (error:object) => {
+   setApiError = (error) => {
       this.getApiError = error
    }
 

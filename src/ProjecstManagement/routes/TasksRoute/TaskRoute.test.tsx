@@ -4,10 +4,10 @@ import { Provider } from 'mobx-react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 
-import AuthenticationStore from '../../../Authentication/stores/AuthenticationStore'
+
 import AuthService from '../../../Authentication/services/AuthService/index.api'
 
-import userDetailsResponse from '../../../Authentication/fixtures/userDetailsResponse'
+import userDetailsResponse from '../../../Authentication/fixtures/userDetailsResponse.json'
 
 import UserDetailsStore from '../../../Authentication/stores/UserDetailsStore'
 import TasksStore from '../../stores/TasksStore'
@@ -18,17 +18,19 @@ import taskResponseData from '../../fixtures/taskResponseData.json'
 import strings from '../../i18n/strings.json'
 
 import { TasksRoute } from '.'
+import { getUserDisplayableErrorMessage } from "../../../Common/utils/APIUtils"
 
-let authenticationStore
-let authService
-let tasksStore
-let tasksService
-let userDetailsStore
-const taskConstants = strings.tasks
+
+
+let authService:AuthService
+let tasksStore:TasksStore
+let tasksService:TasksService
+let userDetailsStore:UserDetailsStore
+let taskConstants = strings.tasks
 
 const getScreen = () => {
    return render(
-      <Provider {...{ authenticationStore, tasksStore, userDetailsStore }}>
+      <Provider {...{  tasksStore, userDetailsStore }}>
          <Router history={createMemoryHistory()}>
             <TasksRoute />
          </Router>
@@ -39,7 +41,6 @@ const getScreen = () => {
 describe('Task route tests cases', () => {
    beforeEach(() => {
       authService = new AuthService()
-      authenticationStore = new AuthenticationStore(authService)
       userDetailsStore = new UserDetailsStore(authService)
       tasksService = new TasksService()
       tasksStore = new TasksStore(tasksService, PageNavigationStore)
@@ -54,7 +55,7 @@ describe('Task route tests cases', () => {
 
    it('Should test render success view', async () => {
       const { Tasks } = taskResponseData
-      const { title, created_at, issue_type } = Tasks[0]
+      const { title, created_at } = Tasks[0]
       authService.getUserDetails = () =>
          new Promise(resolve => resolve(userDetailsResponse))
       tasksStore.pageNavigation.entitiesApiServiceFunction = () =>
@@ -75,14 +76,17 @@ describe('Task route tests cases', () => {
          new Promise(resolve => resolve(taskResponseData))
       const { getByAltText, getByText, getByRole } = getScreen()
       await waitFor(() => {
-         getByText(userDetailsStore.getUserDetailsApiError)
+         const {getUserDetailsApiError} =userDetailsStore
+         if(getUserDetailsApiError!==null)
+         
+         getByText(getUserDisplayableErrorMessage(getUserDetailsApiError))
          getByRole('button', { name: 'Retry' })
          getByAltText(/page not found/i)
       })
    })
 
    it('Should test render failure view of Tasks dashboard component', async () => {
-      const mockFailurePromise = new Promise((resolve, reject) =>
+      const mockFailurePromise = new Promise((_, reject) =>
          reject(new Error('Error'))
       )
       const mockSignInApi = jest.fn()
@@ -108,8 +112,8 @@ describe('Task route tests cases', () => {
       }
       const { getByRole, getByTestId } = getScreen()
       await waitFor(() => {})
-      const backButton = getByTestId(strings.previousButtonDataTestId)
-      const nextButton = getByTestId(strings.nextButtonDataTestId)
+      const backButton:any = getByTestId(strings.previousButtonDataTestId)
+      const nextButton:any = getByTestId(strings.nextButtonDataTestId)
       expect(backButton.disabled).toBe(true)
       fireEvent.click(nextButton)
       expect(backButton.disabled).toBe(false)
@@ -142,13 +146,13 @@ describe('Task route tests cases', () => {
       })
       fireEvent.click(addTaskButton)
       getByText('TASK')
-      const titleInput = getByTestId('TITLE')
+      const titleInput:any = getByTestId('TITLE')
       fireEvent.change(titleInput, { target: { value: mockTitleName } })
       expect(titleInput.value).toBe(mockTitleName)
       const issueTypeMenu = getByTestId(taskConstants.issueTypeLabel)
       fireEvent.click(issueTypeMenu)
       fireEvent.change(issueTypeMenu, { data: { value: 'TASK' } })
-      const descriptionTextArea = getByTestId(taskConstants.descriptionLabel)
+      const descriptionTextArea:any = getByTestId(taskConstants.descriptionLabel)
       fireEvent.change(descriptionTextArea, {
          target: { value: mockDescription }
       })

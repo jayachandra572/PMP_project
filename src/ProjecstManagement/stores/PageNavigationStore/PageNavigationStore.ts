@@ -9,7 +9,7 @@ type accessableKeys = {
 }
 class PageNavigationStore {
    @observable currentPage!:number
-   @observable entities:Map<any,any> = new Map()
+   @observable entities:Map<number,any> = new Map()
    @observable offset!:number
    @observable getApiError:object|null = null
    @observable getApiStatus:number = API_INITIAL

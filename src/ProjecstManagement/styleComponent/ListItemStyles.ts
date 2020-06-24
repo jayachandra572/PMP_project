@@ -3,6 +3,10 @@ import styled from '@emotion/styled'
 import Colors from '../themes/Colors'
 import { Typo12SteelHKGroteskSemiBold } from '../../styleGuide/Typos'
 
+type ContainerPropsType={
+   isOdd:boolean
+}
+
 export const CommonStyle = styled(Typo12SteelHKGroteskSemiBold)`
    ${tw`text-center px-3  flex-1`}
    max-width:100%;
@@ -11,7 +15,7 @@ export const CommonStyle = styled(Typo12SteelHKGroteskSemiBold)`
    overflow: hidden;
 `
 
-export const Container = styled.div`
+export const Container = styled.div<ContainerPropsType>`
    ${tw`flex w-full items-center flex-wrap justify-center`}
    min-height:66px;
    border: solid 1px ${Colors.lightBlueGrey};

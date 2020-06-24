@@ -8,10 +8,11 @@ describe('Test Cases for EachProject component', () => {
    it('should render project details', () => {
       const props = {
          index: 1,
-         onClick: () => {},
+         onClick: Function,
          project: {
-            workFlowType: 'workFlowType',
-            createdBy: 'createdBy',
+            id:"1",
+            workFlowType: {id:"1",name:"WorkFlowType1"},
+            createdBy: {},
             description: 'description',
             createdAt: 'createdAt',
             name: 'name'

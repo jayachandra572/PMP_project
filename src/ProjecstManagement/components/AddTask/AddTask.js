@@ -4,8 +4,7 @@ import { observable, reaction, action } from 'mobx'
 import { RiCloseLine } from 'react-icons/ri'
 import { API_SUCCESS, API_FAILED } from '@ib/api-constants'
 
-import CloseButtonWithIcon from "../../../Common/components/CloseButtonWithIcon"
-
+import CloseButtonWithIcon from '../../../Common/components/CloseButtonWithIcon'
 
 import toaster from '../../utils/Toaster'
 import Colors from '../../themes/Colors'
@@ -215,7 +214,7 @@ class AddTask extends Component {
       return (
          <AddTaskContainer>
             <Header>TASK</Header>
-            <CloseButtonWithIcon onClick={this.props.handleClose}/>
+            <CloseButtonWithIcon onClick={this.props.handleClose} />
             <TaskTitleInput />
             <IssueTypeMenu />
             <DescriptionTextInput />

@@ -1,14 +1,13 @@
 import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
-import {css} from "@emotion/core"
+import { css } from '@emotion/core'
 import Colors from '../../themes/Colors'
 
 import { Typo12SteelHKGroteskSemiBold } from '../../../styleGuide/Typos'
-import CloseButtonWithIcon from "../../../Common/components/CloseButtonWithIcon"
+import CloseButtonWithIcon from '../../../Common/components/CloseButtonWithIcon'
 
 import { CommonStyle, Container } from '../../styleComponent/ListItemStyles'
 import { Header } from '../../styleComponent/FormStyles'
-
 
 export const IssueType = styled(CommonStyle)``
 export const Title = styled(CommonStyle)``

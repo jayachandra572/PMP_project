@@ -20,7 +20,6 @@ describe('AuthenticationStore test cases', () => {
    let authStore:AuthStore
    let authService:AuthService
    let mockOnFailure = jest.fn()
-   let mockOnSuccess = jest.fn()
    let mockRequest = {
       userName: 'test-name',
       userPassword: 'test-password'

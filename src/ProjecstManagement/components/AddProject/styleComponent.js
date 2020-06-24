@@ -13,7 +13,7 @@ import {
    Required,
    Container
 } from '../../styleComponent/FormStyles'
-export { Header, Required}
+export { Header, Required }
 
 export const ProjectName = styled(InputField)`
    ${tw``}
@@ -42,4 +42,3 @@ export const SubmitButton = styled(Button)`
    ${tw`mt-8`}
    width:400px;
 `
-

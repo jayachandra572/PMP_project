@@ -4,24 +4,24 @@ import { css } from 'glamor'
 import { getUserDisplayableErrorMessage } from '../../Common/utils/APIUtils'
 import 'react-toastify/dist/ReactToastify.css'
 
+//TODO:need to give type of css properties and enums of toast position
+const styling:any =css({
+   backgroundColor: 'red',
+   color: 'black'
+})
+
+const toastPosition:any = toast.POSITION.BOTTOM_CENTER
+
 toast.configure({
-   position: toast.POSITION.BOTTOM_CENTER,
+   position: toastPosition,
    autoClose: 3000,
    transition: Slide,
    pauseOnFocusLoss: false,
    hideProgressBar: true,
-   className: css({
-      backgroundColor: 'red',
-      color: 'black'
-   }),
-   bodyClassName: css({
-      backgroundColor: 'blue',
-      height: '100%',
-      width: '100%'
-   })
+   className: styling
 })
 
-export default function(type, message) {
+export default function(type:string, message:string) {
    switch (type) {
       case 'success':
          toast.success(message)

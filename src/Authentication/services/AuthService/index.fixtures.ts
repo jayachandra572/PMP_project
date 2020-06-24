@@ -1,19 +1,15 @@
 import getUserSignInResponse from '../../fixtures/getUserSignInResponse.json'
 import userDetailsResponse from '../../fixtures/userDetailsResponse.json'
+import AuthService from "."
+import { resolveWithTimeout } from "../../../Common/utils/TestUtils"
 
-class AuthService {
-   signInAPI(request) {
-      return new Promise((resolve, reject) => {
-         setTimeout(() => {
-            resolve(getUserSignInResponse)
-         }, 1000)
-      })
+class AuthAPIService implements AuthService {
+   signInAPI() {
+      return resolveWithTimeout( getUserSignInResponse)
    }
    getUserDetails = () => {
-      return new Promise((resolve, reject) => {
-         setTimeout(() => resolve(userDetailsResponse), 1000)
-      })
+      return resolveWithTimeout(userDetailsResponse)
    }
 }
 
-export default AuthService
+export default AuthAPIService

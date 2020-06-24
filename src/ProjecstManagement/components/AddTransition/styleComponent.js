@@ -6,11 +6,7 @@ import DropDown from '../../../Common/components/Filters/DropDown'
 import TextArea from '../../../Common/components/TextArea'
 
 import { InputField } from '../../../Common/components/InputText'
-import {
-   Header,
-   Label,
-   Container
-} from '../../styleComponent/FormStyles'
+import { Header, Label, Container } from '../../styleComponent/FormStyles'
 export { Header }
 
 export const TransitionContainer = styled(Container)`

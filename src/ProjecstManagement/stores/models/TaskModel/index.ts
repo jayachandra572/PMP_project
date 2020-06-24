@@ -1,57 +1,28 @@
 import { observable, action, reaction } from 'mobx'
 import { API_SUCCESS, API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
+
+import { TaskObject, StatusObject } from "../../type"
+
 import ApiCallModel from '../ApiCallModel'
-
-type stateOptionsType = {
-   id:string
-   name:string
-}
-
-type taskCommonType = {
-   id:string
-   title:string
-   description:string
-   state:string
-}
-
-interface taskObjectType extends taskCommonType {
-   issue_type:string
-   created_by:object
-   project:string
-   created_at:string
-}
-
-interface taskModelInstancesType extends taskCommonType{
-   issueType:string
-   createdBy:object
-   projectName:string
-   createdAt:string
-   stateOptions :Array<stateOptionsType>
-   changeTaskStatusAPI:Function
-   toStatus:null|string
-
-}
-
-
+import TasksService from "../../../services/TasksService"
 
 class TaskModel{
-   @observable stateOptions:Array<stateOptionsType>
+   @observable stateOptions:Array<StatusObject>
    @observable getApiStatus:number = API_INITIAL
-   @observable getApiError:object|null = null
-   @observable response:Array<any> = []
+   @observable getApiError:Error|null = null
    @observable state:string
-   @observable taskTrasitionState = {}
-   id
-   projectName
-   issueType
-   title
-   description
-   createdBy
-   createdAt
-   changeTaskStatusAPI
-   toStatus
-   constructor(task:taskObjectType, services:any) {
+   @observable taskTrasitionState:ApiCallModel
+   id:string
+   projectName:string
+   issueType:string
+   title:string
+   description:string
+   createdBy:object
+   createdAt:string
+   taskService:TasksService
+   toStatus:string
+   constructor(task:TaskObject, services:TasksService) {
       this.taskTrasitionState = new ApiCallModel(
          services.postTaskTransitionValidationAPI
       )
@@ -64,8 +35,8 @@ class TaskModel{
       this.createdAt = task.created_at
       this.state = task.state
       this.stateOptions = [{ id: task.state, name: task.state }]
-      this.changeTaskStatusAPI = services.changeTaskStatusAPI
-      this.toStatus = null
+      this.taskService = services
+      this.toStatus = ""
    }
 
    changeTaskStateReaction = reaction(
@@ -76,27 +47,33 @@ class TaskModel{
          }
       }
    )
-
-   setApiStatus = status => {
+   
+   @action.bound
+   setApiStatus (status:number) {
       this.getApiStatus = status
    }
    
     @action.bound
-   setApiResponse(response) {
-      if (response.findIndex(option => option.name === this.state) === -1) {
-         response.unshift({ id: this.state, name: this.state })
+   setApiResponse(response:Array<StatusObject>|null) {
+      if(response){
+         if (response.findIndex(option => option.name === this.state) === -1) {
+            response.unshift({ id: this.state, name: this.state })
+         }
+         this.stateOptions = response
+      }else{
+         this.stateOptions =[]
       }
-      this.stateOptions = response
    }
    
-   setApiError = error => {
+   @action.bound
+   setApiError (error)  {
       this.getApiError = error
    }
 
    getStatusTransitionOptions = () => {
       const { setApiError, setApiStatus, setApiResponse, state, id } = this
-      const response = this.changeTaskStatusAPI({ state, id })
-      return bindPromiseWithOnSuccess(response)
+      const promise = this.taskService.changeTaskStatusAPI({ status:state, id })
+      return bindPromiseWithOnSuccess(promise)
          .to(setApiStatus, setApiResponse)
          .catch(setApiError)
    }

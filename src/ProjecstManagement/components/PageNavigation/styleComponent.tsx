@@ -2,7 +2,17 @@ import tw from 'tailwind.macro'
 import styled from '@emotion/styled'
 import Colors from '../../themes/Colors'
 
-export const PageNumberButton = styled.button`
+
+type PageNavigationButtonType = {
+   active:boolean
+}
+type PreviousButtonPropsType = {
+   isPreviousButtonDisabled:boolean
+}
+type NextButtonPropsType = {
+   isNextButtonDisabled:boolean
+}
+export const PageNumberButton = styled.button<PageNavigationButtonType>`
    ${tw`flex justify-center items-center`}
    width: 24px;
    height: 24px;
@@ -20,11 +30,11 @@ export const PageNavigationButton = styled(PageNumberButton)`
    color: black;
 `
 
-export const PreviousButton = styled(PageNavigationButton)`
+export const PreviousButton = styled(PageNavigationButton)<PreviousButtonPropsType>`
    cursor: ${props =>
       props.isPreviousButtonDisabled ? 'not-allowed' : 'default'};
 `
-export const NextButton = styled(PageNavigationButton)`
+export const NextButton = styled(PageNavigationButton)<NextButtonPropsType>`
    cursor: ${props => (props.isNextButtonDisabled ? 'not-allowed' : 'default')};
 `
 

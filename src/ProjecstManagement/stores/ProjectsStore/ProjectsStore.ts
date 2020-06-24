@@ -1,11 +1,11 @@
 import { observable } from 'mobx'
-import { API_INITIAL } from '@ib/api-constants'
 
-import ProjectService from "../../services/ProjectsService/index.api"
+import ProjectService from "../../services/ProjectsService"
 
 import PageNavigationStore from "../PageNavigationStore"
-
 import ProjectModel from '../models/ProjectModel'
+
+type Instantiable = {new(...args: any[]):any}
 
 class ProjectsStore {
    @observable pageNavigation:PageNavigationStore
@@ -13,19 +13,17 @@ class ProjectsStore {
    config:object
    projectsService : ProjectService
    
-   constructor(projectsService: ProjectService, PageNavigation:any) {
+   constructor(projectsService: ProjectService, PageNavigation:Instantiable) {
       this.projectsService = projectsService
       this.pageLimit= 4
       this.config = {
          entities: 'projects',
          totalEntities: 'total_no_of_projects'
       }
-      this.pageNavigation = new PageNavigation(
-         projectsService.projectsAPI,
+      this.pageNavigation = new PageNavigation( projectsService.projectsAPI,
          ProjectModel,
          this.pageLimit,
-         this.config
-      )
+         this.config)
    }
 
 }

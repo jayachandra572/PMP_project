@@ -24,7 +24,7 @@ describe('ApiCallModel test cases', () => {
    })
 
    it('Should test ApiCall fecting status', () => {
-      const mockFetchingPromise:Promise<any> = new Promise((resolve, reject) => {})
+      const mockFetchingPromise:Promise<any> = new Promise(() => {})
       let mockApiCallFunction = jest.fn()
       mockApiCallFunction.mockReturnValue(mockFetchingPromise)
       apiCallModel.apiCallFunction = mockApiCallFunction
@@ -36,7 +36,7 @@ describe('ApiCallModel test cases', () => {
          { id: '1', name: 'management' },
          { id: 2, name: 'software' }
       ]
-      const mockFetchingPromise:Promise<Array<object>> = new Promise((resolve):void => {
+      const mockFetchingPromise:Promise<Array<object>> = new Promise((resolve) => {
          resolve(responseData)
       })
       let mockApiCallFunction = jest.fn()

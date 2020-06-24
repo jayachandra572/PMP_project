@@ -1,8 +1,6 @@
 
-import { API_INITIAL } from '@ib/api-constants'
-
 import ApiCallModel from '../models/ApiCallModel'
-import NewProjectService from "../../services/NewProjectService/index.api"
+import NewProjectService from "../../services/NewProjectService"
 
 class NewProjectStore {
    newProjectService:NewProjectService

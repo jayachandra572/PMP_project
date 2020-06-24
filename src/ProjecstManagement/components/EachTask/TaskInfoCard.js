@@ -6,7 +6,6 @@ import { RiCloseLine } from 'react-icons/ri'
 import { BsInfoCircle } from 'react-icons/bs'
 import 'semantic-ui-css/semantic.min.css'
 
-
 import {
    TaskInfo,
    TaskDetailsContainer,
@@ -27,7 +26,7 @@ class TaskInfoModal extends Component {
       } = this.props
       return (
          <TaskDetailsContainer>
-            <CloseIconButton onClick={this.handleClose}/>
+            <CloseIconButton onClick={this.handleClose} />
             <DetailsField>
                <Caption>Title :</Caption>
                <CaptionValue>{title}</CaptionValue>

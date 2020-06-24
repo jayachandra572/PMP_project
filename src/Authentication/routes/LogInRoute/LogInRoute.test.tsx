@@ -7,20 +7,19 @@ import { createMemoryHistory } from 'history'
 import strings from '../../i18n/strings.json'
 
 import { SIGN_IN_PATH, } from '../../constants/RouteConstants'
-
 import AuthApiService from '../../services/AuthService/index.fixtures'
 import AuthStore from '../../stores/AuthenticationStore'
- to import  getUserSignInResponse from '../../fixtures/getUserSignInResponse.json'
+import  getUserSignInResponse from '../../fixtures/getUserSignInResponse.json'
 
+
+import AuthService from "../../services/AuthService"
 import { LogInRoute } from '.'
 
-const LocationDisplay = withRouter(({ location }) => (
-   <div data-testid='location-display'>{location.pathname}</div>
-))
+
 
 describe('LogInRoute Tests', () => {
-   let authApiService
-   let authStore
+   let authApiService:AuthService
+   let authStore:AuthStore
    beforeEach(() => {
       authApiService = new AuthApiService()
       authStore = new AuthStore(authApiService)
@@ -30,7 +29,7 @@ describe('LogInRoute Tests', () => {
    })
 
    it('should submit sign-in on press enter', async () => {
-      const mockLoadingSignApi = new Promise((resolve, reject) => {})
+      const mockLoadingSignApi = new Promise(() => {})
       const mockSignInApi = jest.fn()
       mockSignInApi.mockReturnValue(mockLoadingSignApi)
       authApiService.signInAPI = mockSignInApi
@@ -67,7 +66,7 @@ describe('LogInRoute Tests', () => {
 
       let signInButton = getByRole('button', { name: 'LOGIN' })
 
-      const mockLoadingSignApi = new Promise((resolve, reject) => {})
+      const mockLoadingSignApi = new Promise(() => {})
       const mockSignInApi = jest.fn()
       mockSignInApi.mockReturnValue(mockLoadingSignApi)
       authApiService.signInAPI = mockSignInApi
@@ -86,7 +85,7 @@ describe('LogInRoute Tests', () => {
       const userName = 'test-user'
       const userPassword = 'test-password'
       history.push(route)
-      const { getByLabelText, getByRole, queryByRole, getByTestId } = render(
+      const { getByLabelText, getByRole, queryByRole } = render(
          <Provider authenticationStore={authStore}>
             <Router history={history}>
                <Route path={SIGN_IN_PATH} component={LogInRoute} />
@@ -97,7 +96,7 @@ describe('LogInRoute Tests', () => {
       const userPasswordField = getByLabelText(strings.userPasswordLable)
       const logInButton = getByRole('button', { name: strings.loginButton })
 
-      const mockLoadingSignApi = new Promise((resolve, reject) => {
+      const mockLoadingSignApi = new Promise((resolve) => {
          resolve(getUserSignInResponse)
       })
       const mockSignInApi = jest.fn()

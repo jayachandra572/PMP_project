@@ -4,20 +4,19 @@ import { apiMethods } from '../../../Common/constants/APIConstants'
 
 import ServiceConstants from '../../constants/ServiceConstants'
 import {
-   getTasks,
    createProjectTaskEndPoint,
-   changeTaskStatusEndPoint
 } from '../EndPoints'
 
-class TasksService {
-   api:object
+import TasksService from "."
+
+class TasksAPIService implements TasksService {
+   api:Record<string,any>
    constructor() {
       this.api = create({
          baseURL: ServiceConstants.baseURL
       })
    }
    getProjectTaskAPI = request => {
-      console.log('service')
       const { api } = this
       const { id, offset, limit } = request
       const getTasksEndPoint = `/user/${id}/tasks/v1/?offset=${offset}&limit=${limit}`
@@ -89,4 +88,4 @@ class TasksService {
    }
 }
 
-export default TasksService
+export default TasksAPIService

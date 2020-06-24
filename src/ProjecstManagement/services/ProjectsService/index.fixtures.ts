@@ -1,15 +1,15 @@
 import projectResponseData from '../../fixtures/projectResponseData.json'
+import { resolveWithTimeout } from "../../../Common/utils/TestUtils"
+import ProjectsService from "."
 
-class ProjectsService {
+class ProjectsAPIService implements ProjectsService  {
    projectsAPI(request) {
       const { limit, offset } = request
       const projects = projectResponseData.projects
          .slice()
          .splice(offset, limit)
-      return new Promise((resolve, reject) => {
-         setTimeout(() => resolve({ ...projectResponseData, projects }), 1000)
-      })
+      return resolveWithTimeout({ ...projectResponseData, projects })
    }
 }
 
-export default ProjectsService
+export default ProjectsAPIService

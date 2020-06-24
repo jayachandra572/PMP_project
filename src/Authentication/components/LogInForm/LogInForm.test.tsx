@@ -1,15 +1,27 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { API_SUCCESS } from "@ib/api-constants"
+
 import strings from '../../i18n/strings.json'
 
 import { LogInForm } from '.'
+
+
+const props = {
+   userName:"test-user",
+   userPassword:"test-password",
+   onChangeName:(e:any)=>{},
+   onChangePassword:(e:any)=>{},
+   onSubmitForm:(e:any)=>{},
+   getAuthApiStatus:API_SUCCESS,
+}
 describe('LogInForm tests', () => {
    it('Should render typed userName', () => {
       const testUserName = 'test-user'
-      const { getByLabelText } = render(
-         <LogInForm userName={testUserName} onChangeName={() => {}} />
+      const { getByLabelText ,getByTestId} = render(
+         <LogInForm {...props} />
       )
-      const userNameField = getByLabelText(strings.userNameLable)
+      const userNameField:any = getByTestId(strings.userNameLable)
       expect(userNameField.value).toBe(testUserName)
    })
 
@@ -17,11 +29,10 @@ describe('LogInForm tests', () => {
       const testUserPassword = 'test-password'
       const { getByLabelText } = render(
          <LogInForm
-            userPassword={testUserPassword}
-            onChangePassword={() => {}}
+            {...props}
          />
       )
-      const userPasswordField = getByLabelText(strings.userPasswordLable)
+      const userPasswordField:any = getByLabelText(strings.userPasswordLable)
       expect(userPasswordField.value).toBe(testUserPassword)
    })
 
@@ -30,7 +41,7 @@ describe('LogInForm tests', () => {
          userNameErrorMessage: strings.userNameErrorMessage,
          userPasswordErrorMessage: ''
       }
-      const { getByText } = render(<LogInForm errorMessage={errorMessage} />)
+      const { getByText } = render(<LogInForm {{...props,errorMessage}} />)
       getByText(strings.userNameErrorMessage)
    })
 })

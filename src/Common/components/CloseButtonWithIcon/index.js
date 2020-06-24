@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import strings from '../../i18n/strings.json'
 import { RiCloseLine } from 'react-icons/ri'
-import {CloseButton} from "./stylesComponent"
+import { CloseButton } from './stylesComponent'
 
 class CloseButtonWithIcon extends Component {
    static defaultProps = {

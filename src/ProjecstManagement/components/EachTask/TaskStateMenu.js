@@ -13,7 +13,7 @@ import strings from '../../i18n/strings.json'
 import Colors from '../../themes/Colors'
 import { DropdownWithLoader } from '../DropdownWithLoader'
 import ValidateTask from '../ValidateTask'
-import { State,dropDownCss } from './styleComponent'
+import { State, dropDownCss } from './styleComponent'
 
 @observer
 class TaskStateMenu extends React.Component {

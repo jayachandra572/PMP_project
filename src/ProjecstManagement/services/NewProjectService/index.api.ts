@@ -5,21 +5,17 @@ import { apiMethods } from '../../../Common/constants/APIConstants'
 import ServiceConstants from '../../constants/ServiceConstants'
 import { getWorkFlowTypesEndPoint, createProjectEndPoint } from '../EndPoints'
 
-type requestObject={
-   projectName:string
-   workFlowTypeId:string
-   projectType:string
-   projectDescription:string
-}
+import NewProjectService from "."
 
-class TasksService {
-   api:object
+
+class NewProjectAPIService implements NewProjectService {
+   api:Record<string,any>
    constructor() {
       this.api = create({
          baseURL: ServiceConstants.baseURL
       })
    }
-   postCreateProject = (projectObject:requestObject):Promise<any> => {
+   postCreateProject = (projectObject) => {
       const {
          projectName,
          workFlowTypeId,
@@ -41,7 +37,7 @@ class TasksService {
       )
    }
 
-   workFlowTypesAPI = () :Promise<any> => {
+   workFlowTypesAPI = ()  => {
       const { api } = this
       return networkCallWithApisauceWithAccessToken(
          api,
@@ -52,4 +48,4 @@ class TasksService {
    }
 }
 
-export default TasksService
+export default NewProjectAPIService

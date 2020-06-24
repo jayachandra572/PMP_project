@@ -4,9 +4,10 @@ import { networkCallWithApisauceWithAccessToken } from '../../../Common/utils/AP
 import { apiMethods } from '../../../Common/constants/APIConstants'
 
 import ServiceConstants from '../../constants/ServiceConstants'
+import ProjectsService from "."
 
 
-class ProjectsService {
+class ProjectsAPIService implements ProjectsService {
    api:object
    constructor() {
       this.api = create({
@@ -27,4 +28,4 @@ class ProjectsService {
    }
 }
 
-export default ProjectsService
+export default ProjectsAPIService

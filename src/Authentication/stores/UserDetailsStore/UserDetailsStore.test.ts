@@ -4,15 +4,16 @@ import {
    API_FETCHING,
    API_INITIAL
 } from '@ib/api-constants'
-import AuthService from '../../services/AuthService/index.fixtures'
+import AuthAPIService from '../../services/AuthService/index.fixtures'
 import UserDetailsStore from '.'
+import AuthService from "../../services/AuthService"
 
 describe('UserDetailsStore test cases', () => {
-   let userDetailsStore
-   let authService
+   let userDetailsStore:UserDetailsStore
+   let authAPIService:AuthService
    beforeEach(() => {
-      authService = new AuthService()
-      userDetailsStore = new UserDetailsStore(authService)
+      authAPIService = new AuthAPIService()
+      userDetailsStore = new UserDetailsStore(authAPIService)
    })
 
    it('should test intialisation of UserDetailsStore', () => {
@@ -24,7 +25,7 @@ describe('UserDetailsStore test cases', () => {
       const mockFetchingPromise = new Promise(() => {})
       let mockGetUserDetails = jest.fn()
       mockGetUserDetails.mockReturnValue(mockFetchingPromise)
-      authService.getUserDetails = mockGetUserDetails
+      authAPIService.getUserDetails = mockGetUserDetails
       userDetailsStore.getUserDetailsApi()
       expect(userDetailsStore.getUserDetailsApiStatus).toBe(API_FETCHING)
    })
@@ -35,7 +36,7 @@ describe('UserDetailsStore test cases', () => {
       })
       let mockGetUserDetails = jest.fn()
       mockGetUserDetails.mockReturnValue(mockFailurePromise)
-      authService.getUserDetails = mockGetUserDetails
+      authAPIService.getUserDetails = mockGetUserDetails
       await userDetailsStore.getUserDetailsApi()
       expect(userDetailsStore.getUserDetailsApiStatus).toBe(API_FAILED)
    })
@@ -46,7 +47,7 @@ describe('UserDetailsStore test cases', () => {
       })
       let mockGetUserDetails = jest.fn()
       mockGetUserDetails.mockReturnValue(mockSuccessPromise)
-      authService.getUserDetails = mockGetUserDetails
+      authAPIService.getUserDetails = mockGetUserDetails
       await userDetailsStore.getUserDetailsApi()
       expect(userDetailsStore.getUserDetailsApiStatus).toBe(API_SUCCESS)
    })

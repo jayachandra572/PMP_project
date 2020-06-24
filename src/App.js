@@ -1,15 +1,11 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch } from 'react-router-dom'
 
 import { Provider } from 'mobx-react'
 
 import store from './store'
 import { logRoute } from './Authentication/routes'
-import {
-   projectsRoute,
-   tasksRoute,
-   createWorkFlowRoute
-} from './ProjecstManagement/routes'
+import { projectsRoute, tasksRoute } from './ProjecstManagement/routes'
 import './App.css'
 
 const App = () => {
@@ -17,9 +13,8 @@ const App = () => {
       <Provider {...store}>
          <Router basename={process.env.PUBLIC_URL}>
             <Switch>
-               {/* {tasksRoute}
+               {tasksRoute}
                {projectsRoute}
-               {createWorkFlowRoute} */}
 
                {logRoute}
             </Switch>

@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'mobx'
-import { API_INITIAL } from '@ib/api-constants'
+import { API_INITIAL, APIStatus } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 import {
@@ -9,25 +9,12 @@ import {
 } from '../../../Common/utils/StorageUtils'
 
 import { setUserDetails } from '../../utils/LocalStrorageUtils'
-import AuthService from "../../services/AuthService/index.fixtures"
-
-type signResponse ={
-   access_token:string
-   user_id:string
-   name:string
-   expires_in:string
-   is_admin:boolean
-}
-
-
-type requestObjectType = {
-   userName:string
-   userPassword:string
-}
+import AuthService from "../../services/AuthService"
+import { UserSignResponse, UserSignRequest } from "../types"
 
 class AuthenticationStore {
-   @observable getAuthApiStatus:number = API_INITIAL
-   @observable getAuthApiError:null|string = null
+   @observable getAuthApiStatus!:APIStatus 
+   @observable getAuthApiError!:null|Error 
    @observable authApiToken?:string|undefined
    authService:AuthService
    constructor(authService:AuthService) {
@@ -38,27 +25,31 @@ class AuthenticationStore {
    @action.bound
    init() {
       this.authApiToken = getAccessToken()
+      this.getAuthApiStatus = API_INITIAL
+      this.getAuthApiError = null
    }
 
    @action.bound
-   setAuthApiStatus(status:number) {
+   setAuthApiStatus(status) {
       this.getAuthApiStatus = status
    }
 
    @action.bound
-   setAuthApiError(error:object) {
-      this.getAuthApiError = getUserDisplayableErrorMessage(error)
+   setAuthApiError(error) {
+      this.getAuthApiError = (error)
    }
 
    @action.bound
-   setAuthApiResponse(response:any) {
-      const accessToken = response.access_token
-      setAccessToken(accessToken)
-      this.authApiToken = getAccessToken()
-      setUserDetails(response)
+   setAuthApiResponse(response:UserSignResponse|null){
+      if(response){
+         const accessToken = response.access_token
+         setAccessToken(accessToken)
+         this.authApiToken = getAccessToken()
+         setUserDetails(response)
+      }
    }
    @action.bound
-   userSignIn(request:requestObjectType, onFailure:Function):Promise<any> {
+   userSignIn(request:UserSignRequest, onFailure:Function) {
       const {
          authService: { signInAPI },
          setAuthApiResponse,

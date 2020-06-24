@@ -9,7 +9,22 @@ import {
    ProjectContainer
 } from './styleComponent'
 
-function EachProject(props) {
+type project = {
+   id:string
+   name:string
+   workFlowType:{id:string,name:string}
+   createdBy:object
+   description:string
+   createdAt:string
+}
+
+type propsType = {
+   index:number
+   onClick:(id:string)=>{}
+   project:project
+}
+
+function EachProject(props:propsType) {
    const {
       index,
       onClick,

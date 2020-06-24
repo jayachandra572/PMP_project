@@ -1,11 +1,7 @@
 import {
-   API_SUCCESS,
-   API_FAILED,
-   API_FETCHING,
    API_INITIAL
 } from '@ib/api-constants'
 
-import { waitFor } from '@testing-library/react'
 
 import ProjectsService from '../../services/ProjectsService/index.api'
 import PageNavigationStore from '../PageNavigationStore'

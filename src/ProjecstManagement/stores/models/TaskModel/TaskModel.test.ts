@@ -9,18 +9,17 @@ import taskResponseData from '../../../fixtures/taskResponseData.json'
 import taskStatusChangeResponse from '../../../fixtures/taskStatusChangeResponse.json'
 
 import TaskModel from '.'
+import TasksAPIService from "../../../services/TasksService/index.api"
 
-let taskModel
+let taskModel:TaskModel
 
 describe('Task model test cases', () => {
    beforeEach(() => {
       const { Tasks } = taskResponseData
-      const changeTaskStatusAPI = () => {}
-      const postTaskTransitionValidationAPI = () => {}
+     const taskAPiService = new TasksAPIService()
       taskModel = new TaskModel(
          Tasks[0],
-         changeTaskStatusAPI,
-         postTaskTransitionValidationAPI
+         taskAPiService
       )
    })
 
@@ -31,28 +30,25 @@ describe('Task model test cases', () => {
    })
 
    it('should test changeTaskFetcting status', () => {
-      const mockFetchingPromiseFn = () => new Promise(() => {})
-      taskModel.changeTaskStatusAPI = mockFetchingPromiseFn
+      taskModel.taskService.changeTaskStatusAPI = () => new Promise(() => {})
       taskModel.getStatusTransitionOptions()
       expect(taskModel.getApiStatus).toBe(API_FETCHING)
    })
 
    it('should test changeTaskSuccess status', async () => {
-      const mockSuccessPromiseFn = () =>
+      taskModel.taskService.changeTaskStatusAPI = () =>
          new Promise(resolve => {
             resolve(taskStatusChangeResponse)
          })
-      taskModel.changeTaskStatusAPI = mockSuccessPromiseFn
       await taskModel.getStatusTransitionOptions()
       expect(taskModel.getApiStatus).toBe(API_SUCCESS)
    })
 
    it('should test changeTaskFailure status', async () => {
-      const mockFailurePromiseFn = () =>
+      taskModel.taskService.changeTaskStatusAPI = () =>
          new Promise((_, reject) => {
             reject(new Error('Error'))
-         })
-      taskModel.changeTaskStatusAPI = mockFailurePromiseFn
+      })
       await taskModel.getStatusTransitionOptions()
       expect(taskModel.getApiStatus).toBe(API_FAILED)
    })
@@ -61,7 +57,7 @@ describe('Task model test cases', () => {
       taskModel.taskTrasitionState.apiCallFunction = () =>
          new Promise(resolve => resolve([]))
       taskModel.toStatus = 'InComplete'
-      await taskModel.taskTrasitionState.apiCall()
+      await taskModel.taskTrasitionState.apiCall({})
       expect(taskModel.taskTrasitionState.getApiStatus).toBe(API_SUCCESS)
       expect(taskModel.state).toBe(taskModel.toStatus)
    })

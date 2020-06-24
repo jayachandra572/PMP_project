@@ -9,7 +9,7 @@ import {
 } from '@ib/api-constants'
 
 import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
-import CloseButtonWithIcon from "../../../Common/components/CloseButtonWithIcon"
+import CloseButtonWithIcon from '../../../Common/components/CloseButtonWithIcon'
 
 import toaster from '../../utils/Toaster'
 import Colors from '../../themes/Colors'
@@ -27,7 +27,7 @@ import {
    SubmitButton,
    DescriptionTextArea,
    Header,
-   Required,
+   Required
 } from './styleComponent'
 
 @inject('newProjectStore')
@@ -138,10 +138,10 @@ class AddProject extends Component {
          })
       }
    }
-   
-   renderRequiredMessage (shouldRender){
-      if(shouldRender){
-         return <Required>{strings.required}</Required>  
+
+   renderRequiredMessage(shouldRender) {
+      if (shouldRender) {
+         return <Required>{strings.required}</Required>
       }
    }
 
@@ -162,7 +162,7 @@ class AddProject extends Component {
    )
 
    ProjectNameInput = observer(() => {
-      const { onChangeProjectName, projectName, renderRequiredMessage} = this
+      const { onChangeProjectName, projectName, renderRequiredMessage } = this
       const { projectNameEmpty } = this.errorMessage
       const { addProject } = strings
       return (
@@ -237,9 +237,7 @@ class AddProject extends Component {
                placeholder={addProject.workflowTypePlaceHolder}
                loading={getApiStatus === API_FETCHING}
                error={getApiStatus === API_FAILED}
-               styles={{
-                  
-               }}
+               styles={{}}
             />
             {renderRequiredMessage(projectWorkFlowError)}
             {getApiStatus === API_FAILED && (
@@ -254,7 +252,11 @@ class AddProject extends Component {
    DescriptionTextInput = observer(() => {
       const { addProject } = strings
       const { projectDescriptionError } = this.errorMessage
-      const { projectDescription, onChangeDescription, renderRequiredMessage } = this
+      const {
+         projectDescription,
+         onChangeDescription,
+         renderRequiredMessage
+      } = this
       return (
          <Fragment>
             <DescriptionLabel
@@ -284,13 +286,12 @@ class AddProject extends Component {
       return (
          <AddProjectContainer>
             <Header>{strings.addProject.title}</Header>
-            <CloseButtonWithIcon onClick={this.props.handleClose}/>
+            <CloseButtonWithIcon onClick={this.props.handleClose} />
             <ProjectNameInput />
             <ProjectTypeMenu />
             <WorkFlowTypeMenu />
             <DescriptionTextInput />
             <SubmitButton
-               type='button'
                content={strings.submitButton}
                apiStatus={newProject.getApiStatus}
                onClick={submitDetailsOfProject}

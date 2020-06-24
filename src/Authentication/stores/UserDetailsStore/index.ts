@@ -1,14 +1,15 @@
 import { observable, action } from 'mobx'
-import { API_INITIAL } from '@ib/api-constants'
+import { API_INITIAL ,APIStatus} from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
-import AuthService from "../../services/AuthService/index.fixtures"
+import AuthService from "../../services/AuthService"
+import {UserDetails} from "../types"
 
 
 class UserDetailsStore {
-   @observable getUserDetailsApiStatus:number = API_INITIAL
-   @observable getUserDetailsApiError:null|string = null
-   @observable userDetails:null|Object = null
+   @observable getUserDetailsApiStatus:APIStatus = API_INITIAL
+   @observable getUserDetailsApiError:Error|null = null
+   @observable userDetails!:UserDetails
    authService:AuthService
 
    constructor(authService:AuthService) {
@@ -16,19 +17,21 @@ class UserDetailsStore {
    }
 
    @action.bound
-   setUserDetailsApiStatus(status:number):void {
+   setUserDetailsApiStatus(status) {
       this.getUserDetailsApiStatus = status
    }
 
    @action.bound
-   setUserDetailsApiError(error:object):void {
-      this.getUserDetailsApiError = getUserDisplayableErrorMessage(error)
+   setUserDetailsApiError(error) {
+      this.getUserDetailsApiError = error
    }
 
    @action.bound
-   setUserDetailsApiResponse(response:object):void {
-      this.userDetails = response
-   }
+   setUserDetailsApiResponse(response:UserDetails|null) {
+      if(response){
+         this.userDetails = response
+         }      
+      }
    @action.bound
    getUserDetailsApi() {
       const {
@@ -37,7 +40,7 @@ class UserDetailsStore {
          setUserDetailsApiError,
          setUserDetailsApiResponse
       } = this
-      const userDetailsPromise:Promise<any> = getUserDetails()
+      const userDetailsPromise = getUserDetails()
       return bindPromiseWithOnSuccess(userDetailsPromise)
          .to(setUserDetailsApiStatus, setUserDetailsApiResponse)
          .catch(setUserDetailsApiError)

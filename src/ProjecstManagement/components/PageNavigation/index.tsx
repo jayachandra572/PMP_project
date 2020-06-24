@@ -18,7 +18,7 @@ class PageNavigation extends Component {
          onClickPageNumber
       } = this.props
       const { startingPageNumber } = strings
-      let buttons = []
+      let buttons:Button = []
       for (
          let pageNumber = startingPageNumber;
          pageNumber <= totalNumberOfPages;

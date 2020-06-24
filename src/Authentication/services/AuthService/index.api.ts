@@ -4,9 +4,10 @@ import { apiMethods } from '../../constants/APIConstants'
 
 import serviceConstants from '../../constants/ServiceConstants'
 import endPoints from '../endPoints'
+import AuthService from "."
 
-class AuthService {
-   api:any
+class AuthAPIService implements AuthService{
+   api:Record<string,any>
    constructor() {
       this.api = create({
          baseURL: serviceConstants.baseURL
@@ -39,4 +40,4 @@ class AuthService {
    }
 }
 
-export default AuthService
+export default AuthAPIService

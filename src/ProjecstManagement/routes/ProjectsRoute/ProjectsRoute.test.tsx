@@ -4,11 +4,10 @@ import { Provider } from 'mobx-react'
 import { createMemoryHistory } from 'history'
 import { Router } from 'react-router-dom'
 
-import AuthenticationStore from '../../../Authentication/stores/AuthenticationStore'
 import AuthService from '../../../Authentication/services/AuthService/index.fixtures'
 import UserDetailsStore from '../../../Authentication/stores/UserDetailsStore'
 
-import userDetailsResponse from '../../../Authentication/fixtures/userDetailsResponse'
+import userDetailsResponse from '../../../Authentication/fixtures/userDetailsResponse.json'
 
 import ProjectsStore from '../../stores/ProjectsStore'
 import ProjectsService from '../../services/ProjectsService/index.api'
@@ -19,16 +18,17 @@ import strings from '../../i18n/strings.json'
 
 import { ProjectsRoute } from '.'
 
-let authenticationStore
-let authService
-let projectsService
-let projectsStore
-let userDetailsStore
+
+let authService:AuthService
+let projectsService:ProjectsService
+let projectsStore:ProjectsStore
+let userDetailsStore:UserDetailsStore
+
 const history = createMemoryHistory()
 
 const getScreen = () => {
    return render(
-      <Provider {...{ authenticationStore, projectsStore, userDetailsStore }}>
+      <Provider {...{ projectsStore, userDetailsStore }}>
          <Router history={history}>
             <ProjectsRoute />
          </Router>
@@ -48,7 +48,6 @@ const mockAPiServiceResponse = () => {
 describe('ProductsDashBoard tests', () => {
    beforeEach(() => {
       authService = new AuthService()
-      authenticationStore = new AuthenticationStore(authService)
       userDetailsStore = new UserDetailsStore(authService)
       projectsService = new ProjectsService()
       projectsStore = new ProjectsStore(projectsService, PageNavigationStore)
@@ -126,8 +125,8 @@ describe('ProductsDashBoard tests', () => {
       const { getByRole, getByTestId } = getScreen()
       expect(mockprojectsAPI).toHaveBeenCalledTimes(1)
       await waitFor(() => {})
-      const backButton = getByTestId(strings.previousButtonDataTestId)
-      const nextButton = getByTestId(strings.nextButtonDataTestId)
+      const backButton:any = getByTestId(strings.previousButtonDataTestId)
+      const nextButton:any = getByTestId(strings.nextButtonDataTestId)
       expect(backButton.disabled).toBe(true)
       fireEvent.click(nextButton)
       expect(backButton.disabled).toBe(false)

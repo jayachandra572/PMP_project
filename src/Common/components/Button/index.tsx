@@ -7,7 +7,7 @@ import { ButtonStyleComponent } from './stylesComponent'
 
 type ButtonProps = {
    content:string
-   onClick:()=>void
+   onClick:Function
    apiStatus:Number
    className?:string
 }

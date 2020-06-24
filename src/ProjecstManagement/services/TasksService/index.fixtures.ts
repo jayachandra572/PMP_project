@@ -2,36 +2,32 @@ import taskResponseData from '../../fixtures/taskResponseData.json'
 import taskStatusChangeResponse from '../../fixtures/taskStatusChangeResponse.json'
 import taskValidateFieldResponse from '../../fixtures/taskValidateFieldResponse.json'
 
-class TasksService {
+import TasksService from "."
+import { resolveWithTimeout } from "../../../Common/utils/TestUtils"
+
+class TasksAPIService implements TasksService  {
+
    getProjectTaskAPI(request) {
       const { limit, offset } = request
       const Tasks = taskResponseData.Tasks.slice().splice(offset, limit)
-      return new Promise(resolve => resolve({ ...taskResponseData, Tasks }))
+      return resolveWithTimeout({ ...taskResponseData, Tasks })
    }
 
-   postProjectTaskAPI(request) {
-      return new Promise(resolve => {
-         setTimeout(() => resolve(), 1000)
-      })
+   postProjectTaskAPI() {
+      return resolveWithTimeout('ok')
    }
 
-   changeTaskStatusAPI = toStatus => {
-      return new Promise((resolve, reject) => {
-         setTimeout(() => resolve(taskStatusChangeResponse), 1000)
-      })
+   changeTaskStatusAPI = () => {
+      return resolveWithTimeout(taskStatusChangeResponse)
    }
 
-   taskValidationFieldAPI = request => {
-      return new Promise(resolve => {
-         setTimeout(() => resolve(taskValidateFieldResponse), 2000)
-      })
+   taskValidationFieldAPI = () => {
+      return resolveWithTimeout(taskValidateFieldResponse)
    }
 
-   postTaskTransitionValidationAPI = request => {
-      return new Promise((resolve, reject) => {
-         setTimeout(() => resolve('Error'), 2000)
-      })
+   postTaskTransitionValidationAPI = () => {
+      return resolveWithTimeout('Ok')
    }
 }
 
-export default TasksService
+export default TasksAPIService

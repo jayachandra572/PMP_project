@@ -1,6 +1,7 @@
 {
     "Tasks":[
         {"id":"1",
+        "project":"project1",
         "issue_type":"TASK",
         "title":"title1",
         "description":"description1",
@@ -14,6 +15,7 @@
         
         {"id":"5","issue_type":"BUG",
         "title":"title2",
+        "project":"project1",
         "description":"description2",
         "created_by": {
       "id":7,
