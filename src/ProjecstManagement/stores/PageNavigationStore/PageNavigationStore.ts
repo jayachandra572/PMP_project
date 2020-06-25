@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'mobx'
-import { API_INITIAL, API_SUCCESS } from '@ib/api-constants'
+import { API_INITIAL, API_SUCCESS, APIStatus } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
 
@@ -11,8 +11,8 @@ class PageNavigationStore {
    @observable currentPage!:number
    @observable entities:Map<number,any> = new Map()
    @observable offset!:number
-   @observable getApiError:object|null = null
-   @observable getApiStatus:number = API_INITIAL
+   @observable getApiError:Error|null = null
+   @observable getApiStatus:APIStatus = API_INITIAL
    responseAccessableKeys:accessableKeys
    entitiesApiServiceFunction:Function
    model:any

@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-import { withRouter } from 'react-router-dom'
+import { withRouter,RouteComponentProps } from 'react-router-dom'
 import { computed, reaction, toJS } from 'mobx'
 import { API_SUCCESS } from '@ib/api-constants'
 import { getLoadingStatus } from '@ib/api-utils'
-import {History} from "history"
 
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import UserDetailsStore from "../../../Authentication/stores/UserDetailsStore"
@@ -13,19 +12,26 @@ import { goToSpecificProjectTasksScreen } from '../../utils/navigationUtils'
 import Projects from '../../components/Projects'
 import ProjectsStore from "../../stores/ProjectsStore"
 
+
 import {
    ProjectContainer
 } from './stylesComponent'
 
-interface propsType {
+interface MatchParams {
+   id:string
+}
+
+interface ProjectsRouteProps extends  RouteComponentProps<MatchParams>{
+}
+
+interface InjectedProps extends ProjectsRouteProps {
    projectsStore:ProjectsStore
    userDetailsStore:UserDetailsStore
-   history:History
-   match:{params:{id:string}}
 }
+
 @inject('projectsStore', 'userDetailsStore')
 @observer
-class ProjectsRoute extends Component<propsType>{
+class ProjectsRoute extends Component<ProjectsRouteProps>{
    componentDidMount() {
       this.doNetWorkCall()
    }
@@ -34,9 +40,12 @@ class ProjectsRoute extends Component<propsType>{
       this.onChangePageNumberReaction()
    }
 
+   getInjectedProps = () => this.props as InjectedProps
+
    @computed get getApiStatus():number {
-      const { getUserDetailsApiStatus } = this.props.userDetailsStore
-      const { getApiStatus } = this.props.projectsStore.pageNavigation
+      const {userDetailsStore,projectsStore} = this.getInjectedProps() 
+      const { getUserDetailsApiStatus } = userDetailsStore
+      const {pageNavigation:{ getApiStatus }} = projectsStore
       if (getUserDetailsApiStatus === API_SUCCESS) {
          return getUserDetailsApiStatus
       } else {
@@ -51,15 +60,16 @@ class ProjectsRoute extends Component<propsType>{
 
 
    doNetWorkCall = () => {
+      const {userDetailsStore,projectsStore} = this.getInjectedProps() 
       const {
          getEntriesFromApi,
          pageLimit,
          offset
-      } = this.props.projectsStore.pageNavigation
+      } = projectsStore.pageNavigation
       const {
          getUserDetailsApiStatus,
          getUserDetailsApi
-      } = this.props.userDetailsStore
+      } = userDetailsStore
       if (getUserDetailsApiStatus !== API_SUCCESS) {
          getUserDetailsApi()
       }
@@ -67,7 +77,7 @@ class ProjectsRoute extends Component<propsType>{
    }
 
    onChangePageNumberReaction = reaction(
-      () => this.props.projectsStore.pageNavigation.currentPage,
+      () => this.getInjectedProps().projectsStore.pageNavigation.currentPage,
       () => {
          this.doNetWorkCall()
       }
@@ -86,26 +96,26 @@ class ProjectsRoute extends Component<propsType>{
          pageLimit,
          getApiStatus,
          getApiError
-      } = this.props.projectsStore.pageNavigation
+      } = this.getInjectedProps().projectsStore.pageNavigation
       return (
-         <Projects
-         projectsPerPage={pageLimit}
-         projects={currentPageEntities}
-         activePageNumber={currentPage}
-         totalNumberOfPages={totalNumberOfPages}
-         navigateToNextPage={navigateToNextPage}
-         navigateToPreviousPage={navigateToPreviousPage}
-         onClickPageNumber={onClickPageNumber}
-         apiError={getApiError}
-         apiStatus={getApiStatus}
-         doNetWorkCall={this.doNetWorkCall}
-         onClickProject={this.onClickProject}
-         />
+               <Projects
+               projectsPerPage={pageLimit}
+               projects={currentPageEntities}
+               activePageNumber={currentPage}
+               totalNumberOfPages={totalNumberOfPages}
+               navigateToNextPage={navigateToNextPage}
+               navigateToPreviousPage={navigateToPreviousPage}
+               onClickPageNumber={onClickPageNumber}
+               apiError={getApiError}
+               apiStatus={getApiStatus}
+               doNetWorkCall={this.doNetWorkCall}
+               onClickProject={this.onClickProject}
+               />
       )
    })
 
    render() {
-      const { getUserDetailsApiError } = this.props.userDetailsStore
+      const { getUserDetailsApiError } = this.getInjectedProps().userDetailsStore
       return (
         <ProjectContainer>
             <LoadingWrapperWithFailure
@@ -122,4 +132,4 @@ window.onbeforeunload = function() {
    return 'Dude, are you sure you want to refresh? Think of the kittens!'
 }
 
-export default withRouter(ProjectsRoute)
+export default withRouter((ProjectsRoute))

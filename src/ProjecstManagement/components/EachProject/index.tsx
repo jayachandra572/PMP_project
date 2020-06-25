@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import ProjectModel from "../../stores/models/ProjectModel"
 import { CreatedBy } from '../CreatedBy'
 import {
    ProjectName,
@@ -9,19 +10,11 @@ import {
    ProjectContainer
 } from './styleComponent'
 
-type project = {
-   id:string
-   name:string
-   workFlowType:{id:string,name:string}
-   createdBy:object
-   description:string
-   createdAt:string
-}
 
-type propsType = {
+interface propsType {
    index:number
-   onClick:(id:string)=>{}
-   project:project
+   onClick:(id:string)=> void
+   project:ProjectModel
 }
 
 function EachProject(props:propsType) {
@@ -39,7 +32,7 @@ function EachProject(props:propsType) {
          onClick={() => onClick(id)}
       >
          <ProjectName>{name}</ProjectName>
-         <WorkFlow id={workFlowType.id}>{workFlowType.name}</WorkFlow>
+         <WorkFlow id={workFlowType.id.toString()}>{workFlowType.name}</WorkFlow>
          <CreatedBy userDetails={createdBy} />
          <Description>{description}</Description>
          <CreatedAt>{createdAt}</CreatedAt>

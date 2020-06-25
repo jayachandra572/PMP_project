@@ -4,17 +4,20 @@ import { Provider } from 'mobx-react'
 
 import NewProjectService from '../../services/NewProjectService/index.fixtures'
 import NewProjectStore from '../../stores/NewProjectStore'
-import strings from '../../i18n/strings'
 
 import { AddProject } from '.'
 
-let newProjectStore
-let newProjectService
-const { data_testid } = strings
+let newProjectStore:NewProjectStore
+let newProjectService:NewProjectService
+
 const getScreen = () => {
+   const props = {
+      doNetWorkCall : () => {},
+      handleClose : () => {}
+   }
    return render(
       <Provider newProjectStore={newProjectStore}>
-         <AddProject />
+         <AddProject {...props}/>
       </Provider>
    )
 }

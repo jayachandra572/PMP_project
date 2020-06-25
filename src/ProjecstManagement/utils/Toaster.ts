@@ -21,7 +21,7 @@ toast.configure({
    className: styling
 })
 
-export default function(type:string, message:string) {
+export default function(type:string, message:string|Error|null) {
    switch (type) {
       case 'success':
          toast.success(message)

@@ -4,7 +4,6 @@ import { observer, inject } from 'mobx-react'
 import { withRouter ,RouteComponentProps} from 'react-router-dom'
 import { reaction, computed } from 'mobx'
 import { getLoadingStatus } from '@ib/api-utils'
-import {History} from "history"
 
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import UserDetailsStore from "../../../Authentication/stores/UserDetailsStore"
@@ -121,7 +120,6 @@ class TasksRoute extends Component<TasksRouteProps> {
          navigateToNextPage,
          navigateToPreviousPage,
          onClickPageNumber,
-         pageLimit,
          getApiStatus,
          getApiError
       } =tasksStore.pageNavigation

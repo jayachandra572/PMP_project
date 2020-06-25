@@ -1,3 +1,2 @@
-import React from 'react'
-import ProjectsRoute from './ProjectsRoute'
-export { ProjectsRoute }
+
+export { default as ProjectsRoute } from './ProjectsRoute'

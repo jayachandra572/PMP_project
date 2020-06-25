@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 
-import { getUserDetails } from '../../../Authentication/utils/LocalStrorageUtils'
-import strings from '../../i18n/strings'
+import strings from '../../i18n/strings.json'
 import { AddProjectModal } from '../AddProjectModal'
 
 import { ProjectHeaderContainer, ProjectTitle } from './styleComponent'
-class ProjectHeader extends Component {
+import { APIStatus } from "@ib/api-constants"
+
+interface ProjectHeaderProps {
+    doNetWorkCall:()=>void
+    apiStatus:APIStatus
+    is_admin:boolean
+}
+class ProjectHeader extends Component<ProjectHeaderProps> {
    render() {
-      const { userRole, doNetWorkCall, apiStatus, is_admin } = this.props
+      const {  doNetWorkCall, apiStatus, is_admin } = this.props
       return (
          <ProjectHeaderContainer>
             <ProjectTitle>{strings.ProjectTitle}</ProjectTitle>

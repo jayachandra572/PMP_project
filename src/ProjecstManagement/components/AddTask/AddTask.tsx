@@ -9,13 +9,14 @@ import CloseButtonWithIcon from '../../../Common/components/CloseButtonWithIcon'
 import toaster from '../../utils/Toaster'
 import Colors from '../../themes/Colors'
 import strings from '../../i18n/strings.json'
+import TasksStore from "../../stores/TasksStore"
+
 
 import {
    AddTaskContainer,
    Header,
    TaskTitle,
    TaskTitleLabel,
-   CloseButton,
    IssueTypeLabel,
    IssueTypeMenu,
    DescriptionLabel,
@@ -24,18 +25,35 @@ import {
    Required
 } from './styleComponent'
 
+interface AddTaskProps {
+   doNetWorkCall : () => void
+   handleClose : () =>void
+}
+interface InjectedProps extends AddTaskProps {
+   tasksStore:TasksStore
+}
+
+interface ErrorMessage{
+   taskTitleEmpty:boolean,
+   issueTypeError:boolean,
+   descriptionError:boolean
+}
+
+type InputElementType = React.FormEvent<HTMLInputElement>
+
 @inject('tasksStore')
 @observer
-class AddTask extends Component {
-   @observable taskTitle
-   @observable issueType = null
-   @observable description
-   @observable errorMessage
+class AddTask extends Component<AddTaskProps>{
+   @observable taskTitle !: string
+   @observable issueType !: null | string
+   @observable description !: string
+   @observable errorMessage !: ErrorMessage
 
    constructor(props) {
       super(props)
       this.init()
    }
+
    componentWillUnmount() {
       this.reaction1()
    }
@@ -44,24 +62,31 @@ class AddTask extends Component {
    init() {
       this.taskTitle = ''
       this.description = ''
-      this.errorMessage = {}
+      this.issueType = null
+      this.errorMessage = {
+         taskTitleEmpty:false,
+         issueTypeError:false,
+         descriptionError:false
+      }
    }
 
+   getInjectedProps = () => this.props as InjectedProps
+
    @action.bound
-   onChangeTaskTitle(event) {
-      this.taskTitle = event.target.value
+   onChangeTaskTitle(event:InputElementType) {
+      this.taskTitle = event.currentTarget.value
       this.checkTaskTitle()
    }
 
    @action.bound
-   onChangeIssueType(value) {
+   onChangeIssueType(value:string) {
       this.issueType = value
       this.checkIssueType()
    }
 
    @action.bound
-   onChangeDescription(event) {
-      this.description = event.target.value
+   onChangeDescription(event:InputElementType) {
+      this.description = event.currentTarget.value
       this.checkDescription()
    }
 
@@ -89,9 +114,17 @@ class AddTask extends Component {
       return descriptionError || issueTypeError || taskTitleEmpty
    }
 
+   renderRequiredMessage(shouldRender:boolean) {
+      if (shouldRender) {
+         return <Required>{strings.required}</Required>
+      }else{
+        return null
+      }
+   }
+
    @action.bound
    submitTask() {
-      const { postTask, projectId } = this.props.tasksStore
+      const { postTask, projectId } = this.getInjectedProps().tasksStore
       const {
          checkTaskTitle,
          checkDescription,
@@ -108,14 +141,14 @@ class AddTask extends Component {
    }
 
    reaction1 = reaction(
-      () => this.props.tasksStore.postTask.getApiStatus,
+      () => this.getInjectedProps().tasksStore.postTask.getApiStatus,
       apiStatus => {
          if (apiStatus === API_SUCCESS) {
             toaster('success', 'successfully created task')
             this.props.handleClose()
             this.init()
          } else if (apiStatus === API_FAILED) {
-            const { getApiError } = this.props.tasksStore.postTask
+            const { getApiError } = this.getInjectedProps().tasksStore.postTask
             toaster('error', getApiError)
          }
       }
@@ -126,7 +159,8 @@ class AddTask extends Component {
       const {
          taskTitle,
          onChangeTaskTitle,
-         errorMessage: { taskTitleEmpty }
+         errorMessage: { taskTitleEmpty },
+         renderRequiredMessage
       } = this
 
       return (
@@ -142,7 +176,7 @@ class AddTask extends Component {
                value={taskTitle}
                onChange={onChangeTaskTitle}
             />
-            {taskTitleEmpty && <Required>{strings.required}</Required>}
+            {renderRequiredMessage(taskTitleEmpty)}
          </Fragment>
       )
    })
@@ -152,7 +186,8 @@ class AddTask extends Component {
       const {
          issueType,
          onChangeIssueType,
-         errorMessage: { issueTypeError }
+         errorMessage: { issueTypeError },
+         renderRequiredMessage
       } = this
       return (
          <Fragment>
@@ -176,7 +211,7 @@ class AddTask extends Component {
                   height: '40px'
                }}
             />
-            {issueTypeError && <Required>{strings.required}</Required>}
+            {renderRequiredMessage(issueTypeError)}
          </Fragment>
       )
    })
@@ -185,7 +220,8 @@ class AddTask extends Component {
       const {
          description,
          onChangeDescription,
-         errorMessage: { descriptionError }
+         errorMessage: { descriptionError },
+         renderRequiredMessage
       } = this
       const { tasks } = strings
       return (
@@ -201,7 +237,7 @@ class AddTask extends Component {
                value={description}
                onChange={onChangeDescription}
             />
-            {descriptionError && <Required>Required</Required>}
+            {renderRequiredMessage(descriptionError)}
          </Fragment>
       )
    })
@@ -209,7 +245,7 @@ class AddTask extends Component {
    render() {
       const {
          postTask: { getApiStatus }
-      } = this.props.tasksStore
+      } = this.getInjectedProps().tasksStore
       const { TaskTitleInput, IssueTypeMenu, DescriptionTextInput } = this
       return (
          <AddTaskContainer>

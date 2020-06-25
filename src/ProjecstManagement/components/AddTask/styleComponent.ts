@@ -16,10 +16,18 @@ export { Header, Required }
 
 import Colors from '../../themes/Colors'
 
+interface DescriptionTextAreaProps{
+   isError:boolean
+}
+
+interface TaskTitleProps {
+   isEmpty:boolean
+}
+
 export const IssueTypeMenu = styled(DropDown)``
 
 export const DescriptionTextArea = styled(TextArea)`
-   border: 1px solid ${props => (props.isError ? 'red' : Colors.lightBlueGrey)};
+   border: 1px solid ${(props:DescriptionTextAreaProps) => (props.isError ? 'red' : Colors.lightBlueGrey)};
    width: 400px;
    color: ${Colors.steel};
 `
@@ -27,7 +35,7 @@ export const DescriptionTextArea = styled(TextArea)`
 export const TaskTitle = styled(InputField)`
    ${tw``}
    width:400px;
-   border: 1px solid ${props => (props.isEmpty ? 'red' : Colors.lightBlueGrey)};
+   border: 1px solid ${(props:TaskTitleProps) => (props.isEmpty ? 'red' : Colors.lightBlueGrey)};
    border-radius: 4px;
    color: ${Colors.steel};
 `

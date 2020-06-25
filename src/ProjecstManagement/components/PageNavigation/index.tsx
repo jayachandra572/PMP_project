@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { API_SUCCESS } from '@ib/api-constants'
+import { API_SUCCESS, APIStatus } from '@ib/api-constants'
 import strings from '../../i18n/strings.json'
 import Images from '../../themes/Images'
 import {
@@ -10,7 +10,16 @@ import {
    PageNavigationContainer
 } from './styleComponent'
 
-class PageNavigation extends Component {
+
+interface PageNavigationProps {
+   apiStatus:APIStatus
+   activePageNumber:number
+   totalNumberOfPages:number
+   navigateToNextPage:()=> void
+   navigateToPreviousPage:()=> void
+   onClickPageNumber:(number:number)=> void
+}
+class PageNavigation extends Component <PageNavigationProps>{
    renderPageNumberButtons = () => {
       const {
          activePageNumber,
@@ -18,7 +27,7 @@ class PageNavigation extends Component {
          onClickPageNumber
       } = this.props
       const { startingPageNumber } = strings
-      let buttons:Button = []
+      let buttons:Array<JSX.Element> = []
       for (
          let pageNumber = startingPageNumber;
          pageNumber <= totalNumberOfPages;
@@ -56,6 +65,7 @@ class PageNavigation extends Component {
             <PreviousButton
                disabled={isPreviousButtonDisabled}
                data-testid={strings.previousButtonDataTestId}
+               key = {strings.previousButtonDataTestId}
                onClick={navigateToPreviousPage}
                isPreviousButtonDisabled={isPreviousButtonDisabled}
             >

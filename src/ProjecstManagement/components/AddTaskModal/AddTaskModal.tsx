@@ -2,20 +2,25 @@ import React, { Component } from 'react'
 import { Button, Modal } from 'semantic-ui-react'
 import { observer } from 'mobx-react'
 import { observable } from 'mobx'
-import { API_SUCCESS } from '@ib/api-constants'
+import { API_SUCCESS, APIStatus } from '@ib/api-constants'
 import 'semantic-ui-css/semantic.min.css'
 
-import strings from '../../i18n/strings'
+import strings from '../../i18n/strings.json'
 import Colors from '../../themes/Colors'
 import { AddTask } from '../AddTask'
 
+interface AddTaskModalProps {
+   doNetWorkCall:()=>void
+   apiStatus:APIStatus
+}
+
 @observer
-class AddTaskModal extends Component {
+class AddTaskModal extends Component<AddTaskModalProps> {
    @observable modalOpen = false
-   handleOpen = () => (this.modalOpen = true)
-   handleClose = () => (this.modalOpen = false)
+   handleOpen = () => {this.modalOpen = true}
+   handleClose = () => {this.modalOpen = false}
    render() {
-      const { apiStatus } = this.props
+      const { apiStatus, doNetWorkCall } = this.props
       const disabled = apiStatus !== API_SUCCESS
       return (
          <Modal
@@ -36,7 +41,7 @@ class AddTaskModal extends Component {
             onClose={this.handleClose}
          >
             <Modal.Content>
-               <AddTask handleClose={this.handleClose} />
+               <AddTask handleClose={this.handleClose} doNetWorkCall = {doNetWorkCall} />
             </Modal.Content>
          </Modal>
       )

@@ -5,10 +5,11 @@ import strings from '../../i18n/strings'
 
 import { TasksHeaderContainer, TasksTitle } from './styleComponent'
 function TasksHeader(props) {
+   const {apiStatus,doNetworkCall}
    return (
       <TasksHeaderContainer>
          <TasksTitle>{strings.tasks.title}</TasksTitle>
-         <AddTaskModal apiStatus={props.apiStatus} />
+         <AddTaskModal apiStatus={apiStatus} doNetWorkCall = {doNetworkCall} />
       </TasksHeaderContainer>
    )
 }

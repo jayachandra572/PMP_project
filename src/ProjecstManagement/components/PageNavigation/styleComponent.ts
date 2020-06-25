@@ -12,20 +12,24 @@ type PreviousButtonPropsType = {
 type NextButtonPropsType = {
    isNextButtonDisabled:boolean
 }
-export const PageNumberButton = styled.button<PageNavigationButtonType>`
+const BaseButton = styled.button`
    ${tw`flex justify-center items-center`}
    width: 24px;
    height: 24px;
    margin: 4px;
    border-radius: 2px;
    font-size: 12px;
+   background-color: ${Colors.white};
+`
+export const PageNumberButton = styled(BaseButton)<PageNavigationButtonType>`
+   
    border: solid 1px
       ${props => (props.active ? Colors.darkBlueGray : Colors.lightBlueGrey)};
    color: ${props => (props.active ? Colors.darkBlueGray : Colors.steel)};
-   background-color: ${Colors.white};
+   
 `
 
-export const PageNavigationButton = styled(PageNumberButton)`
+export const PageNavigationButton = styled(BaseButton)`
    border: solid 1px ${Colors.lightBlueGrey};
    color: black;
 `

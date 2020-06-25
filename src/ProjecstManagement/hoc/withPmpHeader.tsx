@@ -16,24 +16,27 @@ type InjectedProps = {
 
 
 
-function withPmpHeader<T>(WrappedComponent:React.ComponentType<T>){
+function withPMPHeader<T>(WrappedComponent:React.ComponentType<T>){
    @inject('authenticationStore', 'userDetailsStore')
    @observer
-   class RenderComponent extends Component {
-      getInjectedProps = () => this.props as InjectedProps
+   class RenderComponent extends Component<T> {
+      getInjectedProps = () =>
+      { 
+         const props = this.props as unknown
+        return props as InjectedProps
+      }
 
       render() {
-         const props = this.props as T
          const { userLogOut } = this.getInjectedProps().authenticationStore
          const { name, is_admin } = this.getInjectedProps().userDetailsStore.userDetails
          return (
             <>
                <Header name = {name} userLogOut = {userLogOut}/>
-               <WrappedComponent is_admin={is_admin} {...props} />
+               <WrappedComponent is_admin={is_admin} {...(this.props as T)} />
             </>
          )
       }
    }
    return RenderComponent
 }
-export default withPmpHeader
+export default withPMPHeader

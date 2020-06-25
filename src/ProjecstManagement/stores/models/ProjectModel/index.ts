@@ -1,10 +1,10 @@
-import { ProjectObject } from "../../type"
+import { ProjectObject,WorkFlowObject,CreatedBy} from "../../type"
 
 class ProjectModel {
    id:string
    name:string
-   workFlowType:object
-   createdBy:object
+   workFlowType:WorkFlowObject
+   createdBy:CreatedBy
    description:string
    createdAt:string
    constructor(project:ProjectObject) {

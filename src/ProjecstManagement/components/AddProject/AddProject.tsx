@@ -3,7 +3,6 @@ import { observer, inject } from 'mobx-react'
 import { observable, reaction, action } from 'mobx'
 import {
    API_SUCCESS,
-   API_INITIAL,
    API_FETCHING,
    API_FAILED
 } from '@ib/api-constants'
@@ -14,6 +13,8 @@ import CloseButtonWithIcon from '../../../Common/components/CloseButtonWithIcon'
 import toaster from '../../utils/Toaster'
 import Colors from '../../themes/Colors'
 import strings from '../../i18n/strings.json'
+import NewProjectStore from "../../stores/NewProjectStore"
+
 
 import {
    ProjectName,
@@ -30,21 +31,41 @@ import {
    Required
 } from './styleComponent'
 
+interface AddProjectProps {
+   doNetWorkCall : () => void
+   handleClose : () =>void
+}
+interface InjectedProps extends AddProjectProps {
+   newProjectStore:NewProjectStore
+}
+interface ErrorMessage {
+   projectNameEmpty:boolean
+   projectWorkFlowError:boolean
+   projectTypeError:boolean
+   projectDescriptionError:boolean
+
+}
+
+type InputElementType = React.FormEvent<HTMLInputElement>
+
 @inject('newProjectStore')
 @observer
-class AddProject extends Component {
-   @observable projectName
-   @observable workFlowTypeId = ''
-   @observable projectType = ''
-   @observable projectDescription
-   @observable errorMessage
+class AddProject extends Component<AddProjectProps> {
+   @observable projectName !: string
+   @observable workFlowTypeId !:string
+   @observable projectType !:string
+   @observable projectDescription !:string
+   @observable errorMessage !:ErrorMessage
 
    constructor(props) {
       super(props)
       this.init()
    }
+   
+   getInjectedProps = () => this.props as InjectedProps
+
    componentDidMount() {
-      const { workFlowType } = this.props.newProjectStore
+      const { workFlowType } = this.getInjectedProps().newProjectStore
       workFlowType.apiCall({})
    }
    componentWillUnmount() {
@@ -55,30 +76,38 @@ class AddProject extends Component {
    init() {
       this.projectName = ''
       this.projectDescription = ''
-      this.errorMessage = {}
+      this.errorMessage = {
+         projectNameEmpty:false,
+         projectWorkFlowError:false,
+         projectTypeError:false,
+         projectDescriptionError:false
+      }
+      this.workFlowTypeId = ''
+      this. projectType = ""
    }
 
    @action.bound
-   onChangeProjectName(event) {
-      this.projectName = event.target.value
+   onChangeProjectName(event:InputElementType) {
+      this.projectName = event.currentTarget.value
       this.checkProjectNameError()
    }
 
    @action.bound
-   onChangeWorkflowType(value) {
+   onChangeWorkflowType(value:string) {
       this.workFlowTypeId = value
       this.checkWorkFlowTypeIdError()
    }
+  
 
    @action.bound
-   onChangeProjectType(value) {
+   onChangeProjectType(value:string) {
       this.projectType = value
       this.checkProjectTypeError()
    }
 
    @action.bound
-   onChangeDescription(event) {
-      this.projectDescription = event.target.value
+   onChangeDescription(event:InputElementType) {
+      this.projectDescription = event.currentTarget.value
       this.checkProjectDescriptionError()
    }
 
@@ -117,7 +146,7 @@ class AddProject extends Component {
 
    @action.bound
    submitDetailsOfProject() {
-      const { newProject } = this.props.newProjectStore
+      const { newProject } = this.getInjectedProps().newProjectStore
       const {
          projectName,
          workFlowTypeId,
@@ -139,14 +168,16 @@ class AddProject extends Component {
       }
    }
 
-   renderRequiredMessage(shouldRender) {
+   renderRequiredMessage(shouldRender:boolean) {
       if (shouldRender) {
          return <Required>{strings.required}</Required>
+      }else{
+        return null
       }
    }
 
    createProjectReaction = reaction(
-      () => this.props.newProjectStore.newProject.getApiStatus,
+      () => this.getInjectedProps().newProjectStore.newProject.getApiStatus,
       apiStatus => {
          if (apiStatus === API_SUCCESS) {
             this.props.handleClose()
@@ -155,7 +186,7 @@ class AddProject extends Component {
          } else if (apiStatus === API_FAILED) {
             const {
                newProject: { getApiError }
-            } = this.props.newProjectStore
+            } = this.getInjectedProps().newProjectStore
             toaster('error', getApiError)
          }
       }
@@ -216,7 +247,7 @@ class AddProject extends Component {
    WorkFlowTypeMenu = observer(() => {
       const {
          workFlowType: { response, getApiStatus, getApiError }
-      } = this.props.newProjectStore
+      } = this.getInjectedProps().newProjectStore
       const { addProject } = strings
       const {
          errorMessage: { projectWorkFlowError },
@@ -275,7 +306,7 @@ class AddProject extends Component {
       )
    })
    render() {
-      const { newProject } = this.props.newProjectStore
+      const { newProject } = this.getInjectedProps().newProjectStore
       const {
          submitDetailsOfProject,
          ProjectNameInput,
