@@ -1,22 +1,34 @@
-import React from 'react'
+import React,{Component} from 'react'
 import { Dropdown } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css'
+import { StatusObject } from "../../stores/type"
 
-class DropdownWithLoader extends React.Component {
+interface DropdownWithLoaderProps {
+   value:string
+   open:boolean
+   onChange:(value:string) => void
+   onClick : () => void
+   loading:boolean
+   closeDropdownMenu : () => void
+   options:Array<StatusObject>|null
+   styles:React.CSSProperties
+}
+
+class DropdownWithLoader extends Component<DropdownWithLoaderProps> {
    static defaultProps = {
       styles: {
          width: '320px',
          border: '1px solid #7e858e'
       },
-      options: [],
       defaultValue: '',
       loading: false,
+      options:null,
       onClick: () => {}
    }
 
-   onChangeState = (event, data) => {
+   onChangeState = (_, data) => {
       const { onChange, closeDropdownMenu } = this.props
-      onChange(event, data)
+      onChange(data.value)
       closeDropdownMenu()
    }
    render() {
@@ -29,7 +41,7 @@ class DropdownWithLoader extends React.Component {
          open,
          closeDropdownMenu
       } = this.props
-      options =
+      const dropdownOptions =
          options !== null
             ? options.map(workFlow => {
                  return {
@@ -48,7 +60,7 @@ class DropdownWithLoader extends React.Component {
             selection
             loading={loading}
             disabled={loading}
-            options={options}
+            options={dropdownOptions}
             onChange={this.onChangeState}
             onClick={onClick}
             style={styles}

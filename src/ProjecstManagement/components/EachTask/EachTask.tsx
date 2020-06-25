@@ -14,18 +14,25 @@ import {
    TaskContainer
 } from './styleComponent'
 
-@observer
-class EachTask extends Component {
-   upDateToStatus = toStatus => {
-      this.props.task.toStatus = toStatus
-   }
+import TaskModel from "../../stores/models/TaskModel"
+import ApiCallModel from "../../stores/models/ApiCallModel"
 
-   getValidateFields = toStatus => {
+interface EachTaskProps {
+   task:TaskModel
+   doNetWorkCall:()=>void
+   index:number
+   taskValidationField:ApiCallModel
+}
+
+@observer
+class EachTask extends Component <EachTaskProps>{
+   
+   getValidateFields = (toStatus:string) => {
       const {
          taskValidationField,
-         task: { state, id }
+         task: { state, id ,upDateToStatus}
       } = this.props
-      this.upDateToStatus(toStatus)
+      upDateToStatus(toStatus)
       taskValidationField.apiCall({
          fromStatus: state,
          toStatus: toStatus,
@@ -33,7 +40,7 @@ class EachTask extends Component {
       })
    }
 
-   onClickStateMenu = (event, data) => {
+   onClickStateMenu = () => {
       const {
          task: { getStatusTransitionOptions }
       } = this.props
@@ -57,8 +64,6 @@ class EachTask extends Component {
       } = this.props.task
       const {
          getValidateFields,
-         handleClose,
-         modalOpen,
          onClickStateMenu
       } = this
       const isOdd = index % 2 === 1
@@ -73,8 +78,6 @@ class EachTask extends Component {
                taskValidationField={taskValidationField}
                onClickStateMenu={onClickStateMenu}
                options={stateOptions}
-               handleClose={handleClose}
-               modalOpen={modalOpen}
                getApiStatus={getApiStatus}
                getApiError={getApiError}
                getValidateFields={getValidateFields}

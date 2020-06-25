@@ -2,7 +2,7 @@ import { observable, action, reaction } from 'mobx'
 import { API_SUCCESS, API_INITIAL } from '@ib/api-constants'
 import { bindPromiseWithOnSuccess } from '@ib/mobx-promise'
 
-import { TaskObject, StatusObject } from "../../type"
+import { TaskObject, StatusObject, CreatedBy } from "../../type"
 
 import ApiCallModel from '../ApiCallModel'
 import TasksService from "../../../services/TasksService"
@@ -18,7 +18,7 @@ class TaskModel{
    issueType:string
    title:string
    description:string
-   createdBy:object
+   createdBy:CreatedBy
    createdAt:string
    taskService:TasksService
    toStatus:string
@@ -47,6 +47,10 @@ class TaskModel{
          }
       }
    )
+
+   upDateToStatus = (toStatus:string) => {
+      this.toStatus = toStatus
+   }
    
    @action.bound
    setApiStatus (status:number) {

@@ -6,23 +6,29 @@ import withPMPHeader from '../../hoc/withPmpHeader'
 import { Tasks } from '../Tasks'
 import strings from '../../i18n/strings.json'
 import { BackButton } from './styledComponent'
-import ProjectModel from "../../stores/models/ProjectModel"
 import ApiCallModel from "../../stores/models/ApiCallModel"
+import TaskModel from "../../stores/models/TaskModel"
 
-
-interface ProjectTasksPropsType  {
-   backToProjectsPage:()=> any
-   taskValidationField:ApiCallModel
-   projectTasks:any[]
+export interface PageNavigationProps {
    activePageNumber:number
    totalNumberOfPages:number
    navigateToNextPage:()=>void
    navigateToPreviousPage:() => void
    onClickPageNumber:(number:number)=> void
    apiStatus:APIStatus
+}
+
+export interface TasksProps extends PageNavigationProps {
+   taskValidationField:ApiCallModel
+   projectTasks:TaskModel[]
    apiError:Error|null
    doNetWorkCall: () => void
    is_admin?:boolean
+}
+
+interface ProjectTasksPropsType extends TasksProps {
+   backToProjectsPage:()=> any
+   
 }
 
 

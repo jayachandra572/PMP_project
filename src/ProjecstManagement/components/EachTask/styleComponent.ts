@@ -45,9 +45,5 @@ export const CloseIconButton = styled(CloseButtonWithIcon)`
    right: 20px;
 `
 
-export const dropDownCss = css`
-      min-width: '90px',
-      max-width: '130px',
-      border: 'none',
-      background-color: 'transparent',
-      color: ${Colors.steel}`
+
+      

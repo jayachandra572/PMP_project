@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { observer } from 'mobx-react'
 
 import {
@@ -6,10 +6,13 @@ import {
    RetryButton,
    FailureAndLoadingContainer
 } from './styleComponent'
-@observer
-class FailureView extends React.Component {
-   render() {
-      const { onRetryClick } = this.props
+
+interface FailureViewProps {
+   onRetryClick:() => void
+}
+
+const FailureView = observer((props:FailureViewProps) => {
+      const { onRetryClick } = props
       const errorMessage = 'Something went wrong'
       return (
          <FailureAndLoadingContainer>
@@ -17,7 +20,6 @@ class FailureView extends React.Component {
             <RetryButton onClick={onRetryClick}>Retry</RetryButton>
          </FailureAndLoadingContainer>
       )
-   }
-}
+   })
 
 export default FailureView

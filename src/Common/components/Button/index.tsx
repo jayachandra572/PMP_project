@@ -7,7 +7,7 @@ import { ButtonStyleComponent } from './stylesComponent'
 
 type ButtonProps = {
    content:string
-   onClick:Function
+   onClick:()=> void
    apiStatus:Number
    className?:string
 }
@@ -15,7 +15,8 @@ type ButtonProps = {
 
 class Button extends Component<ButtonProps>{
    static defaultProps = {
-      apiStatus: API_SUCCESS
+      apiStatus: API_SUCCESS,
+      onClick :()=> {}
    }
    render() {
       let { content, onClick, apiStatus, className } = this.props

@@ -2,12 +2,11 @@ import React, { Component, Fragment } from 'react'
 import { observer } from 'mobx-react'
 import { reaction } from 'mobx'
 import { API_SUCCESS, API_FETCHING, API_FAILED } from '@ib/api-constants'
-import { RiCloseLine } from 'react-icons/ri'
 
 import CheckboxWithLabel from '../../../Common/components/CheckboxWithLabel'
 import CloseButtonWithIcon from '../../../Common/components/CloseButtonWithIcon'
 
-import { Header, Required } from '../../styleComponent/FormStyles'
+import { Header } from '../../styleComponent/FormStyles'
 import Toaster from '../../utils/Toaster'
 
 import FailureView from './FailureView'
@@ -24,10 +23,15 @@ import {
    Status,
    VadationFields
 } from './styleComponent'
+import { ValidateTaskTransitionViewProps } from "."
 
 @observer
-class ValidateTaskTransitionView extends Component {
+class ValidateTaskTransitionView extends Component<ValidateTaskTransitionViewProps> {
    componentDidMount() {
+      this.doNetworkCall()
+   }
+
+   doNetworkCall = ()=>{
       this.props.getValidateFields(this.props.toStatus)
    }
    componentWillUnmount() {
@@ -66,30 +70,32 @@ class ValidateTaskTransitionView extends Component {
       }
    )
 
-   RenderValidationConditions = observer(() => {
+   renderValidationConditions = observer(() => {
       const { response } = this.props.taskValidationField
-      return response.map(eachCondition => (
-         <CheckBoxContainer key={eachCondition.id}>
-            <CheckboxWithLabel
-               key={eachCondition.id}
-               id={eachCondition.id}
-               label={eachCondition.label}
-               value={eachCondition.value}
-               onClick={eachCondition.onClick}
-            />
-         </CheckBoxContainer>
-      ))
+        return( <>
+         {response.map(eachCondition => (
+            <CheckBoxContainer key={eachCondition.id}>
+               <CheckboxWithLabel
+                  key={eachCondition.id}
+                  id={eachCondition.id}
+                  label={eachCondition.label}
+                  value={eachCondition.value}
+                  onClick={eachCondition.onClick}
+               />
+            </CheckBoxContainer>
+         ))}
+         </>)
    })
 
    renderSuccessUI = () => {
-      const { RenderValidationConditions, onSubmit } = this
+      const { renderValidationConditions, onSubmit } = this
       const {
          taskTrasitionState: { getApiStatus }
       } = this.props
       return (
          <Fragment>
             <VadationFields>
-               <RenderValidationConditions />
+               {renderValidationConditions()}
             </VadationFields>
             <SubmitButton
                apiStatus={getApiStatus}
@@ -101,11 +107,11 @@ class ValidateTaskTransitionView extends Component {
    }
 
    LoadingWrapperWithFailure = observer(() => {
-      const { getValidateFields } = this.props
-      const { getApiStatus, getApiError } = this.props.taskValidationField
+
+      const { getApiStatus } = this.props.taskValidationField
       switch (getApiStatus) {
          case API_FAILED:
-            return <FailureView onRetryClick={getValidateFields} />
+            return <FailureView onRetryClick={this.doNetworkCall} />
          case API_FETCHING:
             return <LoadingView />
          case API_SUCCESS:

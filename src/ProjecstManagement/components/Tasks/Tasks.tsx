@@ -8,9 +8,12 @@ import { PageNavigation } from '../PageNavigation'
 import { TasksHeader } from '../TasksHeader'
 
 import { TasksContainer, TasksBox } from './styleComponent'
+import { TasksProps } from "../ProjectTasks/ProjectTasks"
+
+
 
 @observer
-class Tasks extends Component {
+class Tasks extends Component<TasksProps> {
    renderTasks = () => {
       const { projectTasks, taskValidationField, doNetWorkCall } = this.props
       return projectTasks.map((task, index) => (
@@ -25,12 +28,12 @@ class Tasks extends Component {
    }
 
    renderSuccessUI = observer(() => {
-      const { projectsPerPage, projectTasks } = this.props
+      const { projectTasks } = this.props
       if (projectTasks.length === 0) {
          return <NoDataView />
       } else {
          return (
-            <TasksBox projectsPerPage={projectsPerPage}>
+            <TasksBox >
                <TaskTopics />
                {this.renderTasks()}
             </TasksBox>
@@ -47,14 +50,12 @@ class Tasks extends Component {
          navigateToNextPage,
          navigateToPreviousPage,
          onClickPageNumber,
-         is_admin
       } = this.props
       return (
          <TasksContainer>
             <TasksHeader
                apiStatus={apiStatus}
                doNetWorkCall={doNetWorkCall}
-               is_admin={is_admin}
             />
             <LoadingWrapperWithFailure
                apiError={apiError}
@@ -68,6 +69,7 @@ class Tasks extends Component {
                navigateToNextPage={navigateToNextPage}
                navigateToPreviousPage={navigateToPreviousPage}
                onClickPageNumber={onClickPageNumber}
+               apiStatus = {apiStatus}
             />
          </TasksContainer>
       )
