@@ -1,4 +1,4 @@
-import { observable } from 'mobx'
+import { observable, action } from 'mobx'
 
 import ProjectService from "../../services/ProjectsService"
 
@@ -8,7 +8,7 @@ import ProjectModel from '../models/ProjectModel'
 type Instantiable = {new(...args: any[]):any}
 
 class ProjectsStore {
-   @observable pageNavigation:PageNavigationStore
+   @observable pageNavigation!:PageNavigationStore
    pageLimit:number
    config:object
    projectsService : ProjectService
@@ -25,6 +25,13 @@ class ProjectsStore {
          this.pageLimit,
          this.config)
    }
+
+   @action.bound   
+   clearStore (){
+      this.pageNavigation.clearStore()
+   }
+
+ 
 
 }
 export default ProjectsStore

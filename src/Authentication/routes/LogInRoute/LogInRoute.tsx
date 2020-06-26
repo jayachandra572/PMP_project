@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { action, observable, reaction, toJS } from 'mobx'
-import {createMemoryHistory} from "history"
 
-import { Redirect,withRouter} from 'react-router-dom'
-import { API_SUCCESS } from '@ib/api-constants'
+import { Redirect,withRouter, RouteComponentProps} from 'react-router-dom'
+
+import {PROJECT_ROUTE} from "../../../ProjecstManagement/constants/RouteConstants"
 
 import { LogInForm } from '../../components/LogInForm'
 import strings from '../../i18n/strings.json'
@@ -12,10 +12,11 @@ import strings from '../../i18n/strings.json'
 import AuthenticationStore from "../../stores/AuthenticationStore"
 import { getUserDisplayableErrorMessage } from "../../../Common/utils/APIUtils"
 
-interface LogInRouteProps  {
-  
-   history:any
-   location:any
+interface LocationState{
+   from:string
+}
+
+interface LogInRouteProps extends RouteComponentProps<{}, any, LocationState | any>  {
 }
 interface InjectedProps extends LogInRouteProps {
    authenticationStore:AuthenticationStore
@@ -114,7 +115,8 @@ class LogInRoute extends Component<LogInRouteProps>{
    }
 
    reDirectProjectsPage =() => {
-      let { from } = this.props.location.state || { from: { pathname: "/projects" } };
+      const {location:{state}} = this.props
+      let  from = state?state.from:PROJECT_ROUTE 
       return (<Redirect to = {from} />)
    }
 
@@ -127,7 +129,7 @@ class LogInRoute extends Component<LogInRouteProps>{
          onChangeName,
          onChangePassword,
          errorMessage,
-         reDirectProjectsPage
+         reDirectProjectsPage,
       } = this
       if (authApiToken) {
          return reDirectProjectsPage()

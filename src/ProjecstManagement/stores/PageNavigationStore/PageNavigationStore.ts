@@ -9,10 +9,10 @@ type accessableKeys = {
 }
 class PageNavigationStore {
    @observable currentPage!:number
-   @observable entities:Map<number,any> = new Map()
+   @observable entities!:Map<number,any>
    @observable offset!:number
-   @observable getApiError:Error|null = null
-   @observable getApiStatus:APIStatus = API_INITIAL
+   @observable getApiError!:Error|null
+   @observable getApiStatus!:APIStatus 
    responseAccessableKeys:accessableKeys
    entitiesApiServiceFunction:Function
    model:any
@@ -26,10 +26,14 @@ class PageNavigationStore {
       this.model = model
       this.entitiesApiServiceFunction = serviceFunction
       this.services = services?services:null;
+      this.init()
    }
 
    @action.bound
    init() {
+      this.getApiStatus = API_INITIAL
+      this.getApiError = null
+      this.entities = new Map()
       this.totalNumberOfPages = 1
       this.currentPage = 1
       this.offset = 0
@@ -109,11 +113,15 @@ class PageNavigationStore {
 
    @action.bound
    setApiResponse(response:object|null) {
-      this.response = response
+      if(response){
+         this.response = response
+      }else{
+         this.response = []
+      }
    }
    
    @action.bound
-   setApiError ( error:object)  {
+   setApiError ( error)  {
       this.getApiError = error
    }
 

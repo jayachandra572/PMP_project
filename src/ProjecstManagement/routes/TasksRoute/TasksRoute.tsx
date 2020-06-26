@@ -44,8 +44,12 @@ class TasksRoute extends Component<TasksRouteProps> {
 
 
    componentWillUnmount() {
+      const {tasksStore,userDetailsStore} = this.getInjectedProps()
       this.onCreateTaskReactionDeposer()
       this.onChangePageNumberReaction()
+      tasksStore.taskFieldsReaction()
+      tasksStore.clearStore()
+      userDetailsStore.clearStore()
    }
 
    @computed get getApiStatus():number {

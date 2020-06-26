@@ -16,6 +16,7 @@ import {
    UserNameLabel,
    UserPasswordLabel
 } from './stylesComponent'
+import Timer from "../../../Common/components/Icons/Timer/Timer"
 
 type errorMessageType = {
    userNameErrorMessage:string
@@ -27,7 +28,7 @@ type LogInFormProps = {
    userPassword:string
    onChangeName:Function
    onChangePassword:Function
-   onSubmitForm:Function
+   onSubmitForm:(event:React.SyntheticEvent) => void
    errorMessage:errorMessageType
    getAuthApiStatus:number
 
@@ -82,21 +83,20 @@ class LogInForm extends Component<LogInFormProps> {
    })
 
    SignButton = observer(():any=> {
-      const { onSubmitForm, getAuthApiStatus } = this.props
+      const{ getAuthApiStatus } = this.props
       return (
          <LogInButton
             content={strings.loginButton}
-            onClick={onSubmitForm}
             apiStatus={getAuthApiStatus}
          />
       )
    })
 
    render() {
-      const { UserNameInput, UserPasswordInput, SignButton } = this
+      const { UserNameInput, UserPasswordInput, SignButton,props:{onSubmitForm} } = this
       return (
-         <LogInFormContainer>
-            <LogInPage>
+         <LogInFormContainer >
+            <LogInPage onSubmit = {onSubmitForm}>
                <IbHubsLogo />
                <Header>{strings.loginHeaderContent}</Header>
                <UserNameInput />

@@ -12,7 +12,7 @@ import {
    Required,
    Container
 } from '../../styleComponent/FormStyles'
-export { Header, Required }
+
 
 import Colors from '../../themes/Colors'
 
@@ -24,6 +24,7 @@ interface TaskTitleProps {
    isEmpty:boolean
 }
 
+export { Header, Required }
 export const IssueTypeMenu = styled(DropDown)``
 
 export const DescriptionTextArea = styled(TextArea)`

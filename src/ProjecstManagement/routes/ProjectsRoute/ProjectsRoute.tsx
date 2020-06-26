@@ -37,7 +37,11 @@ class ProjectsRoute extends Component<ProjectsRouteProps>{
    }
 
    componentWillUnmount() {
+      const {projectsStore, userDetailsStore} = this.getInjectedProps()
       this.onChangePageNumberReaction()
+      projectsStore.clearStore()
+      userDetailsStore.clearStore()
+
    }
 
    getInjectedProps = () => this.props as InjectedProps

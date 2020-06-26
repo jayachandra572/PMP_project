@@ -1,4 +1,4 @@
-import { observable, reaction } from 'mobx'
+import { observable, reaction, action } from 'mobx'
 import { API_SUCCESS } from '@ib/api-constants'
 
 import TasksService from "../../services/TasksService"
@@ -34,6 +34,7 @@ class TasksStore {
          this.accessableKeys,
          tasksService
       )
+   
       this.postTask = new ApiCallModel(tasksService.postProjectTaskAPI)
       this.taskValidationField = new ApiCallModel(
          tasksService.taskValidationFieldAPI
@@ -42,7 +43,9 @@ class TasksStore {
          tasksService.postTaskTransitionValidationAPI
       )
    }
+  
 
+   
    upDateProjectId = (id:string) => {
       this.projectId = id
    }
@@ -69,6 +72,13 @@ class TasksStore {
          }
       }
    )
+   @action.bound
+   clearStore(){
+      this.pageNavigation.clearStore()
+   }
 }
+
+
+
 
 export default TasksStore

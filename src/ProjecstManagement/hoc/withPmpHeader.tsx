@@ -20,6 +20,7 @@ function withPMPHeader<T>(WrappedComponent:React.ComponentType<T>){
    @inject('authenticationStore', 'userDetailsStore')
    @observer
    class RenderComponent extends Component<T> {
+      
       getInjectedProps = () =>
       { 
          const props = this.props as unknown
