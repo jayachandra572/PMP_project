@@ -7,22 +7,22 @@ import { Redirect, withRouter, RouteComponentProps } from 'react-router-dom'
 import { PROJECT_ROUTE } from '../../../ProjectsManagement/constants/RouteConstants'
 
 import { LogInForm } from '../../components/LogInForm'
-import strings from '../../i18n/strings.json'
 
 import AuthenticationStore from '../../stores/AuthenticationStore'
 import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
+import { withTranslation, WithTranslation } from 'react-i18next'
 
 interface LocationState {
    from: string
 }
+type LogInRouteProps = WithTranslation &
+   RouteComponentProps<{}, any, LocationState | any>
 
-interface LogInRouteProps
-   extends RouteComponentProps<{}, any, LocationState | any> {}
 interface InjectedProps extends LogInRouteProps {
    authenticationStore: AuthenticationStore
 }
 
-type ErrorMessageType = {
+interface ErrorMessageType {
    userNameErrorMessage: string
    userPasswordErrorMessage: string
 }
@@ -76,14 +76,18 @@ class LogInRoute extends Component<LogInRouteProps> {
 
    validateUserName = () => {
       const { userName } = this
+      const { t } = this.props
       this.errorMessage.userNameErrorMessage =
-         userName === '' ? strings.userNameErrorMessage : ''
+         userName === '' ? t('auth:userPasswordErrorMessage') : ''
    }
 
    validateUserPassword = () => {
-      const { userPassword } = this
+      const {
+         userPassword,
+         props: { t }
+      } = this
       this.errorMessage.userPasswordErrorMessage =
-         userPassword === '' ? strings.userPasswordErrorMessage : ''
+         userPassword === '' ? t('auth:userPasswordErrorMessage') : ''
    }
 
    signUser = () => {
@@ -160,4 +164,4 @@ class LogInRoute extends Component<LogInRouteProps> {
    }
 }
 
-export default withRouter(LogInRoute)
+export default withTranslation('translation')(withRouter(LogInRoute))

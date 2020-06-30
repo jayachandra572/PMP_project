@@ -1,2 +1,1 @@
-import  LogInRoute  from './LogInRoute'
-export { LogInRoute }
+export { default } from './LogInRoute'

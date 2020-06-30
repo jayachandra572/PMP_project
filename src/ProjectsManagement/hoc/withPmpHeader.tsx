@@ -14,9 +14,10 @@ interface InjectedProps {
 function withPMPHeader<T>(WrappedComponent: React.ComponentType<T>) {
    @inject('authenticationStore', 'userDetailsStore')
    @observer
-   class RenderComponent extends Component<T & InjectedProps> {
+   class RenderComponent extends Component<T> {
       get injectedProps() {
-         return this.props as InjectedProps
+         const props = this.props as unknown
+         return props as InjectedProps
       }
 
       render() {

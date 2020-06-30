@@ -1,3 +1,1 @@
-import TasksRoute from './TasksRoute'
-
-export { TasksRoute }
+export { default } from './TasksRoute'

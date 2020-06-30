@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { observer } from 'mobx-react'
 
+import { withTranslation, WithTranslation } from 'react-i18next'
 import { IbHubsLogo } from '../../../Common/components/Logos/IbHubsLogo'
-import strings from '../../i18n/strings.json'
 
 import {
    LogInFormContainer,
@@ -22,7 +22,7 @@ type errorMessageType = {
    userPasswordErrorMessage: string
 }
 
-type LogInFormProps = {
+interface LogInFormProps extends WithTranslation {
    userName: string
    userPassword: string
    onChangeName: Function
@@ -57,6 +57,11 @@ class LogInForm extends Component<LogInFormProps> {
       this.focusUserNameInput()
    }
 
+   onSubmit = e => {
+      this.props.onSubmitForm(e)
+      this.focusOnErrorInput()
+   }
+
    focusOnErrorInput = () => {
       const {
          errorMessage: { userNameErrorMessage, userPasswordErrorMessage }
@@ -76,16 +81,16 @@ class LogInForm extends Component<LogInFormProps> {
    }
 
    UserNameInput = observer(() => {
-      const { userName, onChangeName, errorMessage } = this.props
+      const { userName, onChangeName, errorMessage, t } = this.props
       return (
          <>
             <UserNameLabel
-               lableFor={strings.userNameLable}
-               content={strings.userNameLable}
+               lableFor={t('auth:userNameLable')}
+               content={t('auth:userNameLable')}
             />
             <UserName
                forwardRef={this.loginPageRefs.userName}
-               id={strings.userNameLable}
+               id={t('auth:userNameLable')}
                value={userName}
                onChange={onChangeName}
                errorMessage={errorMessage.userNameErrorMessage}
@@ -96,17 +101,17 @@ class LogInForm extends Component<LogInFormProps> {
    })
 
    UserPasswordInput = observer(() => {
-      const { userPassword, onChangePassword, errorMessage } = this.props
+      const { userPassword, onChangePassword, errorMessage, t } = this.props
       return (
          <Fragment>
             <UserPasswordLabel
-               lableFor={strings.userPasswordLable}
-               content={strings.userPasswordLable}
+               lableFor={t('auth:userPasswordLable')}
+               content={t('auth:userPasswordLable')}
             />
             <UserPassWord
                forwardRef={this.loginPageRefs.password}
                textType={'password'}
-               id={strings.userPasswordLable}
+               id={t('auth:userPasswordLable')}
                value={userPassword}
                onChange={onChangePassword}
                errorMessage={errorMessage.userPasswordErrorMessage}
@@ -117,10 +122,10 @@ class LogInForm extends Component<LogInFormProps> {
    })
 
    SignButton = observer((): any => {
-      const { getAuthApiStatus } = this.props
+      const { getAuthApiStatus, t } = this.props
       return (
          <LogInButton
-            content={strings.loginButton}
+            content={t('auth:loginButton')}
             apiStatus={getAuthApiStatus}
          />
       )
@@ -130,20 +135,19 @@ class LogInForm extends Component<LogInFormProps> {
          UserNameInput,
          UserPasswordInput,
          SignButton,
-         props: { onSubmitForm },
-         focusOnErrorInput
+         onSubmit,
+         props: { t }
       } = this
-      focusOnErrorInput()
       return (
          <LogInFormContainer>
-            <LogInPage onSubmit={onSubmitForm}>
+            <LogInPage onSubmit={onSubmit}>
                <IbHubsLogo />
-               <Header>{strings.loginHeaderContent}</Header>
+               <Header>{t('auth:loginHeaderContent')}</Header>
                <UserNameInput />
                <UserPasswordInput />
                <SignButton />
                <Footer>
-                  {strings.noAccount} <SignUp>signUp</SignUp>
+                  {t('auth:noAccount')} <SignUp>signUp</SignUp>
                </Footer>
             </LogInPage>
          </LogInFormContainer>
@@ -151,4 +155,4 @@ class LogInForm extends Component<LogInFormProps> {
    }
 }
 
-export default LogInForm
+export default withTranslation('translation')(LogInForm)
