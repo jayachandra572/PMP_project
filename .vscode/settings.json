@@ -1,5 +1,8 @@
 {
-  "npm-intellisense.importQuotes": "\"",
-  "typescript.preferences.quoteStyle": "double",
-  "javascript.preferences.quoteStyle": "double"
+   "npm-intellisense.importQuotes": "\"",
+   "typescript.preferences.quoteStyle": "double",
+   "javascript.preferences.quoteStyle": "double",
+   "cSpell.words": [
+      "Trasition"
+   ]
 }

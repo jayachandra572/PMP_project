@@ -2,70 +2,71 @@ import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
 import { action, observable, reaction, toJS } from 'mobx'
 
-import { Redirect,withRouter, RouteComponentProps} from 'react-router-dom'
+import { Redirect, withRouter, RouteComponentProps } from 'react-router-dom'
 
-import {PROJECT_ROUTE} from "../../../ProjecstManagement/constants/RouteConstants"
+import { PROJECT_ROUTE } from '../../../ProjectsManagement/constants/RouteConstants'
 
 import { LogInForm } from '../../components/LogInForm'
 import strings from '../../i18n/strings.json'
 
-import AuthenticationStore from "../../stores/AuthenticationStore"
-import { getUserDisplayableErrorMessage } from "../../../Common/utils/APIUtils"
+import AuthenticationStore from '../../stores/AuthenticationStore'
+import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 
-interface LocationState{
-   from:string
+interface LocationState {
+   from: string
 }
 
-interface LogInRouteProps extends RouteComponentProps<{}, any, LocationState | any>  {
-}
+interface LogInRouteProps
+   extends RouteComponentProps<{}, any, LocationState | any> {}
 interface InjectedProps extends LogInRouteProps {
-   authenticationStore:AuthenticationStore
+   authenticationStore: AuthenticationStore
 }
 
 type ErrorMessageType = {
-   userNameErrorMessage:string
-   userPasswordErrorMessage:string
+   userNameErrorMessage: string
+   userPasswordErrorMessage: string
 }
-type EventType = React.FormEvent<HTMLInputElement>
-
+type EventType = React.ChangeEvent<HTMLInputElement>
 
 @inject('authenticationStore')
 @observer
-class LogInRoute extends Component<LogInRouteProps>{
-   @observable userName!:string
-   @observable userPassword!:string
-   @observable errorMessage!:ErrorMessageType
-   constructor(props) {
+class LogInRoute extends Component<LogInRouteProps> {
+   @observable userName!: string
+   @observable userPassword!: string
+   @observable errorMessage!: ErrorMessageType
+   constructor(props: LogInRouteProps) {
       super(props)
       this.init()
    }
-   init = ():void => {
+   init = (): void => {
       this.userName = ''
       this.userPassword = ''
       this.errorMessage = {
          userNameErrorMessage: '',
-         userPasswordErrorMessage:""
+         userPasswordErrorMessage: ''
       }
    }
-   getInjectedProps = () => this.props as InjectedProps
+   get injectedProps() {
+      return this.props as InjectedProps
+   }
 
    @action.bound
-   onChangePassword(event:EventType) {
-      this.userPassword = event.currentTarget.value
+   onChangePassword(event: EventType) {
+      this.userPassword = event.target.value
       this.validateUserPassword()
    }
 
    @action.bound
-   onChangeName(e:EventType) {
-      this.userName = e.currentTarget.value
+   onChangeName(e: EventType) {
+      this.userName = e.target.value
       this.validateUserName()
    }
 
    onLogInFailure = () => {
-      let { getAuthApiError: apiError } = this.getInjectedProps().authenticationStore
+      let { getAuthApiError: apiError } = this.injectedProps.authenticationStore
       if (apiError !== null && apiError !== undefined) {
          const errorMessage = getUserDisplayableErrorMessage(apiError)
-         if (errorMessage=== 'Invalid username') {
+         if (errorMessage === 'Invalid username') {
             this.errorMessage.userNameErrorMessage = errorMessage
          } else if (errorMessage === 'Invalid password') {
             this.errorMessage.userPasswordErrorMessage = errorMessage
@@ -86,8 +87,13 @@ class LogInRoute extends Component<LogInRouteProps>{
    }
 
    signUser = () => {
-      const { userName, userPassword, onLogInFailure ,toEmptyErrorMessage} = this
-      const { userSignIn } = this.getInjectedProps().authenticationStore
+      const {
+         userName,
+         userPassword,
+         onLogInFailure,
+         toEmptyErrorMessage
+      } = this
+      const { userSignIn } = this.injectedProps.authenticationStore
       if (userName !== '' && userPassword !== '') {
          toEmptyErrorMessage()
          const requestObject = {
@@ -99,14 +105,14 @@ class LogInRoute extends Component<LogInRouteProps>{
    }
 
    @action.bound
-   toEmptyErrorMessage (){
+   toEmptyErrorMessage() {
       this.errorMessage = {
          userPasswordErrorMessage: '',
          userNameErrorMessage: ''
       }
    }
    @action.bound
-   onSubmitForm(e:React.SyntheticEvent) {
+   onSubmitForm(e: React.SyntheticEvent) {
       e.preventDefault()
       const { validateUserName, validateUserPassword, signUser } = this
       validateUserName()
@@ -114,14 +120,19 @@ class LogInRoute extends Component<LogInRouteProps>{
       signUser()
    }
 
-   reDirectProjectsPage =() => {
-      const {location:{state}} = this.props
-      let  from = state?state.from:PROJECT_ROUTE 
-      return (<Redirect to = {from} />)
+   reDirectProjectsPage = () => {
+      const {
+         location: { state }
+      } = this.props
+      let from = state ? state.from : PROJECT_ROUTE
+      return <Redirect to={from} />
    }
 
    render() {
-      let { getAuthApiStatus, authApiToken } = this.getInjectedProps().authenticationStore
+      let {
+         getAuthApiStatus,
+         authApiToken
+      } = this.injectedProps.authenticationStore
       const {
          onSubmitForm,
          userName,
@@ -129,22 +140,24 @@ class LogInRoute extends Component<LogInRouteProps>{
          onChangeName,
          onChangePassword,
          errorMessage,
-         reDirectProjectsPage,
+         reDirectProjectsPage
       } = this
       if (authApiToken) {
          return reDirectProjectsPage()
       }
 
-      return <LogInForm
-         userName={userName}
-         userPassword={userPassword}
-         onChangeName={onChangeName}
-         onChangePassword={onChangePassword}
-         onSubmitForm={onSubmitForm}
-         errorMessage={errorMessage}
-         getAuthApiStatus={getAuthApiStatus}
-      />
+      return (
+         <LogInForm
+            userName={userName}
+            userPassword={userPassword}
+            onChangeName={onChangeName}
+            onChangePassword={onChangePassword}
+            onSubmitForm={onSubmitForm}
+            errorMessage={errorMessage}
+            getAuthApiStatus={getAuthApiStatus}
+         />
+      )
    }
 }
 
-export default withRouter(LogInRoute) 
+export default withRouter(LogInRoute)

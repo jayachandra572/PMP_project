@@ -16,31 +16,63 @@ import {
    UserNameLabel,
    UserPasswordLabel
 } from './stylesComponent'
-import Timer from "../../../Common/components/Icons/Timer/Timer"
 
 type errorMessageType = {
-   userNameErrorMessage:string
-   userPasswordErrorMessage:string
+   userNameErrorMessage: string
+   userPasswordErrorMessage: string
 }
 
 type LogInFormProps = {
-   userName:string
-   userPassword:string
-   onChangeName:Function
-   onChangePassword:Function
-   onSubmitForm:(event:React.SyntheticEvent) => void
-   errorMessage:errorMessageType
-   getAuthApiStatus:number
-
+   userName: string
+   userPassword: string
+   onChangeName: Function
+   onChangePassword: Function
+   onSubmitForm: (event: React.SyntheticEvent) => void
+   errorMessage: errorMessageType
+   getAuthApiStatus: number
 }
 
 @observer
 class LogInForm extends Component<LogInFormProps> {
+   loginPageRefs: {
+      userName: React.RefObject<any>
+      password: React.RefObject<any>
+   }
    static defaultProps = {
       errorMessage: {
          userPasswordErrorMessage: '',
          userNameErrorMessage: ''
       }
+   }
+
+   constructor(props: LogInFormProps) {
+      super(props)
+      this.loginPageRefs = {
+         userName: React.createRef(),
+         password: React.createRef()
+      }
+   }
+
+   componentDidMount() {
+      this.focusUserNameInput()
+   }
+
+   focusOnErrorInput = () => {
+      const {
+         errorMessage: { userNameErrorMessage, userPasswordErrorMessage }
+      } = this.props
+      if (userNameErrorMessage !== '') {
+         this.focusUserNameInput()
+      } else if (userPasswordErrorMessage !== '') {
+         this.focusUserPasswordInput()
+      }
+   }
+   focusUserNameInput = () => {
+      this.loginPageRefs.userName.current.focus()
+   }
+
+   focusUserPasswordInput = () => {
+      this.loginPageRefs.password.current.focus()
    }
 
    UserNameInput = observer(() => {
@@ -52,6 +84,7 @@ class LogInForm extends Component<LogInFormProps> {
                content={strings.userNameLable}
             />
             <UserName
+               forwardRef={this.loginPageRefs.userName}
                id={strings.userNameLable}
                value={userName}
                onChange={onChangeName}
@@ -71,6 +104,7 @@ class LogInForm extends Component<LogInFormProps> {
                content={strings.userPasswordLable}
             />
             <UserPassWord
+               forwardRef={this.loginPageRefs.password}
                textType={'password'}
                id={strings.userPasswordLable}
                value={userPassword}
@@ -82,8 +116,8 @@ class LogInForm extends Component<LogInFormProps> {
       )
    })
 
-   SignButton = observer(():any=> {
-      const{ getAuthApiStatus } = this.props
+   SignButton = observer((): any => {
+      const { getAuthApiStatus } = this.props
       return (
          <LogInButton
             content={strings.loginButton}
@@ -91,12 +125,18 @@ class LogInForm extends Component<LogInFormProps> {
          />
       )
    })
-
    render() {
-      const { UserNameInput, UserPasswordInput, SignButton,props:{onSubmitForm} } = this
+      const {
+         UserNameInput,
+         UserPasswordInput,
+         SignButton,
+         props: { onSubmitForm },
+         focusOnErrorInput
+      } = this
+      focusOnErrorInput()
       return (
-         <LogInFormContainer >
-            <LogInPage onSubmit = {onSubmitForm}>
+         <LogInFormContainer>
+            <LogInPage onSubmit={onSubmitForm}>
                <IbHubsLogo />
                <Header>{strings.loginHeaderContent}</Header>
                <UserNameInput />

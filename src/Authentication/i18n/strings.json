@@ -1,9 +1,9 @@
 {
-    "loginButton":"LOGIN",
-    "userNameLable":"USERNAME",
-    "userPasswordLable":"PASSWORD",
-    "noAccount":"Don't have account?",
-    "loginHeaderContent":"Hi there,\nplease sign in",
-    "userNameErrorMessage":"Please enter username",
-    "userPasswordErrorMessage":"Please enter password"
+   "loginButton": "LOGIN",
+   "userNameLable": "USERNAME",
+   "userPasswordLable": "PASSWORD",
+   "noAccount": "Don't have account?",
+   "loginHeaderContent": "Hi there,\nplease sign in",
+   "userNameErrorMessage": "Please enter username",
+   "userPasswordErrorMessage": "Please enter password"
 }

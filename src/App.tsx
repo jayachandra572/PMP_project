@@ -5,7 +5,7 @@ import { Provider } from 'mobx-react'
 
 import store from './store'
 import { logRoute } from './Authentication/routes'
-import { projectsRoute, tasksRoute } from './ProjecstManagement/routes'
+import { projectsRoute, tasksRoute } from './ProjectsManagement/routes'
 import './App.css'
 
 const App = () => {
