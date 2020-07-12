@@ -4,7 +4,6 @@ import { Provider } from 'mobx-react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
 
-
 import AuthService from '../../../Authentication/services/AuthService/index.api'
 
 import userDetailsResponse from '../../../Authentication/fixtures/userDetailsResponse.json'
@@ -17,20 +16,18 @@ import PageNavigationStore from '../../stores/PageNavigationStore'
 import taskResponseData from '../../fixtures/taskResponseData.json'
 import strings from '../../i18n/strings.json'
 
-import { TasksRoute } from '.'
-import { getUserDisplayableErrorMessage } from "../../../Common/utils/APIUtils"
+import TasksRoute from '.'
+import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 
-
-
-let authService:AuthService
-let tasksStore:TasksStore
-let tasksService:TasksService
-let userDetailsStore:UserDetailsStore
+let authService: AuthService
+let tasksStore: TasksStore
+let tasksService: TasksService
+let userDetailsStore: UserDetailsStore
 let taskConstants = strings.tasks
 
 const getScreen = () => {
    return render(
-      <Provider {...{  tasksStore, userDetailsStore }}>
+      <Provider {...{ tasksStore, userDetailsStore }}>
          <Router history={createMemoryHistory()}>
             <TasksRoute />
          </Router>
@@ -76,10 +73,9 @@ describe('Task route tests cases', () => {
          new Promise(resolve => resolve(taskResponseData))
       const { getByAltText, getByText, getByRole } = getScreen()
       await waitFor(() => {
-         const {getUserDetailsApiError} =userDetailsStore
-         if(getUserDetailsApiError!==null)
-         
-         getByText(getUserDisplayableErrorMessage(getUserDetailsApiError))
+         const { getUserDetailsApiError } = userDetailsStore
+         if (getUserDetailsApiError !== null)
+            getByText(getUserDisplayableErrorMessage(getUserDetailsApiError))
          getByRole('button', { name: 'Retry' })
          getByAltText(/page not found/i)
       })
@@ -112,8 +108,8 @@ describe('Task route tests cases', () => {
       }
       const { getByRole, getByTestId } = getScreen()
       await waitFor(() => {})
-      const backButton:any = getByTestId(strings.previousButtonDataTestId)
-      const nextButton:any = getByTestId(strings.nextButtonDataTestId)
+      const backButton: any = getByTestId(strings.previousButtonDataTestId)
+      const nextButton: any = getByTestId(strings.nextButtonDataTestId)
       expect(backButton.disabled).toBe(true)
       fireEvent.click(nextButton)
       expect(backButton.disabled).toBe(false)
@@ -146,13 +142,15 @@ describe('Task route tests cases', () => {
       })
       fireEvent.click(addTaskButton)
       getByText('TASK')
-      const titleInput:any = getByTestId('TITLE')
+      const titleInput: any = getByTestId('TITLE')
       fireEvent.change(titleInput, { target: { value: mockTitleName } })
       expect(titleInput.value).toBe(mockTitleName)
       const issueTypeMenu = getByTestId(taskConstants.issueTypeLabel)
       fireEvent.click(issueTypeMenu)
       fireEvent.change(issueTypeMenu, { data: { value: 'TASK' } })
-      const descriptionTextArea:any = getByTestId(taskConstants.descriptionLabel)
+      const descriptionTextArea: any = getByTestId(
+         taskConstants.descriptionLabel
+      )
       fireEvent.change(descriptionTextArea, {
          target: { value: mockDescription }
       })

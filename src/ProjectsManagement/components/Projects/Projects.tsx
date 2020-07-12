@@ -9,32 +9,31 @@ import ProjectHeader from '../ProjectHeader'
 import { PageNavigation } from '../PageNavigation'
 
 import { ProjectsContainer, ProjectsBox } from './styleComponent'
-import { APIStatus } from "@ib/api-constants"
-import ProjectModel from "../../stores/models/ProjectModel"
+import { APIStatus } from '@ib/api-constants'
+import ProjectModel from '../../stores/models/ProjectModel'
 
-interface ProjectsPropsType  {
-   projectsPerPage:number
-   projects:ProjectModel[]
-   activePageNumber:number
-   totalNumberOfPages:number
-   navigateToNextPage:()=> void
-   navigateToPreviousPage:()=> void
-   onClickPageNumber:(number:number)=> void
-   apiStatus:APIStatus
-   apiError:Error|null
-   doNetWorkCall:()=> void
-   onClickProject:(id:string)=> void
+interface ProjectsPropsType {
+   projectsPerPage: number
+   projects: ProjectModel[]
+   activePageNumber: number
+   totalNumberOfPages: number
+   navigateToNextPage: () => void
+   navigateToPreviousPage: () => void
+   onClickPageNumber: (number: number) => void
+   apiStatus: APIStatus
+   apiError: Error | null
+   doNetWorkCall: () => void
+   onClickProject: (id: string) => void
+   is_admin?: boolean
 }
 
-interface WrappedComponentProps extends ProjectsPropsType{
-   is_admin  : boolean
+interface WrappedComponentProps extends ProjectsPropsType {
+   is_admin: boolean
 }
 
 @observer
 class Projects extends Component<ProjectsPropsType> {
-
    getWrappedComponentProps = () => this.props as WrappedComponentProps
-   
    renderProjects = () => {
       const { onClickProject, projects } = this.props
       return projects.map((project, index) => (
@@ -47,12 +46,12 @@ class Projects extends Component<ProjectsPropsType> {
       ))
    }
    renderSuccessUI = observer(() => {
-      const {  projects } = this.props
+      const { projects } = this.props
       if (projects.length === 0) {
          return <NoDataView />
       } else {
          return (
-            <ProjectsBox >
+            <ProjectsBox>
                <ProjectTopics />
                {this.renderProjects()}
             </ProjectsBox>

@@ -17,7 +17,7 @@ import {
    UserPasswordLabel
 } from './stylesComponent'
 
-type errorMessageType = {
+export type ErrorMessageType = {
    userNameErrorMessage: string
    userPasswordErrorMessage: string
 }
@@ -28,7 +28,7 @@ interface LogInFormProps extends WithTranslation {
    onChangeName: Function
    onChangePassword: Function
    onSubmitForm: (event: React.SyntheticEvent) => void
-   errorMessage: errorMessageType
+   errorMessage: ErrorMessageType
    getAuthApiStatus: number
 }
 

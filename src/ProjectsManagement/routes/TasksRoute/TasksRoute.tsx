@@ -46,7 +46,6 @@ class TasksRoute extends Component<TasksRouteProps> {
       this.onChangePageNumberReaction()
       tasksStore.taskFieldsReaction()
       tasksStore.clearStore()
-      userDetailsStore.clearStore()
    }
 
    @computed get getApiStatus(): number {

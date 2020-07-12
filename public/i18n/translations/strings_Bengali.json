@@ -1,0 +1,9 @@
+{
+  "loginButton" : "লগ-ইন",
+  "userNameLable" : "USERNAME",
+  "userPasswordLable" : "পাসওয়ার্ড",
+  "noAccount" : "অ্যাকাউন্ট নেই?",
+  "loginHeaderContent" : "হাই, প্লিজ সাইন ইন",
+  "userNameErrorMessage" : "অনুগ্রহ করে ব্যবহারকারীর নাম লিখুন",
+  "userPasswordErrorMessage" : "অনুগ্রহ করে পাসওয়ার্ড লিখুন"
+}

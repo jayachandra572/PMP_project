@@ -36,7 +36,6 @@ class ProjectsRoute extends Component<ProjectsRouteProps> {
       const { projectsStore, userDetailsStore } = this.injectedProps
       this.onChangePageNumberReaction()
       projectsStore.clearStore()
-      userDetailsStore.clearStore()
    }
 
    get injectedProps(): InjectedProps {

@@ -1,80 +1,90 @@
 {
-    "admin":"admin",
-    "ProjectManageMent":"Project Management Platform",
-    "ProjectTitle":"Projects",
-    "createButtonContent":"+ Add Project",
-    "backButtonText":"Back to projects page",
-    "project":{
-        "name":"NAME",
-        "workFlow":"WORK FLOW",
-        "createdBy":"CREATED BY",
-        "description":"DESCRIPTION",
-        "createdAt":"CREATED AT"
-    },
-    "startingPageNumber":1,
-    "name":"Jaya",
-    "previousButtonDataTestId":"previous-button",
-    "nextButtonDataTestId":"next-button",
-    "addProject":{
-        "title":"PROJECT",
-        "lableName":"NAME",
-        "projectTypes":[{"id":"CLASSIC_SOFTWARE","name":"Classic software"},
-                        {"id":"FINANCIAL","name":"Financial"},{"id":"CRM","name":"CRM"}],
-        "lableDescription":"DESCRIPTION",
-        "WorkflowType":"WORK FLOW TYPE",
-        "ProjectType":"PROJECT TYPE",
-        "projectTypePlaceHolder":"Select project type",
-        "workflowTypePlaceHolder":"Select work flow type",
-        "submitButton":"Submit"
-    },
-    "closeIconTestId":"close-icon-button",
-    "tasks":{
-        "title":"TASKS",
-        "createTaskButtonContent":"+ Add Task",
-         "modal":{
-            "project":"PROJECT",
-            "issueType":"ISSUE TYPE",
-            "title" : "TITLE",
-            "description":"DESCRIPTION",
-           "createdBy":"CREATED BY",
-            "createdAt" : "CREATED AT",
-            "state" : "STATE",
-            "info":"INFO"
-        },
-        "issueTypes":[{"id":"BUG","name":"Bug" } ,
-        {"id":"TASK","name":"Task" },
-        {"id":" DEVELOPER_STORY","name":" Developer story" },
-        {"id":"USER_STORY","name":"User story" },
-        {"id":"ENHANCEMENT","name":"Enhancement" }],
-        "taskTitleLable":"TITLE",
-        "issueTypeLabel":"ISSUE TYPE",
-        "descriptionLabel":"DESCRIPTION",
-        "issueTypePlaceHolder":"Select issue type"
-        
-    },
-    "required":"Required",
-    "submitButton":"SUBMIT",
-    "loading":"Loading",
-    "data_testid":{
-        "workFlowTypeMenu":"work-flow-type",
-        "projectTypeMenu":"project-type"
-    },
-    "AddTransition":{
-        "nameLabel":"NAME",
-        "fromStatusLabel":"FROM STATUS",
-        "toStatusLabel":"TO STATUS",
-        "descriptionLabel":"DESCRIPTION",
-        "fromStatusPlaceHolder":"Select from status",
-        "toStatusPlaceHolder":"Select to status",
-        "toStatusOptions":[{"id":"Progress","name":"Progress"},
-                            {"id":"Incomplete","name":"Incomplete"},
-                            {"id":"Completed","name":"Completd"},
-                            {"id":"Onhold","name":"Onhold"}],
-         "fromStatusOptions":[{"id":"Progress","name":"Progress"},
-                            {"id":"Incomplete","name":"Incomplete"},
-                            {"id":"Completed","name":"Completd"},
-                            {"id":"Onhold","name":"Onhold"}],
-        "addButton":"ADD"
-    },
-    "endOfTheTaskStateMessage":"There is no further task state transition"
+   "admin": "admin",
+   "ProjectManageMent": "Project Management Platform",
+   "ProjectTitle": "Projects",
+   "createButtonContent": "+ Add Project",
+   "backButtonText": "Back to projects page",
+   "project": {
+      "name": "NAME",
+      "workFlow": "WORK FLOW",
+      "createdBy": "CREATED BY",
+      "description": "DESCRIPTION",
+      "createdAt": "CREATED AT"
+   },
+   "startingPageNumber": 1,
+   "name": "Jaya",
+   "previousButtonDataTestId": "previous-button",
+   "nextButtonDataTestId": "next-button",
+   "addProject": {
+      "title": "PROJECT",
+      "lableName": "NAME",
+      "projectTypes": [
+         { "id": "CLASSIC_SOFTWARE", "name": "Classic software" },
+         { "id": "FINANCIAL", "name": "Financial" },
+         { "id": "CRM", "name": "CRM" }
+      ],
+      "lableDescription": "DESCRIPTION",
+      "WorkflowType": "WORK FLOW TYPE",
+      "ProjectType": "PROJECT TYPE",
+      "projectTypePlaceHolder": "Select project type",
+      "workflowTypePlaceHolder": "Select work flow type",
+      "submitButton": "Submit"
+   },
+   "closeIconTestId": "close-icon-button",
+   "tasks": {
+      "title": "TASKS",
+      "createTaskButtonContent": "+ Add Task",
+      "modal": {
+         "project": "PROJECT",
+         "issueType": "ISSUE TYPE",
+         "title": "TITLE",
+         "description": "DESCRIPTION",
+         "createdBy": "CREATED BY",
+         "createdAt": "CREATED AT",
+         "state": "STATE",
+         "info": "INFO"
+      },
+      "issueTypes": [
+         { "id": "BUG", "name": "Bug" },
+         { "id": "TASK", "name": "Task" },
+         { "id": " DEVELOPER_STORY", "name": " Developer story" },
+         { "id": "USER_STORY", "name": "User story" },
+         { "id": "ENHANCEMENT", "name": "Enhancement" }
+      ],
+      "taskTitleLable": "TITLE",
+      "issueTypeLabel": "ISSUE TYPE",
+      "descriptionLabel": "DESCRIPTION",
+      "issueTypePlaceHolder": "Select issue type"
+   },
+   "required": "Required",
+   "submitButton": "SUBMIT",
+   "loading": "Loading",
+   "data_testid": {
+      "workFlowTypeMenu": "work-flow-type",
+      "projectTypeMenu": "project-type"
+   },
+   "AddTransition": {
+      "nameLabel": "NAME",
+      "fromStatusLabel": "FROM STATUS",
+      "toStatusLabel": "TO STATUS",
+      "descriptionLabel": "DESCRIPTION",
+      "fromStatusPlaceHolder": "Select from status",
+      "toStatusPlaceHolder": "Select to status",
+      "toStatusOptions": [
+         { "id": "Progress", "name": "Progress" },
+         { "id": "Incomplete", "name": "Incomplete" },
+         { "id": "Completed", "name": "Completd" },
+         { "id": "Onhold", "name": "Onhold" }
+      ],
+      "fromStatusOptions": [
+         { "id": "Progress", "name": "Progress" },
+         { "id": "Incomplete", "name": "Incomplete" },
+         { "id": "Completed", "name": "Completd" },
+         { "id": "Onhold", "name": "Onhold" }
+      ],
+      "addButton": "ADD"
+   },
+   "endOfTheTaskStateMessage": "There is no further task state transition",
+   "backArrowAlt": "back-butoon",
+   "frontArrowAlt": "next-button"
 }

@@ -1,0 +1,9 @@
+{
+  "loginButton" : "நுழைவு",
+  "userNameLable" : "பயனர் பெயர்",
+  "userPasswordLable" : "கடவுச்சொல்",
+  "noAccount" : "கணக்கு இல்லை?",
+  "loginHeaderContent" : "ஹாய் அங்கு, தயவு செய்து.",
+  "userNameErrorMessage" : "தயவு செய்து பயனர் பெயரை உள்ளிடவும்",
+  "userPasswordErrorMessage" : "கடவுச்சொல்லை உள்ளிடவும்"
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
 import { Router, Route, withRouter } from 'react-router-dom'
 import { Provider } from 'mobx-react'
@@ -6,20 +6,34 @@ import { createMemoryHistory } from 'history'
 
 import strings from '../../i18n/strings.json'
 
-import { SIGN_IN_PATH, } from '../../constants/RouteConstants'
+import { SIGN_IN_PATH } from '../../constants/RouteConstants'
 import AuthApiService from '../../services/AuthService/index.fixtures'
 import AuthStore from '../../stores/AuthenticationStore'
-import  getUserSignInResponse from '../../fixtures/getUserSignInResponse.json'
+import getUserSignInResponse from '../../fixtures/getUserSignInResponse.json'
 
+import AuthService from '../../services/AuthService'
+import LogInRoute from '.'
+import { I18nextProvider } from 'react-i18next'
+import i18n from '../../../Common/i18n'
 
-import AuthService from "../../services/AuthService"
-import { LogInRoute } from '.'
+let authApiService: AuthService
+let authStore: AuthStore
 
-
+function renderComponent() {
+   return render(
+      <Provider authenticationStore={authStore}>
+         <I18nextProvider i18n={i18n}>
+            <Suspense fallback={<div />}>
+               <Router history={createMemoryHistory()}>
+                  <LogInRoute />
+               </Router>
+            </Suspense>
+         </I18nextProvider>
+      </Provider>
+   )
+}
 
 describe('LogInRoute Tests', () => {
-   let authApiService:AuthService
-   let authStore:AuthStore
    beforeEach(() => {
       authApiService = new AuthApiService()
       authStore = new AuthStore(authApiService)
@@ -34,11 +48,7 @@ describe('LogInRoute Tests', () => {
       mockSignInApi.mockReturnValue(mockLoadingSignApi)
       authApiService.signInAPI = mockSignInApi
 
-      const { getByRole, getByLabelText } = render(
-         <Router history={createMemoryHistory()}>
-            <LogInRoute authenticationStore={authStore} />
-         </Router>
-      )
+      const { getByRole, getByLabelText } = renderComponent()
       const userName = 'test-user'
       const userPassword = 'test-password'
       const userNameField = getByLabelText(strings.userNameLable)
@@ -54,11 +64,7 @@ describe('LogInRoute Tests', () => {
    })
 
    it('should render signInRoute loading state', () => {
-      const { getByRole, getByLabelText } = render(
-         <Router history={createMemoryHistory()}>
-            <LogInRoute authenticationStore={authStore} />
-         </Router>
-      )
+      const { getByRole, getByLabelText } = renderComponent()
       const userName = 'test-user'
       const userPassword = 'test-password'
       const userNameField = getByLabelText(strings.userNameLable)
@@ -76,7 +82,6 @@ describe('LogInRoute Tests', () => {
       fireEvent.click(signInButton)
 
       getByLabelText('audio-loading')
-      
    })
 
    it('should render signInRoute success state', async () => {
@@ -96,7 +101,7 @@ describe('LogInRoute Tests', () => {
       const userPasswordField = getByLabelText(strings.userPasswordLable)
       const logInButton = getByRole('button', { name: strings.loginButton })
 
-      const mockLoadingSignApi = new Promise((resolve) => {
+      const mockLoadingSignApi = new Promise(resolve => {
          resolve(getUserSignInResponse)
       })
       const mockSignInApi = jest.fn()

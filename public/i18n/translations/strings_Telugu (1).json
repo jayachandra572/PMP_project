@@ -1,0 +1,9 @@
+{
+  "loginButton" : "లాగిన్",
+  "userNameLable" : "USERNAME",
+  "userPasswordLable" : "సంకేతపదము",
+  "noAccount" : "ఖాతా లేదు?",
+  "loginHeaderContent" : "అక్కడ ఎక్కువ, దయచేసి లో సూచించండి",
+  "userNameErrorMessage" : "దయచేసి వినియోగదారు పేరు ప్రవేశపెట్టండి",
+  "userPasswordErrorMessage" : "దయచేసి సంకేతపదము ప్రవేశపెట్టండి"
+}

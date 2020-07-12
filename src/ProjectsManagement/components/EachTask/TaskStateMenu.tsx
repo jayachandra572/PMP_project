@@ -67,7 +67,7 @@ class TaskStateMenu extends React.Component<TaskStateMenuProps> {
    openDropdownReaction = reaction(
       () => this.props.getApiStatus,
       apiStatus => {
-         if (this.isApiStatusFailed(apiStatus)) {
+         if (this.isApiStatusSuccess(apiStatus)) {
             if (this.props.options.length === 1) {
                toaster('info', 'There is no next task transitions')
             } else {

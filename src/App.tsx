@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense } from 'react'
 import { BrowserRouter as Router, Switch } from 'react-router-dom'
 import { I18nextProvider } from 'react-i18next'
 import { Provider } from 'mobx-react'
@@ -6,7 +6,11 @@ import { Provider } from 'mobx-react'
 import i18n from './Common/i18n'
 import store from './store'
 import { logRoute } from './Authentication/routes'
-import { projectsRoute, tasksRoute } from './ProjectsManagement/routes'
+import {
+   projectsRoute,
+   tasksRoute,
+   imagesRoute
+} from './ProjectsManagement/routes'
 import './App.css'
 
 const App = () => {
@@ -18,6 +22,7 @@ const App = () => {
                   <Switch>
                      {tasksRoute}
                      {projectsRoute}
+                     {imagesRoute}
                      {logRoute}
                   </Switch>
                </Router>

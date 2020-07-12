@@ -16,13 +16,12 @@ import PageNavigationStore from '../../stores/PageNavigationStore'
 import projectResponseData from '../../fixtures/projectResponseData.json'
 import strings from '../../i18n/strings.json'
 
-import { ProjectsRoute } from '.'
+import ProjectsRoute from '.'
 
-
-let authService:AuthService
-let projectsService:ProjectsService
-let projectsStore:ProjectsStore
-let userDetailsStore:UserDetailsStore
+let authService: AuthService
+let projectsService: ProjectsService
+let projectsStore: ProjectsStore
+let userDetailsStore: UserDetailsStore
 
 const history = createMemoryHistory()
 
@@ -125,8 +124,8 @@ describe('ProductsDashBoard tests', () => {
       const { getByRole, getByTestId } = getScreen()
       expect(mockprojectsAPI).toHaveBeenCalledTimes(1)
       await waitFor(() => {})
-      const backButton:any = getByTestId(strings.previousButtonDataTestId)
-      const nextButton:any = getByTestId(strings.nextButtonDataTestId)
+      const backButton: any = getByTestId(strings.previousButtonDataTestId)
+      const nextButton: any = getByTestId(strings.nextButtonDataTestId)
       expect(backButton.disabled).toBe(true)
       fireEvent.click(nextButton)
       expect(backButton.disabled).toBe(false)

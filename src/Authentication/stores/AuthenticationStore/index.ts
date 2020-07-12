@@ -9,15 +9,15 @@ import {
 } from '../../../Common/utils/StorageUtils'
 
 import { setUserDetails } from '../../utils/LocalStrorageUtils'
-import AuthService from "../../services/AuthService"
-import { UserSignResponse, UserSignRequest } from "../types"
+import AuthService from '../../services/AuthService'
+import { UserSignResponse, UserSignRequest } from '../types'
 
 class AuthenticationStore {
-   @observable getAuthApiStatus!:APIStatus 
-   @observable getAuthApiError!:null|Error 
-   @observable authApiToken?:string|undefined
-   authService:AuthService
-   constructor(authService:AuthService) {
+   @observable getAuthApiStatus!: APIStatus
+   @observable getAuthApiError!: null | Error
+   @observable authApiToken?: string | undefined
+   authService: AuthService
+   constructor(authService: AuthService) {
       this.authService = authService
       this.init()
    }
@@ -36,12 +36,12 @@ class AuthenticationStore {
 
    @action.bound
    setAuthApiError(error) {
-      this.getAuthApiError = (error)
+      this.getAuthApiError = error
    }
 
    @action.bound
-   setAuthApiResponse(response:UserSignResponse|null){
-      if(response){
+   setAuthApiResponse(response: UserSignResponse | null) {
+      if (response) {
          const accessToken = response.access_token
          setAccessToken(accessToken)
          this.authApiToken = getAccessToken()
@@ -49,7 +49,7 @@ class AuthenticationStore {
       }
    }
    @action.bound
-   userSignIn(request:UserSignRequest, onFailure:Function) {
+   userSignIn(request: UserSignRequest, onFailure: Function) {
       const {
          authService: { signInAPI },
          setAuthApiResponse,
@@ -59,7 +59,10 @@ class AuthenticationStore {
       const signPromise = signInAPI(request)
       return bindPromiseWithOnSuccess(signPromise)
          .to(setAuthApiStatus, setAuthApiResponse)
-         .catch(error => {setAuthApiError(error); onFailure()})
+         .catch(error => {
+            setAuthApiError(error)
+            onFailure()
+         })
    }
 
    @action.bound
@@ -68,7 +71,7 @@ class AuthenticationStore {
       this.init()
    }
 
-   @computed get isLogin():boolean {
+   @computed get isLogin(): boolean {
       const { authApiToken } = this
       return !(authApiToken === undefined || authApiToken === '')
    }

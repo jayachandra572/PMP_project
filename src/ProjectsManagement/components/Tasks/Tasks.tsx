@@ -8,9 +8,7 @@ import { PageNavigation } from '../PageNavigation'
 import { TasksHeader } from '../TasksHeader'
 
 import { TasksContainer, TasksBox } from './styleComponent'
-import { TasksProps } from "../ProjectTasks/ProjectTasks"
-
-
+import { TasksProps } from '../ProjectTasks/ProjectTasks'
 
 @observer
 class Tasks extends Component<TasksProps> {
@@ -33,7 +31,7 @@ class Tasks extends Component<TasksProps> {
          return <NoDataView />
       } else {
          return (
-            <TasksBox >
+            <TasksBox>
                <TaskTopics />
                {this.renderTasks()}
             </TasksBox>
@@ -49,14 +47,11 @@ class Tasks extends Component<TasksProps> {
          totalNumberOfPages,
          navigateToNextPage,
          navigateToPreviousPage,
-         onClickPageNumber,
+         onClickPageNumber
       } = this.props
       return (
          <TasksContainer>
-            <TasksHeader
-               apiStatus={apiStatus}
-               doNetWorkCall={doNetWorkCall}
-            />
+            <TasksHeader apiStatus={apiStatus} doNetWorkCall={doNetWorkCall} />
             <LoadingWrapperWithFailure
                apiError={apiError}
                apiStatus={apiStatus}
@@ -69,7 +64,7 @@ class Tasks extends Component<TasksProps> {
                navigateToNextPage={navigateToNextPage}
                navigateToPreviousPage={navigateToPreviousPage}
                onClickPageNumber={onClickPageNumber}
-               apiStatus = {apiStatus}
+               apiStatus={apiStatus}
             />
          </TasksContainer>
       )

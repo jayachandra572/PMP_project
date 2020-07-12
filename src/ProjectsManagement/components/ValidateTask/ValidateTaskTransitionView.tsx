@@ -23,15 +23,17 @@ import {
    Status,
    VadationFields
 } from './styleComponent'
-import { ValidateTaskTransitionViewProps } from "."
+import { ValidateTaskTransitionViewProps } from '.'
 
 @observer
-class ValidateTaskTransitionView extends Component<ValidateTaskTransitionViewProps> {
+class ValidateTaskTransitionView extends Component<
+   ValidateTaskTransitionViewProps
+> {
    componentDidMount() {
       this.doNetworkCall()
    }
 
-   doNetworkCall = ()=>{
+   doNetworkCall = () => {
       this.props.getValidateFields(this.props.toStatus)
    }
    componentWillUnmount() {
@@ -72,31 +74,34 @@ class ValidateTaskTransitionView extends Component<ValidateTaskTransitionViewPro
 
    renderValidationConditions = observer(() => {
       const { response } = this.props.taskValidationField
-        return( <>
-         {response.map(eachCondition => (
-            <CheckBoxContainer key={eachCondition.id}>
-               <CheckboxWithLabel
-                  key={eachCondition.id}
-                  id={eachCondition.id}
-                  label={eachCondition.label}
-                  value={eachCondition.value}
-                  onClick={eachCondition.onClick}
-               />
-            </CheckBoxContainer>
-         ))}
-         </>)
+      return (
+         <>
+            {response.map(eachCondition => (
+               <CheckBoxContainer key={eachCondition.id}>
+                  <CheckboxWithLabel
+                     key={eachCondition.id}
+                     id={eachCondition.id}
+                     label={eachCondition.label}
+                     value={eachCondition.value}
+                     onClick={eachCondition.onClick}
+                  />
+               </CheckBoxContainer>
+            ))}
+         </>
+      )
    })
 
    renderSuccessUI = () => {
-      const { renderValidationConditions, onSubmit } = this
+      const {
+         renderValidationConditions: RenderValidationConditions,
+         onSubmit
+      } = this
       const {
          taskTrasitionState: { getApiStatus }
       } = this.props
       return (
          <Fragment>
-            <VadationFields>
-               {renderValidationConditions()}
-            </VadationFields>
+            <VadationFields>{<RenderValidationConditions />}</VadationFields>
             <SubmitButton
                apiStatus={getApiStatus}
                content={'SUBMIT'}
@@ -107,7 +112,6 @@ class ValidateTaskTransitionView extends Component<ValidateTaskTransitionViewPro
    }
 
    LoadingWrapperWithFailure = observer(() => {
-
       const { getApiStatus } = this.props.taskValidationField
       switch (getApiStatus) {
          case API_FAILED:

@@ -4,6 +4,6 @@
    "userPasswordLable": "PASSWORD",
    "noAccount": "Don't have account?",
    "loginHeaderContent": "Hi there,\nplease sign in",
-   "userNameErrorMessage": "Please enter username",
+   "userNameErrorMessage": "Please enter user name",
    "userPasswordErrorMessage": "Please enter password"
 }

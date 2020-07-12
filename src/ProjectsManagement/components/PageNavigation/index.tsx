@@ -10,16 +10,15 @@ import {
    PageNavigationContainer
 } from './styleComponent'
 
-
 interface PageNavigationProps {
-   apiStatus:APIStatus
-   activePageNumber:number
-   totalNumberOfPages:number
-   navigateToNextPage:()=> void
-   navigateToPreviousPage:()=> void
-   onClickPageNumber:(number:number)=> void
+   apiStatus: APIStatus
+   activePageNumber: number
+   totalNumberOfPages: number
+   navigateToNextPage: () => void
+   navigateToPreviousPage: () => void
+   onClickPageNumber: (number: number) => void
 }
-class PageNavigation extends Component <PageNavigationProps>{
+class PageNavigation extends Component<PageNavigationProps> {
    renderPageNumberButtons = () => {
       const {
          activePageNumber,
@@ -27,7 +26,7 @@ class PageNavigation extends Component <PageNavigationProps>{
          onClickPageNumber
       } = this.props
       const { startingPageNumber } = strings
-      let buttons:Array<JSX.Element> = []
+      let buttons: Array<JSX.Element> = []
       for (
          let pageNumber = startingPageNumber;
          pageNumber <= totalNumberOfPages;
@@ -65,11 +64,14 @@ class PageNavigation extends Component <PageNavigationProps>{
             <PreviousButton
                disabled={isPreviousButtonDisabled}
                data-testid={strings.previousButtonDataTestId}
-               key = {strings.previousButtonDataTestId}
+               key={strings.previousButtonDataTestId}
                onClick={navigateToPreviousPage}
                isPreviousButtonDisabled={isPreviousButtonDisabled}
             >
-               <PageNavigationSymbol src={Images.previousButtonSymbol} />
+               <PageNavigationSymbol
+                  src={Images.previousButtonSymbol}
+                  alt={strings.backArrowAlt}
+               />
             </PreviousButton>
             {this.renderPageNumberButtons()}
             <NextButton
@@ -78,7 +80,10 @@ class PageNavigation extends Component <PageNavigationProps>{
                onClick={navigateToNextPage}
                isNextButtonDisabled={isNextButtonDisabled}
             >
-               <PageNavigationSymbol src={Images.nextButtonSymbol} />
+               <PageNavigationSymbol
+                  src={Images.nextButtonSymbol}
+                  alt={strings.frontArrowAlt}
+               />
             </NextButton>
          </PageNavigationContainer>
       )
