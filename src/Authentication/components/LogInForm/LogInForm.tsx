@@ -141,7 +141,7 @@ class LogInForm extends Component<LogInFormProps> {
       return (
          <LogInFormContainer>
             <LogInPage onSubmit={onSubmit}>
-               <IbHubsLogo />
+               {/* <IbHubsLogo /> */}
                <Header>{t('auth:loginHeaderContent')}</Header>
                <UserNameInput />
                <UserPasswordInput />

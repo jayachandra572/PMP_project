@@ -114,11 +114,11 @@
          "!src/*.{ts,tsx,js,jsx}",
          "!src/components/**/*.{ts,tsx,js,jsx}",
          "!src/stores/**/*.{ts,tsx,js,jsx}",
-         "!src/ProjectsManagement/components/AddTransition/*.{ts,tsx,js,jsx}",
-         "!src/ProjectsManagement/services/*.{ts,tsx,js,jsx}",
-         "!src/ProjectsManagement/components/CreateWorkFlow/*.{ts,tsx,js,jsx}",
-         "!src/ProjectsManagement/routes/CreateWorkFlowRoute/*.{ts,tsx,js,jsx}",
-         "!src/ProjectsManagement/services/**/*.{ts,js,tsx}"
+         "!src/ProjecstManagement/components/AddTransition/*.{ts,tsx,js,jsx}",
+         "!src/ProjecstManagement/services/*.{ts,tsx,js,jsx}",
+         "!src/ProjecstManagement/components/CreateWorkFlow/*.{ts,tsx,js,jsx}",
+         "!src/ProjecstManagement/routes/CreateWorkFlowRoute/*.{ts,tsx,js,jsx}",
+         "!src/ProjecstManagement/services/**/*.{ts,js,tsx}"
       ]
    }
 }

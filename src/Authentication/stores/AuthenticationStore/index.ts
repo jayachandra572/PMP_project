@@ -24,7 +24,7 @@ class AuthenticationStore {
 
    @action.bound
    init() {
-      this.authApiToken = getAccessToken()
+      this.authApiToken = ''
       this.getAuthApiStatus = API_INITIAL
       this.getAuthApiError = null
    }
@@ -41,6 +41,7 @@ class AuthenticationStore {
 
    @action.bound
    setAuthApiResponse(response: UserSignResponse | null) {
+      console.log(response,"response")
       if (response) {
          const accessToken = response.access_token
          setAccessToken(accessToken)

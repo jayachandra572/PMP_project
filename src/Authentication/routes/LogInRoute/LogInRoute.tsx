@@ -11,6 +11,7 @@ import { LogInForm } from '../../components/LogInForm'
 import AuthenticationStore from '../../stores/AuthenticationStore'
 import { getUserDisplayableErrorMessage } from '../../../Common/utils/APIUtils'
 import { withTranslation, WithTranslation } from 'react-i18next'
+import { clearUserSession } from '../../../Common/utils/StorageUtils'
 
 interface LocationState {
    from: string
@@ -71,6 +72,7 @@ class LogInRoute extends Component<LogInRouteProps> {
          } else if (errorMessage === 'Invalid password') {
             this.errorMessage.userPasswordErrorMessage = errorMessage
          }
+         setTimeout(clearUserSession, 100)
       }
    }
 
