@@ -4,7 +4,6 @@ import tw from 'tailwind.macro'
 export const LoadingViewContainer = styled.div`
    ${tw`flex flex-col justify-center items-center bg-gray-200`}
    background-color:#fbfbfb;
-   flex-grow: 1;
 `
 
 export const FailureViewContainer = styled.div`

@@ -9,6 +9,7 @@ export const CommonStyle = styled(Typo12SteelHKGroteskSemiBold)`
    text-overflow: ellipsis;
    white-space: nowrap;
    overflow: hidden;
+   font-size:18px;
 `
 
 export const Container = styled.div`

@@ -35,7 +35,9 @@ export const ProjectTypeLabel = styled(Label)``
 export const DescriptionTextArea = styled(TextArea)`
    border: 1px solid ${props => (props.isError ? 'red' : Colors.lightBlueGrey)};
    width: 400px;
-   color: ${Colors.steel};
+   font-size:18px;
+   padding:5px;
+   color: ${Colors.black};
 `
 
 export const SubmitButton = styled(Button)`

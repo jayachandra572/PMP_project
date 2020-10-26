@@ -9,4 +9,5 @@ export const CreatedByContainer = styled.div`
 export const UserName = styled(Typo12SteelHKGroteskSemiBold)`
    ${tw``}
    margin-left:4px;
+   font-size:18px;
 `

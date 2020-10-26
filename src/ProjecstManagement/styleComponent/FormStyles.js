@@ -15,11 +15,11 @@ export const Header = styled.h2`
    letter-spacing: normal;
    text-align: center;
    color: ${Colors.darkBlueGray};
-`
+`  
 
 export const Label = styled(InputLabel)`
    ${tw`mb-5 w-full`}
-   font-size: 12px;
+   font-size: 14px;
    height: 16px;
    margin-top: 25px;
    color: ${Colors.steel};

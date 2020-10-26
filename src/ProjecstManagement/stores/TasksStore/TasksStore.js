@@ -10,7 +10,7 @@ class TasksStore {
    constructor(tasksService, PageNavigationStore) {
       this.init()
       this.tasksService = tasksService
-      this.pageLimit = 3
+      this.pageLimit = 6
       this.accessableKeys = {
          entities: 'Tasks',
          totalEntities: 'total_no_of_tasks'

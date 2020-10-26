@@ -2,26 +2,26 @@
     "Tasks":[
         {"id":"1",
         "issue_type":"TASK",
-        "title":"title1",
-        "description":"description1",
+        "title":"Create Task",
+        "description":"Able to create task",
         "created_by": {
           "id":1,
           "name":"jayachandra",
           "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/4f00d506-2d1f-4bba-9084-f0666b4e3f2b@3x.png"
         },
-        "created_at":"created_at2",
-        "state":"state1"},
+        "created_at":"Jan 4 2020 6:30 PM",
+        "state":"Hold"},
         
         {"id":"5","issue_type":"BUG",
-        "title":"title2",
-        "description":"description2",
+        "title":"Checklist",
+        "description":"Not able to create checklist",
         "created_by": {
       "id":7,
       "name":"Vijay",
       "profile_pic":"https://cdn.zeplin.io/5d0afc9102b7fa56760995cc/assets/4f00d506-2d1f-4bba-9084-f0666b4e3f2b@3x.png"
     },
-        "created_at":"created_at1",
-        "state":"state2"}
+        "created_at":"Jan 1 2020 8:30 PM",
+        "state":"Hold"}
         ],
         "total_no_of_tasks":5
 }
