@@ -39,15 +39,21 @@ class TaskModel {
    setApiStatus = status => {
       this.getApiStatus = status
    }
-   
-    @action.bound
+
+   @action.bound
    setApiResponse(response) {
       if (response.findIndex(option => option.name === this.state) === -1) {
-         response.unshift({ id: this.state, name: this.state })
+         response.unshift({ id: this.state, to_state: this.state })
       }
-      this.stateOptions = response
+      this.stateOptions = response.map(option => {
+         return {
+            id: option.id,
+            name: option.to_state
+         }
+      })
+      console.log(this.stateOptions)
    }
-   
+
    setApiError = error => {
       this.getApiError = error
    }
