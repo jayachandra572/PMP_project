@@ -22,7 +22,7 @@ class AuthenticationStore {
 
    @action.bound
    init() {
-      this.authApiToken = ""
+      this.authApiToken = getAccessToken()
    }
 
    @action.bound

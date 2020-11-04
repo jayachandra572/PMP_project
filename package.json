@@ -104,7 +104,6 @@
       "testEnvironment": "node",
       "collectCoverageFrom": [
          "src/Common/**/*.{ts,tsx,js,jsx}",
-         
          "!src/*.{ts,tsx,js,jsx}",
          "!src/components/**/*.{ts,tsx,js,jsx}",
          "!src/stores/**/*.{ts,tsx,js,jsx}",
@@ -113,7 +112,6 @@
          "!src/ProjecstManagement/components/CreateWorkFlow/*.{ts,tsx,js,jsx}",
          "!src/ProjecstManagement/routes/CreateWorkFlowRoute/*.{ts,tsx,js,jsx}",
          "!src/ProjecstManagement/services/**/*.{ts,js,tsx}"
-         
       ]
    }
 }
