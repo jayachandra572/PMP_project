@@ -46,7 +46,6 @@ class ProjectsRoute extends Component {
       }
    )
 
-
    @computed get getApiStatus() {
       const { getUserDetailsApiStatus } = this.props.userDetailsStore
       const { getApiStatus } = this.props.projectsStore.pageNavigation
@@ -57,8 +56,7 @@ class ProjectsRoute extends Component {
       }
    }
 
-
-renderSuccessUI = observer(() => {
+   renderSuccessUI = observer(() => {
       const {
          currentPageEntities,
          totalNumberOfPages,
@@ -86,17 +84,32 @@ renderSuccessUI = observer(() => {
          />
       )
    })
-   
-   
+
    render() {
       const { getUserDetailsApiError } = this.props.userDetailsStore
       return (
-       <p>hello</p>
+         <div>
+            <h2> videos</h2>
+            <video
+               src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
+               id='video-1'
+               width='300'
+               style={{ margin: '20px' }}
+               controls
+            />
+            <video
+               src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
+               id='video-2'
+               width='300'
+               style={{ margin: '20px' }}
+               controls
+            />
+         </div>
       )
    }
 }
 window.onbeforeunload = function() {
-       return "Dude, are you sure you want to refresh? Think of the kittens!";
-};
+   return 'Dude, are you sure you want to refresh? Think of the kittens!'
+}
 
 export default withRouter(ProjectsRoute)
