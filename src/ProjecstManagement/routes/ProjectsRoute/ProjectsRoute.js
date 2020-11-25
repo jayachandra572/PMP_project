@@ -89,7 +89,7 @@ class ProjectsRoute extends Component {
       const { getUserDetailsApiError } = this.props.userDetailsStore
       return (
          <div>
-            <h2> videos</h2>
+            <h2> videos portal </h2>
             <video
                src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
                id='video-1'
