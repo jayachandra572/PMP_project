@@ -1,6 +1,19 @@
 import React, { Component } from 'react'
 import withPMPHeader from '../../hoc/withPmpHeader'
 class VideosPageFour extends Component {
+   componentDidMount() {
+      window.dataLayer.push({
+         event: 'videoMountEvent',
+         videoID: 'video-page-3-1'
+      })
+   }
+   
+   componentWillUnmount(){
+      window.dataLayer.push({
+         event: 'videoUnmountEvent',
+         videoID: 'video-page-3-1'
+      })
+   }
    render() {
       return (
          <div>
