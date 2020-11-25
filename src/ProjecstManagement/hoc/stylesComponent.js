@@ -40,3 +40,10 @@ export const LogOutButton = styled.button`
 export const ProjectContainer = styled.div`${tw`relative min-h-screen flex flex-col relative`}
 background-color:${Colors.whiteTwo};
 flex-grow:1;`
+
+
+export const Button = styled.button`
+padding:5px;
+margin-left:20px;
+border:2px solid black;
+border-radius:5px;`

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { inject, observer } from 'mobx-react'
-
+import { withRouter } from 'react-router-dom'
 import { IbHubsLogo } from '../../Common/components/Logos/IbHubsLogo'
 import strings from '../i18n/strings.json'
 import { ProfileLogo } from '../components/ProfileLogo'
@@ -11,8 +11,15 @@ import {
    ProjectTitle,
    UserName,
    LogOutButton,
-   ProjectContainer
+   ProjectContainer,
+   Button
 } from './stylesComponent'
+import {
+   videosPageOne,
+   videosPageTwo,
+   videosPageThree,
+   videosPageFour
+} from '../constants/RouteConstants'
 
 const withPmpHeader = WrappedComponent => {
    @inject('authenticationStore', 'userDetailsStore')
@@ -20,7 +27,7 @@ const withPmpHeader = WrappedComponent => {
    class RenderComponent extends Component {
       render() {
          const { userLogOut } = this.props.authenticationStore
-         const { name, is_admin } = this.props.userDetailsStore.userDetails
+         const { history } = this.props
          return (
             <ProjectContainer>
                <HeaderContainer>
@@ -30,16 +37,43 @@ const withPmpHeader = WrappedComponent => {
                   </ProjectTitleAndLogo>
                   <UserNameAndLogo>
                      <LogOutButton onClick={userLogOut}>SIGN OUT</LogOutButton>
-                     <UserName>{name}</UserName>
+                     <UserName>jaya chandra</UserName>
                      <ProfileLogo />
                   </UserNameAndLogo>
                </HeaderContainer>
-               <WrappedComponent is_admin={is_admin} {...this.props} />
+               <div style={{ display: 'flex' ,marginTop:"20px"}}>
+                  <Button
+                     onClick={() => {
+                        history.push(videosPageTwo)
+                     }}
+                  >
+                     {' '}
+                     videos Page -1
+                  </Button>
+                  <Button
+                     onClick={() => {
+                        history.push(videosPageThree)
+                     }}
+                  >
+                     {' '}
+                     videos Page -2
+                  </Button>
+                  <Button
+                     onClick={() => {
+                        history.push(videosPageFour)
+                     }}
+                  >
+                     {' '}
+                     videos Page -3
+                  </Button>
+               </div>
+
+               <WrappedComponent is_admin={true} {...this.props} />
             </ProjectContainer>
          )
       }
    }
-   return RenderComponent
+   return withRouter(RenderComponent)
 }
 
 export default withPmpHeader

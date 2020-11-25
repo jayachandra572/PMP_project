@@ -7,6 +7,7 @@ import { getLoadingStatus } from '@ib/api-utils'
 import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapperWithFailure'
 import { goToSpecificProjectTasksScreen } from '../../utils/navigationUtils'
 import ProjectsView from '../../components/Projects'
+import withPmpHeader from '../../hoc/withPmpHeader'
 
 @inject('projectsStore', 'userDetailsStore')
 @observer
@@ -88,28 +89,25 @@ class ProjectsRoute extends Component {
    render() {
       const { getUserDetailsApiError } = this.props.userDetailsStore
       return (
-         <div>
-            <h2> videos portal </h2>
-            <video
-               src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
-               id='video-1'
-               width='300'
-               style={{ margin: '20px' }}
-               controls
-            />
-            <video
-               src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4'
-               id='video-2'
-               width='300'
-               style={{ margin: '20px' }}
-               controls
-            />
-         </div>
+         // <LoadingWrapperWithFailure
+         //    apiStatus={this.getApiStatus}
+         //    apiError={getUserDetailsApiError}
+         //    onRetryClick={this.doNetWorkCall}
+         //    renderSuccessUI={this.renderSuccessUI}
+         // />
+
+         <video
+            src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4'
+            id='video-page-0-1'
+            width='300'
+            style={{ margin: '20px' }}
+            controls
+         />
       )
    }
 }
-window.onbeforeunload = function() {
-   return 'Dude, are you sure you want to refresh? Think of the kittens!'
-}
+// window.onbeforeunload = function() {
+//    return 'Dude, are you sure you want to refresh? Think of the kittens!'
+// }
 
-export default withRouter(ProjectsRoute)
+export default withRouter(withPmpHeader(ProjectsRoute))
