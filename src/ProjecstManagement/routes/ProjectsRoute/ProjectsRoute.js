@@ -91,12 +91,7 @@ renderSuccessUI = observer(() => {
    render() {
       const { getUserDetailsApiError } = this.props.userDetailsStore
       return (
-         <LoadingWrapperWithFailure
-            apiStatus={this.getApiStatus}
-            apiError={getUserDetailsApiError}
-            onRetryClick={this.doNetWorkCall}
-            renderSuccessUI={this.renderSuccessUI}
-         />
+       <p>hello</p>
       )
    }
 }
