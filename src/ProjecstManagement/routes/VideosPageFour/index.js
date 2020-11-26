@@ -7,8 +7,8 @@ class VideosPageFour extends Component {
          videoID: 'video-page-3-1'
       })
    }
-   
-   componentWillUnmount(){
+
+   componentWillUnmount() {
       window.dataLayer.push({
          event: 'videoUnmountEvent',
          videoID: 'video-page-3-1'
@@ -25,16 +25,12 @@ class VideosPageFour extends Component {
                style={{ margin: '20px' }}
                controls
             />
-            <iframe
-               width='480'
-               height='480'
-               style={{ margin: '30px' }}
-               src='https://www.youtube.com/embed/Iu7SntY5AeE'
-               frameborder='0'
-               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-               allowfullscreen
-               id='video-page-3-2'
-            ></iframe>
+            <YoutubeComponent
+               iframeSrc={
+                  'https://www.youtube.com/embed/Iu7SntY5AeE?enablejsapi=1'
+               }
+               iframeID={'youtubeVideo-page-3-2'}
+            />
          </div>
       )
    }

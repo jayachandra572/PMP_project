@@ -8,12 +8,31 @@ import LoadingWrapperWithFailure from '../../../Common/components/LoadingWrapper
 import { goToSpecificProjectTasksScreen } from '../../utils/navigationUtils'
 import ProjectsView from '../../components/Projects'
 import withPmpHeader from '../../hoc/withPmpHeader'
+import YoutubeComponent from '../YoutubeComponent'
 
 @inject('projectsStore', 'userDetailsStore')
 @observer
 class ProjectsRoute extends Component {
    componentDidMount() {
       this.doNetWorkCall()
+      const iframe = document.getElementById('video-page-2-3')
+      console.log(iframe.nodeName)
+      window.YT.ready(function() {
+         new window.YT.Player('video-page-2-3', {
+            events: {
+               onStateChange: onPlayerStateChange
+            }
+         })
+      })
+
+      function onPlayerStateChange(event) {
+         if (event.data == YT.PlayerState.PLAYING) {
+            alert('video started')
+            console.log(event.target.f.id, event, 'evbent')
+         } else if (event.data == YT.PlayerState.PAUSED) {
+            alert('video paused')
+         }
+      }
    }
 
    componentWillUnmount() {
@@ -96,24 +115,12 @@ class ProjectsRoute extends Component {
          //    renderSuccessUI={this.renderSuccessUI}
          // />
          <div>
-           
-            <video
-               src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4'
-               id='video-page-0-1'
-               width='300'
-               style={{ margin: '20px' }}
-               controls
+            <YoutubeComponent
+               iframeSrc={
+                  'https://www.youtube.com/embed/gCEowvFXlaE?enablejsapi=1'
+               }
+               iframeID={'youtubeVideo-page-2-3'}
             />
-            <iframe
-               width='480'
-               height='480'
-               style={{ margin: '20px' }}
-               src='https://www.youtube.com/embed/gCEowvFXlaE'
-               frameborder='0'
-               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-               allowfullscreen
-               id='video-page-2-3'
-            ></iframe>
          </div>
       )
    }

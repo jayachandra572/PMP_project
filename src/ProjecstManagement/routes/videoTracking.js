@@ -1,3 +1,4 @@
+<script>
 var event =  {{Event}}
 var videoMountEvent = "videoMountEvent"
 var videoUnmountEvent = "videoUnmountEvent"
@@ -5,13 +6,14 @@ var videoId = {{Video ID}}
 
 var videosStatus = window.videosStatus || {}
 var timeIntervalOfSendDataToGTM = 2000
+
 function pushDataIntoDataLayer(video,eventCategory) {
    console.log(videoId, event,'pushdatadataLayer')
    dataLayer.push({
       event: 'video',
       gaEventCategory: eventCategory,
-      gaEventLabel:'total spent time',
-      videoSrc:video.src
+     videoSrc:video.src, 
+     gaEventLabel:'total spent time',
       gaEventValue: video.totalTimeSpend
    })
 }
@@ -65,3 +67,4 @@ if(event === videoMountEvent){
       videosStatus[videoId] = {}
    }
 }
+</script>
