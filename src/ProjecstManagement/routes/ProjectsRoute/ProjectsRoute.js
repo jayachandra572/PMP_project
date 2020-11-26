@@ -15,24 +15,6 @@ import YoutubeComponent from '../YoutubeComponent'
 class ProjectsRoute extends Component {
    componentDidMount() {
       this.doNetWorkCall()
-      const iframe = document.getElementById('video-page-2-3')
-      console.log(iframe.nodeName)
-      window.YT.ready(function() {
-         new window.YT.Player('video-page-2-3', {
-            events: {
-               onStateChange: onPlayerStateChange
-            }
-         })
-      })
-
-      function onPlayerStateChange(event) {
-         if (event.data == YT.PlayerState.PLAYING) {
-            alert('video started')
-            console.log(event.target.f.id, event, 'evbent')
-         } else if (event.data == YT.PlayerState.PAUSED) {
-            alert('video paused')
-         }
-      }
    }
 
    componentWillUnmount() {
