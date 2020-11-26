@@ -6,7 +6,7 @@ import { API_SUCCESS } from '@ib/api-constants'
 
 import { LogInForm } from '../../components/LogInForm'
 import strings from '../../i18n/strings.json'
-import { getUserId } from "../../../Common/utils/StorageUtils"
+import { getUserId ,getAccessToken} from "../../../Common/utils/StorageUtils"
 
 @inject('authenticationStore')
 @observer
@@ -93,7 +93,7 @@ class LogInRoute extends Component {
    }
 
    render() {
-      let { getAuthApiStatus, authApiToken } = this.props.authenticationStore
+      let { getAuthApiStatus, isLogin } = this.props.authenticationStore
       const {
          onSubmitForm,
          username,
@@ -103,7 +103,7 @@ class LogInRoute extends Component {
          errorMessage,
          reDirectProjectsPage
       } = this
-      if (authApiToken) {
+      if (isLogin) {
          const accessToken = getAccessToken()
          if (accessToken !== undefined && accessToken !== '') {
             window.dataLayer.push({
