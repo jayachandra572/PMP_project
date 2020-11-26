@@ -1,6 +1,7 @@
 import Cookie from 'js-cookie'
 
 export const ACCESS_TOKEN = 'dG6EABne5a'
+export const USER_ID = 'LWnVZPcwXY9puxBqMXG'
 
 export function getCookie(key) {
    return Cookie.get(key)
@@ -22,4 +23,12 @@ export function setAccessToken(accessToken) {
 
 export function clearUserSession() {
    Cookie.remove(ACCESS_TOKEN, { path: '/' })
+}
+
+export function setUserId(userId: string, expiryInDays = 30) {
+   setCookie(USER_ID, userId)
+}
+
+export function getUserId() {
+   return getCookie(USER_ID)
 }

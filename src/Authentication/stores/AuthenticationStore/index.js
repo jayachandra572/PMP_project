@@ -7,7 +7,8 @@ import { setUserDetails } from '../../utils/LocalStrorageUtils'
 import {
    setAccessToken,
    getAccessToken,
-   clearUserSession
+   clearUserSession,
+   setUserId
 } from '../../../Common/utils/StorageUtils'
 
 class AuthenticationStore {
@@ -39,6 +40,7 @@ class AuthenticationStore {
    setAuthApiResponse(response) {
       const accessToken = response.access_token
       setAccessToken(accessToken)
+      setUserId(response.user_id)
       this.authApiToken = getAccessToken()
       setUserDetails(response)
    }

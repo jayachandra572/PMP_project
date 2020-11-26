@@ -16,24 +16,36 @@ import {
 } from './ProjecstManagement/routes'
 import './App.css'
 import { videosPageOne } from './ProjecstManagement/constants/RouteConstants'
+import { getAccessToken, getUserId } from './Common/utils/StorageUtils'
 
-const App = () => {
-   return (
-      <Provider {...store}>
-         <Router basename={process.env.PUBLIC_URL}>
-            <Switch>
-               {videosPageOne}
-               {videosPageTwoRoute}
-               {videosPageThreeRoute}
-               {videosPageFourRoute}
-               {tasksRoute}
-               {projectsRoute}
-               {createWorkFlowRoute}
-               {logRoute}
-            </Switch>
-         </Router>
-      </Provider>
-   )
+class App extends React.Component {
+   componentDidMount() {
+      const accessToken = getAccessToken()
+      if (accessToken !== undefined && accessToken !== '') {
+         window.dataLayer.push({
+            event: 'loginSuccess',
+            userId: getUserId()
+         })
+      }
+   }
+   render() {
+      return (
+         <Provider {...store}>
+            <Router basename={process.env.PUBLIC_URL}>
+               <Switch>
+                  {videosPageOne}
+                  {videosPageTwoRoute}
+                  {videosPageThreeRoute}
+                  {videosPageFourRoute}
+                  {tasksRoute}
+                  {projectsRoute}
+                  {createWorkFlowRoute}
+                  {logRoute}
+               </Switch>
+            </Router>
+         </Provider>
+      )
+   }
 }
 
 export default App

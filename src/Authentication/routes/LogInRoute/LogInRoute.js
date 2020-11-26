@@ -6,6 +6,7 @@ import { API_SUCCESS } from '@ib/api-constants'
 
 import { LogInForm } from '../../components/LogInForm'
 import strings from '../../i18n/strings.json'
+import { getUserId } from "../../../Common/utils/StorageUtils"
 
 @inject('authenticationStore')
 @observer
@@ -103,6 +104,14 @@ class LogInRoute extends Component {
          reDirectProjectsPage
       } = this
       if (authApiToken) {
+         const accessToken = getAccessToken()
+         if (accessToken !== undefined && accessToken !== '') {
+            window.dataLayer.push({
+               event: 'loginSuccess',
+               userId: getUserId()
+            })
+         }
+         console.log(getUserId())
          return reDirectProjectsPage()
       }
 
