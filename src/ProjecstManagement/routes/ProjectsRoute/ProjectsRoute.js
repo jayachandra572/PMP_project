@@ -95,15 +95,16 @@ class ProjectsRoute extends Component {
          //    onRetryClick={this.doNetWorkCall}
          //    renderSuccessUI={this.renderSuccessUI}
          // />
-
-         <video
-            src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4'
-            id='video-page-0-1'
-            width='300'
-            style={{ margin: '20px' }}
-            controls
-         />
-          <iframe
+         <div>
+           
+            <video
+               src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4'
+               id='video-page-0-1'
+               width='300'
+               style={{ margin: '20px' }}
+               controls
+            />
+            <iframe
                width='480'
                height='480'
                style={{ margin: '20px' }}
@@ -113,6 +114,7 @@ class ProjectsRoute extends Component {
                allowfullscreen
                id='video-page-2-3'
             ></iframe>
+         </div>
       )
    }
 }
