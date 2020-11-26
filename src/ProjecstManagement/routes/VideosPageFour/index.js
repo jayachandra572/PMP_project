@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import withPMPHeader from '../../hoc/withPmpHeader'
+import YoutubeComponent from '../YoutubeComponent'
 class VideosPageFour extends Component {
    componentDidMount() {
       window.dataLayer.push({
@@ -31,6 +32,15 @@ class VideosPageFour extends Component {
                }
                iframeID={'youtubeVideo-page-3-2'}
             />
+
+            <YoutubeComponent
+               iframeSrc={
+                  'https://www.youtube.com/embed/pT2ojWWjum8?enablejsapi=1'
+               }
+               iframeID={'youtubeVideo-page-3-3'}
+            />
+
+            
          </div>
       )
    }

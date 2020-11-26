@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import withPMPHeader from '../../hoc/withPmpHeader'
+import YoutubeComponent from "../YoutubeComponent"
 class VideosPageTwo extends Component {
    componentDidMount() {
       window.dataLayer.push({
