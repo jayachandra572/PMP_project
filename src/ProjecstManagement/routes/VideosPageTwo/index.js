@@ -18,7 +18,7 @@ class VideosPageTwo extends Component {
    render() {
       return (
          <div>
-            <h2> videos portal 1 </h2>
+            <h2 id = "pageTitle"> videos portal 1 </h2>
             <video
                src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4'
                id='video-page-1-1'

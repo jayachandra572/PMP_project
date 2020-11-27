@@ -6,7 +6,7 @@ class VideosPageThree extends Component {
    render() {
       return (
          <div>
-            <h2> videos portal 2 </h2>
+            <h2 id = "pageTitle"> videos portal 2 </h2>
             <VideoComponent
                videoID={'video-page-2-1'}
                videoSrc={
