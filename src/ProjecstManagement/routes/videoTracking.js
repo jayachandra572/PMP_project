@@ -67,7 +67,7 @@ function eventHandler(e) {
          break
       case 'ended':
          clearIntervalIds(eventId)
-         break
+         break 
      case 'ratechange':
          playRateChange(eventId,eventId,playbackRate)
    }
