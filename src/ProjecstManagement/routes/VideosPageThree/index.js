@@ -9,12 +9,14 @@ class VideosPageThree extends Component {
             <h2 id = "pageTitle"> videos portal 2 </h2>
             <VideoComponent
                videoID={'video-page-2-1'}
+               data-video-id='video-page-2-1'
                videoSrc={
                   'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4'
                }
             />
             <VideoComponent
                videoID={'video-page-2-2'}
+               data-video-id='video-page-2-2'
                videoSrc={
                   'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4'
                }

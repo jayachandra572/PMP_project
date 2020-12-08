@@ -24,6 +24,7 @@ class YoutubeComponent extends Component {
                width='480'
                height='480'
                id={iframeID}
+               data-video-id={iframeID}
                style={{ margin: '20px' }}
                src={iframeSrc}
                frameBorder='0'

@@ -22,6 +22,7 @@ class VideosPageFour extends Component {
             <video
                src='http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4'
                id='video-page-3-1'
+               data-video-id='video-page-3-1'
                width='300'
                style={{ margin: '20px' }}
                controls
