@@ -16,7 +16,6 @@ function Header(props){
     return(
         <HeaderContainer>
                   <ProjectTitleAndLogo>
-                     <IbHubsLogo/> 
                      <ProjectTitle>{strings.ProjectManageMent}</ProjectTitle>
                   </ProjectTitleAndLogo>
                   <UserNameAndLogo>
